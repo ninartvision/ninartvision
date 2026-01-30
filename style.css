@@ -2532,4 +2532,61 @@ background: #f2f2f2;
 .news-item.open .arrow{
   transform: rotate(90deg);
 }
+/* =========================
+   MOBILE MENU FIX
+========================= */
+
+@media (max-width: 768px) {
+
+  .menu-overlay {
+    background: rgba(245,245,245,0.95);
+  }
+
+  .menu-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    margin-top: 80px;
+  }
+
+  .menu-link,
+  .menu-links a {
+    font-size: 26px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #111;
+    text-decoration: none;
+  }
+
+  /* Artists რომ აღარ იყოს ლურჯი */
+  .menu-links a {
+    color: #111;
+  }
+
+  .menu-social {
+    margin-top: 40px;
+    display: flex;
+    gap: 18px;
+  }
+
+  .menu-social .soc {
+    width: 44px;
+    height: 44px;
+  }
+}
+/* ===== MOBILE MENU CLICK FIX ===== */
+
+.menu-overlay {
+  pointer-events: auto;
+}
+
+.menu-links {
+  position: relative;
+  z-index: 10;
+}
+
+.menu-links a {
+  pointer-events: auto;
+}
 
