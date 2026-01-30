@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silent Bloom</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <main class="project-page">
+
+    <section class="project-hero">
+      <div class="project-text">
+        <h1>„Magical world“ – „ზღაპრული სამყარო”“</h1>
+        <p class="muted">Join the journey and be part of the creation.</p>
+
+        <p class="project-paragraph geo">
+  ეს ნამუშევარი წარმოადგენს სამყაროს, სადაც სივრცე და სინათლე ქმნის მშვიდ და განწყობას. კომპოზიცია აგებულია რბილ ტონალურ გადასვლებსა და ჰაეროვან პერსპექტივაზე — შორი ტყის სილუეტები და ნისლში გახვეული ველები აძლიერებს სიღრმის შეგრძნებას და მაყურებელს სიზმრისეულ სივრცეში გადაჰყავს.
+
+ტექნიკაში გამოყენებულია ტექსტურული გელი, რაც ზედაპირს ანიჭებს რელიეფურობასა და ვიზუალურ სიღრმეს. ნამუშევარში დომინირებს თბილი ოქროსფერი განათება და პასტელური ტონალობა, რაც ქმნის სინაზის, ჰარმონიისა და ბუნებასთან შერწყმის განცდას.
+
+„Dream World“ გადმოსცემს თავისუფლებისა და სიმშვიდის ემოციას — სამყაროს, სადაც ბუნება, მოძრაობა და სინათლე ერთ მთლიან ისტორიად იქცევა.
+</p>
+
+
+<p class="project-paragraph eng">
+  This artwork presents a world where space and light create a calm, meditative atmosphere. The composition is built on soft tonal transitions and an airy sense of perspective — distant forest silhouettes and mist-covered fields enhance the feeling of depth, drawing the viewer into a dreamlike space.
+
+A textured gel technique is used to add relief and visual dimension to the surface. Warm golden light and pastel tones dominate the painting, creating a sense of tenderness, harmony, and unity with nature.
+
+“Dream World” conveys an emotion of freedom and tranquility — a world where nature, movement, and light become one complete story.
+
+        <ul class="project-details">
+          <li><strong>Technique:</strong> Acrylic </li>
+          <li><strong>Size:</strong> 80x100 cm</li>
+          <li><strong>Year:</strong> 2025</li>
+        </ul>
+
+        <a class="link back-link" href="index.html">← Back</a>
+      </div>
+
+      <div class="project-image">
+        <img src="images/me3.jpg" alt="Silent Bloom">
+      </div>
+    </section>
+
+    <section class="project-gallery">
+      <h2>More photos</h2>
+
+      <div class="gallery-list">
+        <img src="images/dream9.jpg" alt="">
+        <img src="images/dream3.jpg" alt="">
+        <img src="images/dream4.jpg" alt="">
+        <img src="images/dream5.jpg" alt="">
+        <img src="images/dream6.jpg" alt="">
+        <img src="images/dream7.jpg" alt="">
+        <img src="images/dream10.jpg" alt="">
+        <img src="images/dream2.jpg" alt="">
+        <img src="images/dream8.jpg" alt="">
+      
+        
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ✅ LIGHTBOX (აქ უნდა იყოს ერთხელ და მხოლოდ body-ში) -->
+  <div class="lightbox" id="lightbox">
+    <span class="close" id="lightboxClose">&times;</span>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  </div>
+
+  <!-- ✅ SCRIPT (უნდა იყოს ბოლოში) -->
+  <script>
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const closeBtn = document.getElementById("lightboxClose");
+
+    document.querySelectorAll(".gallery-list img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightbox.classList.add("open");
+        lightboxImg.src = img.src;
+      });
+    });
+
+    closeBtn.addEventListener("click", () => {
+      lightbox.classList.remove("open");
+    });
+
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove("open");
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        lightbox.classList.remove("open");
+      }
+    });
+  </script>
+
+</body>
+</html>

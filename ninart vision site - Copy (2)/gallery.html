@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Ninart Vision</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a class="logo" href="index.html">Ninart Vision</a>
+
+      <nav class="menu">
+        <a href="index.html">მთავარი</a>
+        <a class="active" href="gallery.html">გალერეა</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1 class="page-title">გალერეა</h1>
+        <p class="muted">
+          დააჭირე Buy-ს და მომწერე ინსტაგრამზე ან WhatsApp-ზე 💛
+        </p>
+
+        <div id="galleryGrid" class="grid"></div>
+
+
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-row">
+      <p>© <span id="year"></span> Ninart Vision</p>
+      <p class="muted">Gallery page</p>
+    </div>
+  </footer>
+
+    <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <script src="data.js"></script>
+  <script src="gallery.js"></script>
+</body>
+</html>
+

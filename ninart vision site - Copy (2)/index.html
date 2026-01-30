@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ninart Vision</title>
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="icon" href="./images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=FiraGO:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+
+
+
+
+
+
+</head>
+<body>
+  
+
+  <!-- TOP NAV -->
+  <header class="header">
+    <div class="container header-row">
+
+      <a class="brand" href="#">
+        <img src="./images/logo.png" alt="Ninart Vision Logo">
+      </a>
+<!-- 🔍 SEARCH – აქ ჩასვი -->
+   <div class="header-search">
+  <input type="text" placeholder="Search by artist, style, theme...">
+  <span class="search-icon">⌕</span>
+
+</div>
+
+      <nav class="nav desktop-nav">
+        <a href="#home" class="active">Home</a>
+        <a href="../support.html">Support a Project</a>
+
+        <a href="sale/shop.html">Shop</a>
+        <a href="artists/">Artists</a>
+
+
+        <a href="#news">News</a>
+        <a href="#about">About</a>
+        <a href="#login" class="nav-btn">Log In</a>
+        <a href="#signin" class="nav-btn signin">Sign In</a>
+      </nav>
+
+      <button class="hamburger" id="openMenu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- Mobile menu overlay -->
+<div class="menu-overlay" id="menuOverlay">
+  <button class="menu-close" id="closeMenu" aria-label="Close menu">✕</button>
+
+  <nav class="menu-links">
+    <a href="#home" class="menu-link">HOME</a>
+    <a href="#support" class="menu-link">SUPPORT A PROJECT</a>
+    <a href="sale/shop.html" class="menu-link">SHOP</a>
+    <a href="artists/artists.html">Artists</a>
+
+    <a href="#news" class="menu-link">NEWS</a>
+    <a href="#about" class="menu-link">ABOUT</a>
+    <a href="#login" class="menu-link">LOG IN</a>
+
+    <div class="menu-social">
+      <!-- FACEBOOK -->
+      <a class="soc"
+         href="https://www.facebook.com/share/1D6m5jjWW5/?mibextid=wwXIfr"
+         target="_blank" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06C2 17.08 5.66 21.22 10.44 22v-7.02H7.9v-2.92h2.54V9.85c0-2.52 1.49-3.92 3.77-3.92 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.92h-2.34V22C18.34 21.22 22 17.08 22 12.06z"/>
+        </svg>
+      </a>
+
+      <!-- INSTAGRAM -->
+      <a class="soc"
+         href="https://www.instagram.com/ninart.vision?igsh=Z3R4cWV1ZHd1MGNj&utm_source=qr"
+         target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3z"/>
+          <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+          <path d="M17.5 6.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </svg>
+      </a>
+
+      <!-- WHATSAPP -->
+      <a class="soc"
+         href="https://wa.me/995579388833"
+         target="_blank" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.5 11.9c0 4.73-3.86 8.6-8.6 8.6-1.46 0-2.85-.37-4.09-1.03L3 21l1.57-4.63A8.53 8.53 0 0 1 3.3 11.9c0-4.73 3.86-8.6 8.6-8.6s8.6 3.86 8.6 8.6zm-8.6-6.93a6.93 6.93 0 0 0-6.93 6.93c0 1.33.38 2.58 1.05 3.64l.2.31-.91 2.7 2.78-.88.3.18a6.88 6.88 0 0 0 3.51.96 6.93 6.93 0 0 0 6.93-6.93 6.93 6.93 0 0 0-6.93-6.93z"/>
+          <path d="M15.92 13.9c-.2-.1-1.16-.57-1.34-.64-.18-.07-.31-.1-.44.1-.13.2-.5.64-.62.77-.11.13-.22.15-.42.05-.2-.1-.83-.3-1.58-.97-.58-.52-.97-1.16-1.08-1.36-.11-.2-.01-.31.09-.41.09-.09.2-.22.3-.33.1-.11.13-.2.2-.33.07-.13.03-.25-.02-.35-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.33h-.38c-.13 0-.35.05-.53.25-.18.2-.7.68-.7 1.66 0 .98.72 1.93.82 2.06.1.13 1.42 2.16 3.45 3.03.48.21.86.34 1.15.43.48.15.92.13 1.27.08.39-.06 1.16-.47 1.32-.93.16-.46.16-.86.11-.93-.05-.07-.18-.13-.38-.23z"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+</div>
+
+
+
+
+  <!-- HERO -->
+  <main id="home">
+    <section class="hero-slider">
+
+  <div class="hero-slides">
+    <div class="slide active" style="background-image:url('./images/garden9.jpg');"></div>
+<div class="slide" style="background-image:url('./images/abstract3.jpg');"></div>
+<div class="slide" style="background-image:url('./images/svaneti10.jpg');"></div>
+<div class="slide" style="background-image:url('./images/jvarimonastery5.jpg');"></div>
+<div class="slide" style="background-image:url('./images/babuacvera4.jpg');"></div>
+<div class="slide" style="background-image:url('./images/naturmort6.jpg');"></div>
+<div class="slide" style="background-image:url('./images/jvari7.jpg');"></div>
+<div class="slide" style="background-image:url('./images/lily8.jpeg');"></div>
+<div class="slide" style="background-image:url('./images/dream9.jpg');"></div>
+<div class="slide" style="background-image:url('./images/rose1.jpeg');"></div>
+<div class="slide" style="background-image:url('./images/sea4.jpg');"></div>
+<div class="slide" style="background-image:url('./images/waterlily1.jpg');"></div>
+<div class="slide" style="background-image:url('./images/swan1.jpg');"></div>
+<div class="slide" style="background-image:url('./images/seaorange8.jpg');"></div>
+<div class="slide" style="background-image:url('./images/lilac6.jpg');"></div>
+<div class="slide" style="background-image:url('./images/slide/slide3.jpg');"></div>
+<div class="slide" style="background-image:url('./images/kids3.jpg');"></div>
+<div class="slide" style="background-image:url('./images/boat.jpg');"></div>
+<div class="slide" style="background-image:url('./images/daffodils6.jpg');"></div>
+<div class="slide" style="background-image:url('./images/deer5.jpg');"></div>
+
+  </div>
+
+  <div class="hero-overlay"></div>
+
+  <!-- Arrows like Artistshare -->
+  <button class="as-arrow left" id="prevSlide"><</button>
+<button class="as-arrow right" id="nextSlide">></button>
+
+
+</section>
+<section class="gallery-section">
+  <div class="container">
+    <h2 class="gallery-title">Gallery</h2>
+
+    <div class="gallery-grid">
+      <img src="./images/me1.jpg" alt="Artwork 1">
+      <img src="./images/me2.jpg" alt="Artwork 2">
+      <img src="./images/me3.jpg" alt="Artwork 3">
+      <img src="./images/me4.jpg" alt="Artwork 4">
+    </div>
+  </div>
+</section>
+
+
+<section class="cloth-banner">
+  <div class="cloth-banner-text">
+
+    <p class="ka">მოგესალმებით ჩემს შემოქმედებით სამყაროში ✨</p>
+
+    <p class="en">
+      Hello, I’m Nini Mzhavia<br>
+      <span class="en-wide">
+        Welcome to my creative realm! Sharing art, inspiration and stories behind the canvas.
+        Colors speak louder 💫
+      </span>
+    </p>
+
+  </div>
+</section>
+
+    <!-- FEATURED PROJECTS -->
+<section id="support" class="section">
+  <div class="container">
+    <div class="section-top">
+      <h2>Featured Projects</h2>
+      <p class="muted">Support new releases, limited editions, and exclusive content.</p>
+    </div>
+
+    <!-- Slider Wrapper -->
+    <div class="projects-slider-wrap">
+
+      <!-- Left Arrow -->
+      <button class="projects-arrow left" id="projectsPrev" aria-label="Previous project">
+        &#10094;
+      </button>
+
+      <!-- Slider -->
+      <div class="projects-slider" id="projectsSlider">
+        <div class="projects-track" id="projectsTrack">
+          <article class="card">
+            <img src="./images/me9.jpg" alt="Project">
+            <div class="card-body">
+              <h3>„Svaneti“-„სვანეთი“</h3>
+              <p class="muted">Limited edition artworks and fan experiences.</p>
+              <a class="link" href="project1.html">Read more →</a>
+            </div>
+          </article>
+      
+
+          <article class="card">
+            <img src="./images/me10.jpg" alt="Project">
+            <div class="card-body">
+              <h3>„Silent Bloom“ - „ჩუმი ყვავილობა “ </h3>
+              <p class="muted">Join the journey and be part of the creation.</p>
+              <a class="link" href="project2.html">Read more →</a>
+            </div>
+          </article>
+          <article class="card">
+            <img src="./images/me6.png" alt="Project">
+            <div class="card-body">
+              <h3>„Roseslover“</h3>
+              <p class="muted">Limited edition.</p>
+              <a class="link" href="project3.html">Read more →</a>
+            </div>
+          </article>
+          <article class="card">
+            <img src="./images/me5.jpg" alt="Project">
+            <div class="card-body">
+              <h3>„The Origin of Nature“ - „ბუნების საწყისი “</h3>
+              <p class="muted">Exclusive access, behind-the-scenes, and more.</p>
+              <a class="link" href="project4.html">Read more →</a>
+            </div>
+          </article>
+          <article class="card">
+  <img src="./images/me3.jpg" alt="Project">
+  <div class="card-body">
+    <h3>„Magical world“ - „ზღაპრული სამყარო “</h3>
+    <p class="muted">An exceptional artwork.</p>
+    <a class="link" href="project5.html">Read more →</a>
+  </div>
+</article>
+<article class="card">
+            <img src="./images/me8.jpg" alt="Project">
+            <div class="card-body">
+              <h3>„The way to the monastery “ </h3>
+              <p class="muted">Join the journey and be part of the creation.</p>
+              <a class="link" href="project6.html">Read more →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <img src="./images/me7.jpg" alt="Project">
+            <div class="card-body">
+              <h3>„Amber Glow“ - „ქარვისფერი ნათება “</h3>
+              <p class="muted">Exclusive access, behind-the-scenes, and more.</p>
+              <a class="link" href="project7.html">Read more →</a>
+            </div>
+          </article>
+
+
+          <!-- ✅ აქ დაამატე კიდევ პროექტები რამდენიც გინდა -->
+          <!--
+          <article class="card"> ... </article>
+          -->
+
+        </div>
+      </div>
+
+      <!-- Right Arrow -->
+      <button class="projects-arrow right" id="projectsNext" aria-label="Next project">
+        &#10095;
+      </button>
+
+    </div>
+  </div>
+</section>
+
+
+    <!-- HOME SHOP PREVIEW -->
+<section class="home-shop-preview section">
+  <div class="container">
+    <h2>Artworks</h2>
+
+    <div class="preview-tabs">
+      <button class="preview-btn active" data-filter="sale">SALE</button>
+      <button class="preview-btn" data-filter="sold">SOLD</button>
+    </div>
+
+    <!-- აქ უნდა იყოს ცარიელი grid -->
+    <div id="homeShopGrid" class="home-shop-grid"></div>
+
+    <a href="sale/shop.html" class="btn">See all paintings →</a>
+  </div>
+  
+</section>
+
+
+
+     <!-- ARTISTS -->
+<section id="artists" class="section">
+  <div class="container">
+    <div class="section-top">
+      <h2>Artists</h2>
+      <p class="muted">Discover creators and explore their projects.</p>
+    </div>
+
+    <div class="artists-grid" id="homeArtistsGrid"></div>
+
+    <a href="artists/artists.html" class="btn">See all artists →</a>
+  </div>
+</section>
+
+
+
+    <!-- NEWS -->
+<section id="news" class="section section-gray">
+  <div class="container">
+    <div class="section-top">
+      <h2>News</h2>
+      <p class="muted">Updates, new projects, and announcements.</p>
+    </div>
+
+    <div class="news-list">
+
+      <!-- ARTICLE 1 -->
+      <a class="news-item" href="javascript:void(0)">
+        <span class="date">24/01/2026</span>
+
+        <span class="text">
+          <span class="news-title">
+  <span class="title-ka">
+    როგორი იქნებოდა სამყარო ხელოვნების გარეშე?
+  </span>
+  <span class="title-en">
+    What Would the World Be Like Without Art?
+  </span>
+</span>
+
+
+          <span class="news-content">
+
+  <p class="para-ka">
+    როგორი იქნებოდა სამყარო, თუ ფერები მხოლოდ ფიზიკის ნაწილი იქნებოდა და არა გრძნობის?
+    ხელოვნების გარეშე ადამიანები სიტყვებს გამოიყენებდნენ, მაგრამ ვერ იტყოდნენ მთავარს.
+    ქალაქები იქნებოდა ფუნქციური, მაგრამ უსულო. მუსიკის გარეშე სიჩუმე იქნებოდა ხმამაღალი,
+    ხოლო ნახატების გარეშე კედლები — უბრალოდ ცარიელი ზედაპირები.
+  </p>
+
+  <p class="para-ka">
+    ხელოვნება გვახსენებს, რომ ადამიანი მხოლოდ არსებობისთვის არ არის შექმნილი.
+    ის არის ხიდი გონებასა და გულს შორის, ტკივილსა და იმედს შორის.
+    მის გარეშე სამყარო იარსებებდა, მაგრამ ვერ იგრძნობდა საკუთარ თავს.
+  </p>
+
+  <p class="para-en">
+    What would the world be like if colors were only a matter of physics and not of feeling?
+    Without art, people would use words, yet fail to say what truly matters.
+    Cities would be functional, but soulless. Without music, silence would feel loud,
+    and without paintings, walls would be nothing more than empty surfaces.
+  </p>
+
+  <p class="para-en">
+    Art reminds us that human beings are not created merely to exist.
+    It is a bridge between the mind and the heart, between pain and hope.
+    Without it, the world would exist — but it would not feel itself.
+  </p>
+
+</span>
+
+        </span>
+
+        <span class="arrow">→</span>
+      </a>
+
+     <!-- ARTICLE 2 -->
+<a class="news-item" href="javascript:void(0)">
+  <span class="date">04/12/2025</span>
+
+  <span class="text">
+    <span class="news-title">
+      <span class="title-ka">
+        არის თუ არა ხელოვნება ენა, რომელსაც ყველა იგებს?
+      </span>
+      <span class="title-en">
+        Is Art a Language Everyone Understands?
+      </span>
+    </span>
+
+    <span class="news-content">
+
+      <p class="para-ka">
+        ხელოვნებას არ სჭირდება თარგმანი.
+        ფერები, ხაზები და ფორმები ხშირად ამბობენ იმას,
+        რის თქმასაც სიტყვები ვერ ახერხებენ.
+      </p>
+
+      <p class="para-ka">
+        ზოგი ნახატი კითხვას გიტოვებს, ზოგი — პასუხს,
+        მაგრამ ორივე შემთხვევაში შენ მარტო არ რჩები
+        იმ გრძნობასთან, რაც უკვე გქონდა.
+      </p>
+
+      <p class="para-en">
+        Art does not require translation.
+        Colors, lines, and forms often express
+        what words cannot.
+      </p>
+
+      <p class="para-en">
+        Some paintings leave you with questions, others with answers,
+        but in both cases, you are not alone with the feelings you already carry.
+      </p>
+
+    </span>
+  </span>
+
+  <span class="arrow">→</span>
+</a>
+
+
+    <!-- ARTICLE 3 -->
+<a class="news-item" href="javascript:void(0)">
+  <span class="date">02/10/2025</span>
+
+  <span class="text">
+    <span class="news-title">
+      <span class="title-ka">
+        რატომ გვჭირდება ხელოვნება ყოველდღიურ ცხოვრებაში?
+      </span>
+      <span class="title-en">
+        Why Do We Need Art in Everyday Life?
+      </span>
+    </span>
+
+    <span class="news-content">
+
+      <p class="para-ka">
+        ხელოვნება არ იწყება გალერეაში და არ მთავრდება ჩარჩოში.
+        ის არის დილა, როცა ფანჯრიდან შემოსული შუქი სხვანაირად გეჩვენება,
+        და საღამო, როცა ერთი მუსიკა მთელ დღეს აზრს აძლევს.
+      </p>
+
+      <p class="para-ka">
+        ჩვენ შეიძლება არ ვხატავდეთ, არ ვწერდეთ,
+        მაგრამ ხელოვნება მაინც გვეხება —
+        ის გვასწავლის დანახვას, არა უბრალოდ ყურებას.
+      </p>
+
+      <p class="para-en">
+        Art does not begin in a gallery, nor does it end in a frame.
+        It is the morning light through a window,
+        and the evening when a single song gives meaning to the whole day.
+      </p>
+
+      <p class="para-en">
+        We may not paint or write,
+        but art still touches us —
+        it teaches us to see, not merely to look.
+      </p>
+
+    </span>
+  </span>
+
+  <span class="arrow">→</span>
+</a>
+
+
+    </div>
+  </div>
+</section>
+
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-top">
+          <h2>Our Mission</h2>
+          <p>
+  <strong class="brand-highlight">Ninart Vision</strong> - წარმოადგენს დამოუკიდებელ არტპლატფორმას, სადაც გაერთიანებულია ორიგინალური ნამუშევრები.
+  პლატფორმა შევქმენი იმ მიზნით, რომ ქართველი მხატვრები გაერთიანებულ სივრცეში იყვნენ წარმოდგენილნი, როგორც ერთიანი გუნდი, და მათი ნამუშევრები უფრო ფართო აუდიტორიამ გაიცნოს.
+
+  ასევე ამარტივებს მომხმარებლებისთვის ნამუშევრების დათვალიერებისა და შეძენის პროცესს, ერთიან და ხელმისაწვდომ პლატფორმაზე.
+</p>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGIN -->
+    <section id="login" class="section section-gray">
+      <div class="container">
+        <div class="section-top">
+          <h2>Log In</h2>
+          <p class="muted">This is a demo block — we can connect a real login later.</p>
+        </div>
+
+        <form class="form">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com" required />
+
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" required />
+
+          <button class="btn btn-dark" type="submit">Log In</button>
+          <p class="muted small">Forgot password?</p>
+        </form>
+      </div>
+    </section>
+
+      <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-row">
+      <p>share the experience™</p>
+      <p class="muted">powered by Ninart Vision</p>
+    </div>
+  </footer>
+</main>
+
+<script defer src="./data.js"></script>
+<script defer src="./js/homeShopPreview.js"></script>
+<script defer src="./js/homeArtistsPreview.js"></script>
+<script defer src="./script.js"></script>
+<script>
+  // create a JavaScript image slider with arrows
+</script>
+
+
+</body>
+</html>

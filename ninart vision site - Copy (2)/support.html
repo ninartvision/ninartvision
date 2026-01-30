@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Support a Project | Ninart Vision</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="images/favicon.png">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container header-row">
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Ninart Vision Logo">
+    </a>
+
+    <nav class="nav desktop-nav">
+      <a href="index.html">Home</a>
+      <a href="support.html" class="active">Support a Project</a>
+      <a href="sale/shop.html">Shop</a>
+      <a href="artists/artists.html">Artists</a>
+      <a href="index.html#news">News</a>
+      <a href="about.html">About</a>
+
+      <!-- LANGUAGE SWITCH -->
+     <div class="lang-switch">
+
+  <button onclick="setLang('ka')" class="lang-item">
+    <img src="images/america.png" alt="KA">
+    <span>KA</span>
+    <i class="arrow">›</i>
+  </button>
+
+  <button onclick="setLang('en')" class="lang-item active">
+    <img src="images/icon.jpg" alt="EN">
+    <span>EN</span>
+    <i class="arrow">›</i>
+  </button>
+
+</div>
+
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="support-hero">
+  <div class="support-hero-overlay">
+    <div class="support-hero-content container">
+      <h1
+        data-en="Support Independent Art"
+        data-ka="დაუჭირე მხარი დამოუკიდებელ ხელოვნებას">
+        Support Independent Art
+      </h1>
+
+      <p
+        data-en="Ninart Vision is an independent contemporary art platform. Your support, ideas, and collaborations help artists grow and creative projects come to life."
+        data-ka="Ninart Vision არის დამოუკიდებელი თანამედროვე ხელოვნების პლატფორმა. შენი მხარდაჭერა, იდეები და კოლაბორაციები ეხმარება არტისტებს განვითარებაში და ახალი პროექტების განხორციელებაში.">
+        Ninart Vision is an independent contemporary art platform.
+      </p>
+
+      <div class="support-hero-actions">
+        <a href="#supportOptions" class="btn btn-dark"
+           data-en="Support the Project"
+           data-ka="პროექტის მხარდაჭერა">
+          Support the Project
+        </a>
+
+        <a href="mailto:YOUR@EMAIL.COM" class="btn btn-outline-light"
+           data-en="Collaborate"
+           data-ka="კოლაბორაცია">
+          Collaborate
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE CONTENT -->
+<section class="section" style="padding-top:80px;">
+  <div class="container">
+
+    <!-- WHY SUPPORT -->
+    <section class="support-intro">
+      <h2
+        data-en="Why Support Ninart Vision?"
+        data-ka="რატომ უნდა დაუჭირო მხარი Ninart Vision-ს?">
+        Why Support Ninart Vision?
+      </h2>
+
+      <p class="muted"
+        data-en="Ninart Vision exists to support artists, ideas, and creative freedom. Every form of support helps this project grow independently."
+        data-ka="Ninart Vision შეიქმნა არტისტების, იდეებისა და შემოქმედებითი თავისუფლების მხარდასაჭერად. ნებისმიერი მხარდაჭერა ეხმარება პროექტს დამოუკიდებლად განვითარებაში.">
+        Ninart Vision exists to support artists, ideas, and creative freedom.
+      </p>
+    </section>
+
+    <!-- SUPPORT OPTIONS -->
+    <section id="supportOptions" class="support-options">
+
+      <div class="support-card" onclick="scrollToForm()">
+        <h3
+          data-en="💛 Support the Project"
+          data-ka="💛 პროექტის მხარდაჭერა">
+          💛 Support the Project
+        </h3>
+        <p
+          data-en="Support this platform and help independent art grow."
+          data-ka="დაუჭირე მხარი პლატფორმას და დაეხმარე დამოუკიდებელ ხელოვნებას განვითარებაში.">
+          Support this platform and help independent art grow.
+        </p>
+      </div>
+
+      <div class="support-card" onclick="scrollToForm()">
+        <h3
+          data-en="🎨 Collaborations"
+          data-ka="🎨 კოლაბორაციები">
+          🎨 Collaborations
+        </h3>
+        <p
+          data-en="Artists, galleries, brands, and curators — let’s collaborate."
+          data-ka="არტისტები, გალერეები, ბრენდები და კურატორები — მოდი ვიკოლაბორიროთ.">
+          Artists, galleries, brands, and curators — let’s collaborate.
+        </p>
+      </div>
+
+      <div class="support-card" onclick="scrollToForm()">
+        <h3
+          data-en="💡 Ideas & Proposals"
+          data-ka="💡 იდეები და შეთავაზებები">
+          💡 Ideas & Proposals
+        </h3>
+        <p
+          data-en="Have an idea or suggestion? Thoughtful proposals are welcome."
+          data-ka="გაქვს იდეა ან შეთავაზება? საინტერესო წინადადებები ყოველთვის მისაღwelcomeა.">
+          Have an idea or suggestion?
+        </p>
+      </div>
+
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section id="contactForm" class="support-form">
+      <h2
+        data-en="Get in Touch"
+        data-ka="დაგვიკავშირდი">
+        Get in Touch
+      </h2>
+
+      <p class="muted"
+        data-en="Feel free to contact me with support offers or collaboration ideas."
+        data-ka="თავისუფლად დაგვიკავშირდი მხარდაჭერის ან კოლაბორაციის შეთავაზებებით.">
+        Feel free to contact me.
+      </p>
+
+      <form>
+        <input type="text" placeholder="Your name" required>
+        <input type="email" placeholder="Your email" required>
+        <textarea rows="5" placeholder="Your message"></textarea>
+
+        <button type="submit" class="btn btn-dark"
+          data-en="Send Message"
+          data-ka="გაგზავნა">
+          Send Message
+        </button>
+      </form>
+    </section>
+
+  </div>
+</section>
+
+<!-- JS -->
+<script src="support.js"></script>
+
+</body>
+</html>

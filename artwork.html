@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artwork | Ninart Vision</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a class="logo" href="index.html">Ninart Vision</a>
+      <nav class="menu">
+        <a href="index.html">მთავარი</a>
+        <a class="active" href="gallery.html">გალერეა</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container artwork">
+        <img class="artwork-img" src="images/art1.jpg" alt="Artwork photo" />
+
+        <div class="artwork-info">
+          <h1 class="page-title">Artwork 1</h1>
+
+          <p class="muted">აკრილი | 30x40cm | 2026</p>
+
+          <div class="status available">Available</div>
+
+          <p class="artwork-desc">
+            ეს არის ჩემი ნამუშევარი. თუ მოგწონს და გინდა შეძენა — დამიკავშირდი 💛
+          </p>
+
+          <div class="artwork-actions">
+            <a class="btn primary" target="_blank"
+               href="https://instagram.com/">
+              Buy via Instagram
+            </a>
+
+            <a class="btn ghost" target="_blank"
+   href="https://wa.me/995579388833?text=გამარჯობა%20ნინი,%20მინდა%20შევიძინო%20Artwork%201">
+  WhatsApp
+</a>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-row">
+      <p>© <span id="year"></span> Ninart Vision</p>
+      <p class="muted">Artwork page</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
