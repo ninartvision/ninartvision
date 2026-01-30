@@ -23,7 +23,8 @@
     grid.innerHTML = "<p style='text-align:center'>No artists found.</p>";
   } else {
     grid.innerHTML = ARTISTS.map(a => `
-      <a class="artist-card" href="./artist.html?artist=${encodeURIComponent(a.id)}">
+      <a class="artist-card" href="../artist.html?artist=${encodeURIComponent(a.id)}">
+
 
         <div class="artist-avatar"
              style="background-image:url('../${a.avatar}')">
