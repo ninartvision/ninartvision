@@ -2589,4 +2589,18 @@ background: #f2f2f2;
 .menu-links a {
   pointer-events: auto;
 }
+/* 🔥 FIX: overlays must not block clicks */
+.hero-overlay {
+  pointer-events: none;
+}
+
+/* Mobile menu overlay should block clicks ONLY when active */
+.menu-overlay {
+  pointer-events: none;
+}
+
+.menu-overlay.active {
+  pointer-events: auto;
+}
+
 
