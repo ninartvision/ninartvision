@@ -1,4 +1,4 @@
-window.ARTISTS = [
+﻿window.ARTISTS = [
   {
     id: "nini",
     name: "Nini Mzhavia",
@@ -54,14 +54,14 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "Original artwork, signed by the artist.",
-    img: "images/naturmort6.JPG",
+    img: "images/naturmort6.jpg",
     photos: [
       "images/naturmort6.jpg",
       "images/naturmort1.jpg",
       "images/naturmort2.jpg",
       "images/naturmort3.jpg",
       "images/naturmort4.jpg",
-      "images/naturmort5.JPG",
+      "images/naturmort5.jpg",
       "images/naturmort7.png",
       "images/naturmort8.png",
       "images/naturmort9.png"
@@ -77,17 +77,17 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "Original artwork, signed by the artist.",
-    img: "images/abstract3.JPG",
+    img: "images/abstract3.jpg",
     photos: [
-      "images/abstract3.JPG",
-      "images/abstract7.JPG",
-      "images/abstract6.JPG",
-      "images/abstract8.JPG",
-      "images/abstract9.JPG",
-      "images/abstract10.JPG",
-      "images/abstract1.JPG",
+      "images/abstract3.jpg",
+      "images/abstract7.jpg",
+      "images/abstract6.jpg",
+      "images/abstract8.jpg",
+      "images/abstract9.jpg",
+      "images/abstract10.jpg",
+      "images/abstract1.jpg",
       "images/abstract2.jpg",
-      "images/abstract4.JPG"
+      "images/abstract4.jpg"
     ]
   },
   {
@@ -100,17 +100,17 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "Original artwork, signed by the artist.",
-    img: "images/garden9.JPG",
+    img: "images/garden9.jpg",
     photos: [
-      "images/garden9.JPG",
-      "images/garden8.JPG",
-      "images/garden7.JPG",
-      "images/garden6.JPG",
-      "images/garden5.JPeG",
-      "images/garden3.JPeG",
-      "images/garden2.JPeG",
-      "images/garden4.jpeg",
-      "images/garden1.JPeG"
+      "images/garden9.jpg",
+      "images/garden8.jpg",
+      "images/garden7.jpg",
+      "images/garden6.jpg",
+      "images/garden5.jpg",
+      "images/garden3.jpg",
+      "images/garden2.jpg",
+      "images/garden4.jpg",
+      "images/garden1.jpg"
     ]
   },
   {
@@ -123,14 +123,14 @@ window.ARTWORKS = [
     medium: "Acrylic on canvas",
     year: "2025",
     desc: "Original artwork, signed by the artist.",
-    img: "images/sea4.JPG",
+    img: "images/sea4.jpg",
     photos: [
-      "images/sea4.JPG",
-      "images/sea2.JPG",
+      "images/sea4.jpg",
+      "images/sea2.jpg",
       "images/sea8.jpg",
-      "images/sea5.JPG",
-      "images/sea6.JPG",
-      "images/sea7.JPG"
+      "images/sea5.jpg",
+      "images/sea6.jpg",
+      "images/sea7.jpg"
     ]
   },
   {
@@ -143,15 +143,15 @@ window.ARTWORKS = [
     medium: "Oil on canvas",
     year: "2025",
     desc: "Original artwork, signed by the artist.",
-    img: "images/rose1.JPeG",
+    img: "images/rose1.jpg",
     photos: [
-      "images/rose1.JPeG",
-      "images/rose6.JPG",
-      "images/rose7.JPG",
-      "images/rose8.JPG",
-      "images/rose4.JPG",
-      "images/rose3.JPG",
-      "images/rose2.JPG",
+      "images/rose1.jpg",
+      "images/rose6.jpg",
+      "images/rose7.jpg",
+      "images/rose8.jpg",
+      "images/rose4.jpg",
+      "images/rose3.jpg",
+      "images/rose2.jpg",
       "images/rose9.jpg",
       "images/rose11.png"
     ]
@@ -166,15 +166,15 @@ window.ARTWORKS = [
     medium: "Acrylic on canvas",
     year: "2025",
     desc: "Original artwork, signed by the artist.",
-    img: "images/seaorange8.JPG",
+    img: "images/seaorange8.jpg",
     photos: [
-      "images/seaorange8.JPG",
-      "images/seaorange6.JPG",
-      "images/seaorange3.JPG",
-      "images/seaorange2.JPG",
-      "images/seaorange1.JPG",
-      "images/seaorange4.JPG",
-      "images/seaorange7.JPG",
+      "images/seaorange8.jpg",
+      "images/seaorange6.jpg",
+      "images/seaorange3.jpg",
+      "images/seaorange2.jpg",
+      "images/seaorange1.jpg",
+      "images/seaorange4.jpg",
+      "images/seaorange7.jpg",
       "images/seaorange5.jpg"
     ]
   },
@@ -188,15 +188,15 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "Original artwork, signed by the artist.",
-    img: "images/lily8.JPeG",
+    img: "images/lily8.jpg",
     photos: [
-      "images/lily8.JPeG",
-      "images/lily9.JPG",
-      "images/lily14.JPG",
-      "images/lily12.JPG",
-      "images/lily15.JPG",
-      "images/lily10.JPG",
-      "images/lily11.JPG"
+      "images/lily8.jpg",
+      "images/lily9.jpg",
+      "images/lily14.jpg",
+      "images/lily12.jpg",
+      "images/lily15.jpg",
+      "images/lily10.jpg",
+      "images/lily11.jpg"
     ]
   },
   {
@@ -209,13 +209,13 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "Original artwork, signed by the artist.",
-    img: "images/swan1.JPG",
+    img: "images/swan1.jpg",
     photos: [
-      "images/swan1.JPG",
-      "images/swan3.JPG",
-      "images/swan4.JPeG",
-      "images/swan2.JPeG",
-      "images/swan6.JPeG",
+      "images/swan1.jpg",
+      "images/swan3.jpg",
+      "images/swan4.jpg",
+      "images/swan2.jpg",
+      "images/swan6.jpg",
       "images/swan5.png"
     ]
   },
@@ -229,11 +229,11 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "Original artwork, signed by the artist.",
-    img: "images/waterlily1.JPG",
+    img: "images/waterlily1.jpg",
     photos: [
-      "images/waterlily1.JPG",
-      "images/waterlily3.JPG",
-      "images/waterlily5.JPG",
+      "images/waterlily1.jpg",
+      "images/waterlily3.jpg",
+      "images/waterlily5.jpg",
       "images/waterlily6.png",
       "images/waterlily7.png"
     ]
@@ -248,9 +248,9 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "Original artwork, signed by the artist.",
-    img: "images/boat.JPG",
+    img: "images/boat.jpg",
     photos: [
-      "images/boat.JPG"
+      "images/boat.jpg"
     ]
   },
   {
@@ -266,8 +266,8 @@ window.ARTWORKS = [
     img: "images/deer5.jpg",
     photos: [
       "images/deer5.jpg",
-      "images/deer3.JPG",
-      "images/deer2.JPG",
+      "images/deer3.jpg",
+      "images/deer2.jpg",
       "images/deer4.jpg",
       
     ]
@@ -282,14 +282,14 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "This artwork has been sold.",
-    img: "images/jvari7.JPG",
+    img: "images/jvari7.jpg",
     photos: [
-      "images/jvari7.JPG",
-      "images/jvari1.JPG",
-      "images/jvari3.JPG",
+      "images/jvari7.jpg",
+      "images/jvari1.jpg",
+      "images/jvari3.jpg",
       "images/jvari4.jpg",
       "images/jvari2.jpg",
-      "images/jvari6.JPG",
+      "images/jvari6.jpg",
       "images/jvari5.jpg"
     ]
   },
@@ -303,11 +303,11 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "This artwork has been sold.",
-    img: "images/kids3.JPG",
+    img: "images/kids3.jpg",
     photos: [
-      "images/kids3.JPG",
-      "images/kids1.JPG",
-      "images/kids2.JPG",
+      "images/kids3.jpg",
+      "images/kids1.jpg",
+      "images/kids2.jpg",
       "images/kids8.jpg",
       "images/kids5.jpg",
       "images/kids4.jpg"
@@ -323,14 +323,14 @@ window.ARTWORKS = [
     medium: "Acrylic on canvas",
     year: "2025",
     desc: "This artwork has been sold.",
-    img: "images/daffodils6.JPG",
+    img: "images/daffodils6.jpg",
     photos: [
-      "images/daffodils6.JPG",
-      "images/daffodils4.JPG",
-      "images/daffodils1.JPG",
+      "images/daffodils6.jpg",
+      "images/daffodils4.jpg",
+      "images/daffodils1.jpg",
       "images/daffodils3.jpg",
       "images/daffodils2.jpg",
-      "images/daffodils5.JPG"
+      "images/daffodils5.jpg"
     ]
   },
   {
@@ -343,11 +343,11 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "This artwork has been sold.",
-    img: "images/lilac6.JPG",
+    img: "images/lilac6.jpg",
     photos: [
-      "images/lilac6.JPG",
-      "images/lilac2.JPG",
-      "images/lilac3.JPG",
+      "images/lilac6.jpg",
+      "images/lilac2.jpg",
+      "images/lilac3.jpg",
       "images/lilac4.jpg",
       "images/lilac5.jpg",
       "images/lilac1.jpg",
@@ -364,21 +364,21 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2026",
     desc: "This artwork has been sold.",
-    img: "images/svaneti10.JPG",
+    img: "images/svaneti10.jpg",
     photos: [
-      "images/svaneti10.JPG",
-      "images/svaneti4.JPG",
-      "images/svaneti6.JPG",
+      "images/svaneti10.jpg",
+      "images/svaneti4.jpg",
+      "images/svaneti6.jpg",
       "images/svaneti2.jpg",
       "images/svaneti1.jpg",
-      "images/svaneti5.JPG",
-      "images/svaneti9.JPG",
-      "images/svaneti8.JPG",
-      "images/svaneti11.JPG",
+      "images/svaneti5.jpg",
+      "images/svaneti9.jpg",
+      "images/svaneti8.jpg",
+      "images/svaneti11.jpg",
       "images/svaneti12.jpg",
       "images/svaneti13.jpg",
-      "images/svaneti14.JPG",
-      "images/svaneti15.JPG"
+      "images/svaneti14.jpg",
+      "images/svaneti15.jpg"
     ]
   },
   {
@@ -391,15 +391,15 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "This artwork has been sold.",
-    img: "images/babuacvera4.JPG",
+    img: "images/babuacvera4.jpg",
     photos: [
-      "images/babuacvera4.JPG",
-      "images/babuacvera3.JPG",
-      "images/babuacvera2.JPG",
+      "images/babuacvera4.jpg",
+      "images/babuacvera3.jpg",
+      "images/babuacvera2.jpg",
       "images/babuacvera1.jpg",
       "images/babuacvera5.jpg",
-      "images/babuacvera6.JPG",
-      "images/babuacvera7.JPG"
+      "images/babuacvera6.jpg",
+      "images/babuacvera7.jpg"
     ]
   },
   {
@@ -412,11 +412,11 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "This artwork has been sold.",
-    img: "images/jvarimonastery5.JPG",
+    img: "images/jvarimonastery5.jpg",
     photos: [
-      "images/jvarimonastery5.JPG",
-      "images/jvarimonastery2.JPG",
-      "images/jvarimonastery1.JPG",
+      "images/jvarimonastery5.jpg",
+      "images/jvarimonastery2.jpg",
+      "images/jvarimonastery1.jpg",
       "images/jvarimonastery4.jpg",
       "images/jvarimonastery3.jpg"
     ]
@@ -431,14 +431,14 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "This artwork has been sold.",
-    img: "images/dream9.JPG",
+    img: "images/dream9.jpg",
     photos: [
-      "images/dream9.JPG",
-      "images/dream3.JPG",
-      "images/dream4.JPG",
+      "images/dream9.jpg",
+      "images/dream3.jpg",
+      "images/dream4.jpg",
       "images/dream5.jpg",
       "images/dream6.jpg",
-      "images/dream7.JPG",
+      "images/dream7.jpg",
       "images/dream8.jpg",
       "images/dream10.jpg",
       "images/dream2.jpg"
@@ -646,7 +646,7 @@ window.ARTWORKS = [
     title: "Nanuli Painting 1",
     price: 300,
     size: "40 x 50 cm",
-    medium: "handwoven tapestry – გობელენი",
+    medium: "handwoven tapestry â€“ áƒ’áƒáƒ‘áƒ”áƒšáƒ”áƒœáƒ˜",
     year: "2025",
     desc: "Original artwork by Nanuli Gogiberidze.",
     img: "images/artists/nanuligogiberidze/nanuli1.jpg",
@@ -691,7 +691,7 @@ window.ARTWORKS = [
   title: "Nanuli Painting 4",
   price: 150,
   size: "25 x 30 cm",
-  medium: "pastel on paper –",
+  medium: "pastel on paper â€“",
   year: "2025",
   desc: "Original artwork by Nanuli Gogiberidze.",
   img: "images/artists/nanuligogiberidze/nanuli4.jpg",
@@ -716,3 +716,4 @@ window.ARTWORKS = [
 }
 
 ];
+

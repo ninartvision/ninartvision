@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       div.className = "shop-item " + p.status;
 
       div.innerHTML = `
-        <img src="${p.img}" alt="${p.title}">
+        <img src="${p.img.toLowerCase()}" alt="${p.title}" loading="lazy" onerror="this.src='images/placeholder.jpg'">
         <div class="shop-meta">
           <span>${p.title}</span>
           <span class="price">${p.price}</span>

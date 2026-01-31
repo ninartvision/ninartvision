@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         data-desc="${a.desc}"
         data-photos="${a.photos.join(",")}">
 
-        <img src="../${a.img}" alt="${a.title}">
+        <img src="../${a.img.toLowerCase()}" alt="${a.title}" loading="lazy">
         ${a.status === 'sold' ? '<div class="sold-badge"></div>' : ''}
 
         <div class="shop-meta">
