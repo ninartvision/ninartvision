@@ -10,11 +10,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=FiraGO:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-
-
-
-
-
+<!-- Prevent flash of unstyled icons and hash navigation jump -->
+<script>
+  // Prevent hash navigation from jumping on page load
+  if (window.location.hash) {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1);
+  }
+  
+  // Mark page as loaded to enable smooth scrolling
+  document.addEventListener('DOMContentLoaded', () => {
+    document.documentElement.classList.add('loaded');
+  });
+</script>
 
 </head>
 <body>
@@ -24,12 +33,12 @@
   <header class="header">
     <div class="container header-row">
 
-      <a class="brand" href="#">
+      <a class="brand" href="./">
         <img src="./images/logo.png" alt="Ninart Vision Logo">
       </a>
 
-      <nav class="nav desktop-nav">
-        <a href="#home" class="active">Home</a>
+      <nav class="desktop-nav">
+        <a href="./" class="active">Home</a>
         <a href="support.html">Support a Project</a>
 
         <a href="sale/shop.html">Shop</a>
@@ -94,7 +103,7 @@
   <button class="menu-close" id="closeMenu" aria-label="Close menu">✕</button>
 
   <nav class="menu-links">
-    <a href="#home" class="menu-link">HOME</a>
+    <a href="./" class="menu-link">HOME</a>
     <a href="support.html" class="menu-link">SUPPORT A PROJECT</a>
 
 
