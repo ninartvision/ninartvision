@@ -7,6 +7,9 @@
 
   <link rel="stylesheet" href="./style.css" />
   <link rel="icon" href="./images/favicon.png">
+  
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -162,12 +165,38 @@
         Feel free to contact me.
       </p>
 
-      <form>
-        <input type="text" placeholder="Your name" required>
-        <input type="email" placeholder="Your email" required>
-        <textarea rows="5" placeholder="Your message"></textarea>
+      <!-- Form Status Messages -->
+      <div id="formStatus" class="form-status"></div>
 
-        <button type="submit" class="btn btn-dark"
+      <form id="contactForm" onsubmit="sendEmail(event)">
+        <input 
+          type="text" 
+          name="from_name" 
+          id="fromName"
+          placeholder="Your name" 
+          data-en-placeholder="Your name"
+          data-ka-placeholder="თქვენი სახელი"
+          required>
+        
+        <input 
+          type="email" 
+          name="from_email" 
+          id="fromEmail"
+          placeholder="Your email" 
+          data-en-placeholder="Your email"
+          data-ka-placeholder="თქვენი ელ-ფოსტა"
+          required>
+        
+        <textarea 
+          rows="5" 
+          name="message" 
+          id="message"
+          placeholder="Your message"
+          data-en-placeholder="Your message"
+          data-ka-placeholder="თქვენი შეტყობინება"
+          required></textarea>
+
+        <button type="submit" class="btn btn-dark" id="submitBtn"
           data-en="Send Message"
           data-ka="გაგზავნა">
           Send Message
@@ -233,7 +262,7 @@
         <div class="payment-input-group">
           <input type="text" 
                  id="paymentIBAN" 
-                 value="GE00TB0000000000000000" 
+                 value="GE23BG0000000470589300" 
                  readonly 
                  class="payment-input">
           <button class="copy-btn" 
@@ -260,7 +289,7 @@
         <div class="payment-input-group">
           <input type="text" 
                  id="paymentBank" 
-                 value="TBC Bank" 
+                 value="Bank of Georgia" 
                  readonly 
                  class="payment-input">
           <button class="copy-btn" 
@@ -289,6 +318,83 @@
 <!-- JS -->
 <script src="support.js"></script>
 <script src="payment-modal.js"></script>
+  <!-- EmailJS Configuration and Form Handler -->
+  <script>
+    // Initialize EmailJS with your Public Key
+    (function() {
+      emailjs.init({
+        publicKey: "YOUR_PUBLIC_KEY_HERE", // Replace this after creating EmailJS account
+      });
+    })();
 
+    // Form submission handler
+    function sendEmail(event) {
+      event.preventDefault();
+      
+      const form = event.target;
+      const submitBtn = document.getElementById('submitBtn');
+      const statusDiv = document.getElementById('formStatus');
+      
+      // Disable submit button and show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = submitBtn.getAttribute('data-en') === 'Send Message' ? 'Sending...' : 'იგზავნება...';
+      
+      // Clear previous status
+      statusDiv.className = 'form-status';
+      statusDiv.textContent = '';
+      
+      // EmailJS service parameters
+      const templateParams = {
+        from_name: document.getElementById('fromName').value,
+        from_email: document.getElementById('fromEmail').value,
+        message: document.getElementById('message').value,
+        to_email: 'ninimzhavia9@gmail.com'
+      };
+      
+      // Send email using EmailJS
+      emailjs.send(
+        'YOUR_SERVICE_ID',      // Replace with your EmailJS Service ID
+        'YOUR_TEMPLATE_ID',     // Replace with your EmailJS Template ID
+        templateParams
+      )
+      .then(function(response) {
+        // Success
+        console.log('SUCCESS!', response.status, response.text);
+        
+        // Show success message
+        statusDiv.className = 'form-status success';
+        const currentLang = document.querySelector('.lang-item.active span').textContent;
+        statusDiv.innerHTML = currentLang === 'EN' 
+          ? '✓ Message sent successfully! We\'ll get back to you soon.'
+          : '✓ შეტყობინება წარმატებით გაიგზავნა! მალე დაგიბრუნდებით პასუხს.';
+        
+        // Reset form
+        form.reset();
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          statusDiv.className = 'form-status';
+          statusDiv.textContent = '';
+        }, 5000);
+        
+      }, function(error) {
+        // Error
+        console.error('FAILED...', error);
+        
+        // Show error message
+        statusDiv.className = 'form-status error';
+        const currentLang = document.querySelector('.lang-item.active span').textContent;
+        statusDiv.innerHTML = currentLang === 'EN'
+          ? '✗ Failed to send message. Please try again or contact us directly at <a href="mailto:ninimzhavia9@gmail.com">ninimzhavia9@gmail.com</a>'
+          : '✗ შეტყობინების გაგზავნა ვერ მოხერხდა. გთხოვთ სცადოთ თავიდან ან დაგვიკავშირდეთ პირდაპირ: <a href="mailto:ninimzhavia9@gmail.com">ninimzhavia9@gmail.com</a>';
+      })
+      .finally(function() {
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        const currentLang = document.querySelector('.lang-item.active span').textContent;
+        submitBtn.textContent = currentLang === 'EN' ? 'Send Message' : 'გაგზავნა';
+      });
+    }
+  </script>
 </body>
 </html>

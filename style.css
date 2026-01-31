@@ -533,18 +533,55 @@ body{
   text-decoration: none;
   color: #111;
   transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  position: relative;
+  overflow: visible;
 }
 
 .social-icons .soc svg{
   width: 18px;
   height: 18px;
   fill: #111;
+  transition: fill 0.18s ease, transform 0.18s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* Facebook Brand Color */
+.social-icons .soc[aria-label="Facebook"] svg {
+  fill: #1877F2;
+}
+
+/* Instagram Brand Color */
+.social-icons .soc[aria-label="Instagram"] svg {
+  fill: #E4405F;
+}
+
+/* WhatsApp Brand Color */
+.social-icons .soc[aria-label="WhatsApp"] svg {
+  fill: #25D366;
 }
 
 .social-icons .soc:hover{
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.1);
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
   background: rgba(255,255,255,0.95);
+}
+
+/* Enhanced hover effects with brand colors */
+.social-icons .soc[aria-label="Facebook"]:hover {
+  box-shadow: 0 8px 20px rgba(24, 119, 242, 0.3);
+}
+
+.social-icons .soc[aria-label="Instagram"]:hover {
+  box-shadow: 0 8px 20px rgba(228, 64, 95, 0.3);
+}
+
+.social-icons .soc[aria-label="WhatsApp"]:hover {
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+}
+
+.social-icons .soc:hover svg {
+  transform: scale(1.05);
 }
 
 /* MOBILE MENU OVERLAY */
@@ -1589,18 +1626,55 @@ a.pill:visited{
   color: #111;
 
   transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  position: relative;
+  overflow: visible;
 }
 
 .menu-social .soc svg{
   width: 22px;
   height: 22px;
   fill: #111;
+  transition: fill 0.18s ease, transform 0.18s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* Mobile Menu - Facebook Brand Color */
+.menu-social .soc[aria-label="Facebook"] svg {
+  fill: #1877F2;
+}
+
+/* Mobile Menu - Instagram Brand Color */
+.menu-social .soc[aria-label="Instagram"] svg {
+  fill: #E4405F;
+}
+
+/* Mobile Menu - WhatsApp Brand Color */
+.menu-social .soc[aria-label="WhatsApp"] svg {
+  fill: #25D366;
 }
 
 .menu-social .soc:hover{
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.1);
   box-shadow: 0 12px 26px rgba(0,0,0,0.20);
   background: rgba(255,255,255,0.75);
+}
+
+/* Mobile Menu - Enhanced hover effects */
+.menu-social .soc[aria-label="Facebook"]:hover {
+  box-shadow: 0 12px 30px rgba(24, 119, 242, 0.3);
+}
+
+.menu-social .soc[aria-label="Instagram"]:hover {
+  box-shadow: 0 12px 30px rgba(228, 64, 95, 0.3);
+}
+
+.menu-social .soc[aria-label="WhatsApp"]:hover {
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.3);
+}
+
+.menu-social .soc:hover svg {
+  transform: scale(1.05);
 }
 .menu-social{
   margin-top: 26px;
@@ -2811,7 +2885,75 @@ background: #f2f2f2;
   border-radius: 14px;
   border: 1px solid #ccc;
   font-size: 14px;
+  font-family: inherit;
 }
+
+.support-form input:focus,
+.support-form textarea:focus {
+  outline: none;
+  border-color: #000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.support-form button[type="submit"] {
+  margin-top: 8px;
+}
+
+.support-form button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Form Status Messages */
+.form-status {
+  display: none;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: center;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-status.success,
+.form-status.error {
+  display: block;
+}
+
+.form-status.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.form-status.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.form-status a {
+  color: inherit;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.form-status a:hover {
+  text-decoration: none;
+}
+
 .lang-switch {
   display: flex;
   gap: 8px;
