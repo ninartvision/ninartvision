@@ -302,7 +302,7 @@ body{
 
 /* SECTIONS */
 .section{
-  padding: 80px 0;
+  padding: 50px 0;
 }
 
 .section-gray{
@@ -427,26 +427,68 @@ body{
 
 /* NEWS */
 .news-list{
-  display:flex;
-  flex-direction:column;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .news-item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 10px;
-  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 16px;
   border-radius: 14px;
-  text-decoration:none;
-  color:#111;
-  background:#fff;
+  text-decoration: none;
+  color: #111;
+  background: #fff;
   border: 1px solid rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.news-item .date{ font-weight:700; color:#333; }
-.news-item .arrow{ font-weight:900; }
+.news-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.news-item .date{ 
+  font-weight: 700; 
+  color: #333;
+  font-size: 13px;
+}
+
+.news-item .text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.news-item .arrow{ 
+  font-weight: 900;
+  align-self: flex-end;
+  font-size: 20px;
+}
+
+/* Mobile: Maintain vertical list */
+@media (max-width: 768px) {
+  .news-list {
+    gap: 12px;
+  }
+  
+  .news-item {
+    padding: 16px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .news-list {
+    gap: 10px;
+  }
+  
+  .news-item {
+    padding: 14px 12px;
+  }
+}
 
 /* FORM */
 .form{
@@ -560,17 +602,17 @@ body{
 
 /* Facebook Brand Color */
 .social-icons .soc[aria-label="Facebook"] svg {
-  fill: #1877F2;
+  fill: #1877F2 !important;
 }
 
 /* Instagram Brand Color */
 .social-icons .soc[aria-label="Instagram"] svg {
-  fill: #E4405F;
+  fill: #E4405F !important;
 }
 
 /* WhatsApp Brand Color */
 .social-icons .soc[aria-label="WhatsApp"] svg {
-  fill: #25D366;
+  fill: #25D366 !important;
 }
 
 .social-icons .soc:hover{
@@ -879,39 +921,39 @@ body{
     flex: 0 0 100%;
   }
 
-  /* მობილურზე არტისტები - 3 სვეტი */
+  /* მობილურზე არტისტები - 4 სვეტი */
   .artists-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 8px;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 6px;
     display: grid !important;
   }
 
   #homeArtistsGrid.artists-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(4, 1fr) !important;
     display: grid !important;
   }
 
   .artist-card{
-    padding: 10px 6px;
+    padding: 8px 4px;
     display: flex !important;
     flex-direction: column;
     align-items: center;
   }
 
   .artist-avatar{
-    width: 55px;
-    height: 55px;
-    margin: 0 auto 6px;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 4px;
   }
 
   .artist-card h3,
   .artist-card h4{
-    font-size: 11px;
-    margin-bottom: 2px;
+    font-size: 10px;
+    margin-bottom: 1px;
   }
 
   .artist-card p{
-    font-size: 9px;
+    font-size: 8px;
   }
 }
 .hero-slider{
@@ -1677,17 +1719,17 @@ a.pill:visited{
 
 /* Mobile Menu - Facebook Brand Color */
 .menu-social .soc[aria-label="Facebook"] svg {
-  fill: #1877F2;
+  fill: #1877F2 !important;
 }
 
 /* Mobile Menu - Instagram Brand Color */
 .menu-social .soc[aria-label="Instagram"] svg {
-  fill: #E4405F;
+  fill: #E4405F !important;
 }
 
 /* Mobile Menu - WhatsApp Brand Color */
 .menu-social .soc[aria-label="WhatsApp"] svg {
-  fill: #25D366;
+  fill: #25D366 !important;
 }
 
 .menu-social .soc:hover{
@@ -1790,37 +1832,37 @@ a.pill:visited{
 
 @media (max-width: 520px){
   .artists-grid{ 
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 8px;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 5px;
     margin: 30px auto;
     display: grid !important;
   }
 
   #homeArtistsGrid.artists-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(4, 1fr) !important;
     display: grid !important;
   }
 
   .artist-card{
-    padding: 12px 8px;
+    padding: 8px 3px;
     display: flex !important;
     flex-direction: column;
     align-items: center;
   }
 
   .artist-avatar{
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
   }
 
   .artist-name,
   .artist-card h3{
-    font-size: 12px;
+    font-size: 9px;
   }
 
   .artist-style,
   .artist-card p{
-    font-size: 9px;
+    font-size: 7px;
   }
 }
 .imgModal{
@@ -2227,11 +2269,11 @@ background: #f2f2f2;
   }
 }
 
-/* Mobile: Show 1 card */
+/* Mobile: Show 3 cards */
 @media (max-width: 600px) {
   .projects-track .card {
-    flex: 0 0 100%;
-    max-width: 100%;
+    flex: 0 0 calc((100% - 32px) / 3);
+    max-width: calc((100% - 32px) / 3);
   }
 
   .projects-track {
@@ -2368,10 +2410,10 @@ background: #f2f2f2;
 .cloth-banner{
   margin-top: 76px; /* header fixed height */
   width: 100%;
-  min-height: 200px;
+  min-height: 120px;
   height: auto;
 
-  padding: 20px 16px;
+  padding: 12px 16px;
 
   background-image: url("images/linen.png");
   background-repeat: no-repeat;
