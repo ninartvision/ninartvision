@@ -10,6 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
   if (openMenu && closeMenu && menuOverlay) {
     openMenu.onclick = () => menuOverlay.classList.add("active");
     closeMenu.onclick = () => menuOverlay.classList.remove("active");
+    
+    // Close menu when clicking on menu links
+    const menuLinks = menuOverlay.querySelectorAll(".menu-link");
+    menuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        menuOverlay.classList.remove("active");
+      });
+    });
   }
 
   /* =========================

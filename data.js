@@ -1,4 +1,27 @@
-﻿window.ARTISTS = [
+﻿/**
+ * ARTISTS DATA
+ * 
+ * To add a new artist or replace a placeholder:
+ * 1. Change the 'id' to a unique identifier (lowercase, no spaces)
+ * 2. Update 'name' with the artist's full name
+ * 3. Replace 'avatar' path with the artist's photo (recommended: 500x500px)
+ * 4. Update 'whatsapp' with the artist's WhatsApp number
+ * 5. Change 'style' to describe the artist's art style
+ * 6. Optionally add 'about' field with artist biography
+ * 
+ * Example:
+ * {
+ *   id: "johndoe",
+ *   name: "John Doe",
+ *   avatar: "images/artists/johndoe.jpg",
+ *   whatsapp: "995123456789",
+ *   country: "georgia",
+ *   style: "Contemporary Abstract",
+ *   about: "Artist biography here..."
+ * }
+ */
+
+window.ARTISTS = [
   {
     id: "nini",
     name: "Nini Mzhavia",
@@ -39,6 +62,86 @@
     whatsapp: "995000000001",
     country: "georgia",
     style: "Impressionist painter"
+  },
+  {
+    id: "artist6",
+    name: "Artist Name",
+    avatar: "images/artists/placeholder.jpg",
+    whatsapp: "995000000002",
+    country: "georgia",
+    style: "Artist Style"
+  },
+  {
+    id: "artist7",
+    name: "Artist Name",
+    avatar: "images/artists/placeholder.jpg",
+    whatsapp: "995000000003",
+    country: "georgia",
+    style: "Artist Style"
+  },
+  {
+    id: "artist8",
+    name: "Artist Name",
+    avatar: "images/artists/placeholder.jpg",
+    whatsapp: "995000000004",
+    country: "georgia",
+    style: "Artist Style"
+  },
+  {
+    id: "artist9",
+    name: "Artist Name",
+    avatar: "images/artists/placeholder.jpg",
+    whatsapp: "995000000005",
+    country: "georgia",
+    style: "Artist Style"
+  },
+  {
+    id: "artist10",
+    name: "Artist Name",
+    avatar: "images/artists/placeholder.jpg",
+    whatsapp: "995000000006",
+    country: "georgia",
+    style: "Artist Style"
+  },
+  {
+    id: "artist11",
+    name: "Artist Name",
+    avatar: "images/artists/placeholder.jpg",
+    whatsapp: "995000000007",
+    country: "georgia",
+    style: "Artist Style"
+  },
+  {
+    id: "artist12",
+    name: "Artist Name",
+    avatar: "images/artists/placeholder.jpg",
+    whatsapp: "995000000008",
+    country: "georgia",
+    style: "Artist Style"
+  },
+  {
+    id: "artist13",
+    name: "Artist Name",
+    avatar: "images/artists/placeholder.jpg",
+    whatsapp: "995000000009",
+    country: "georgia",
+    style: "Artist Style"
+  },
+  {
+    id: "artist14",
+    name: "Artist Name",
+    avatar: "images/artists/placeholder.jpg",
+    whatsapp: "995000000010",
+    country: "georgia",
+    style: "Artist Style"
+  },
+  {
+    id: "artist15",
+    name: "Artist Name",
+    avatar: "images/artists/placeholder.jpg",
+    whatsapp: "995000000011",
+    country: "georgia",
+    style: "Artist Style"
   }
 ];
 
@@ -138,7 +241,7 @@ window.ARTWORKS = [
     artist: "nini",
     status: "sale",
     title: "Painting 5",
-    price: 350,
+    price: 300,
     size: "40 x 50 cm",
     medium: "Oil on canvas",
     year: "2025",
@@ -258,7 +361,7 @@ window.ARTWORKS = [
     artist: "nini",
     status: "sold",
     title: "Sold ",
-    price: 420,
+    price: 250,
     size: "30 x 40 cm",
     medium: "acrylic on canvas",
     year: "2025",
@@ -277,7 +380,7 @@ window.ARTWORKS = [
     artist: "nini",
     status: "sold",
     title: "Sold ",
-    price: 390,
+    price: 350,
     size: "30 x 40 cm",
     medium: "acrylic on canvas",
     year: "2025",
@@ -298,7 +401,7 @@ window.ARTWORKS = [
     artist: "nini",
     status: "sold",
     title: "Sold ",
-    price: 310,
+    price: 300,
     size: "30 x 40 cm",
     medium: "acrylic on canvas",
     year: "2025",
@@ -318,7 +421,7 @@ window.ARTWORKS = [
     artist: "nini",
     status: "sold",
     title: "Sold ",
-    price: 280,
+    price: 250,
     size: "40 x 50 cm",
     medium: "Acrylic on canvas",
     year: "2025",
@@ -338,7 +441,7 @@ window.ARTWORKS = [
     artist: "nini",
     status: "sold",
     title: "Sold ",
-    price: 310,
+    price: 250,
     size: "40 x 50 cm",
     medium: "acrylic on canvas",
     year: "2025",
@@ -359,7 +462,7 @@ window.ARTWORKS = [
     artist: "nini",
     status: "sold",
     title: "Sold ",
-    price: 350,
+    price: 300,
     size: "50 x 70 cm",
     medium: "acrylic on canvas",
     year: "2026",
@@ -386,7 +489,7 @@ window.ARTWORKS = [
     artist: "nini",
     status: "sold",
     title: "Sold",
-    price: 300,
+    price: 350,
     size: "60 x 80 cm",
     medium: "acrylic on canvas",
     year: "2025",
@@ -407,7 +510,7 @@ window.ARTWORKS = [
     artist: "nini",
     status: "sold",
     title: "Sold ",
-    price: 310,
+    price: 400,
     size: "60 x 80 cm",
     medium: "acrylic on canvas",
     year: "2025",
@@ -426,7 +529,7 @@ window.ARTWORKS = [
     artist: "nini",
     status: "sold",
     title: "Sold ",
-    price: 350,
+    price: 500,
     size: "80 x 100 cm",
     medium: "acrylic on canvas",
     year: "2025",

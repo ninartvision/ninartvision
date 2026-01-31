@@ -65,10 +65,11 @@
   if (!window.ARTISTS || !ARTISTS.length) {
     grid.innerHTML = "<p style='text-align:center'>No artists found.</p>";
   } else {
-    // Filter out artists with placeholder images (artist4, artist5)
-    const validArtists = ARTISTS.filter(a => {
-      return a.avatar && !a.avatar.includes('placeholder.jpg');
-    });
+    // Show all artists including placeholders
+    // To hide placeholders, uncomment the filter below:
+    // const validArtists = ARTISTS.filter(a => a.avatar && !a.avatar.includes('placeholder.jpg'));
+    
+    const validArtists = ARTISTS; // Show all artists
 
     if (validArtists.length === 0) {
       grid.innerHTML = "<p style='text-align:center'>No artists available.</p>";

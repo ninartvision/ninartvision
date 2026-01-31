@@ -11,10 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Filter out placeholder artists
-  const validArtists = artists.filter(a => {
-    return a.avatar && !a.avatar.includes('placeholder.jpg');
-  });
+  // Show all artists including placeholders
+  // To hide placeholders on homepage, uncomment the line below:
+  // const validArtists = artists.filter(a => a.avatar && !a.avatar.includes('placeholder.jpg'));
+  
+  const validArtists = artists; // Show all artists including placeholders
 
   // Function to render artists with smooth transition
   function renderArtists(artistsToShow, isSearching = false) {
