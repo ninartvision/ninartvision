@@ -2610,7 +2610,7 @@ background: #f2f2f2;
     font-size: 11px;
     line-height: 1.25;
     padding: 0 12px;
-    transform: translateY(-8px);
+    transform: translateY(-6px);
   }
 
   .cloth-banner-text .ka,
@@ -2665,6 +2665,26 @@ background: #f2f2f2;
   .menu-social .soc {
     width: 44px;
     height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cloth-banner-text {
+    font-size: 10px;
+    line-height: 1.2;
+    padding: 0 8px;
+    transform: translateY(-4px);
+  }
+
+  .cloth-banner-text .ka,
+  .cloth-banner-text .en {
+    font-size: 10px;
+  }
+
+  .menu-link,
+  .menu-links a {
+    font-size: 16px;
+    letter-spacing: 1px;
   }
 }
 /* ===== MOBILE MENU CLICK FIX ===== */
