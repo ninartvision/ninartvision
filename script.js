@@ -182,14 +182,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
-     FEATURED PROJECTS SLIDER
+     FEATURED PROJECTS SLIDER (3 Cards Visible)
   ========================= */
   const projectsTrack = document.getElementById("projectsTrack");
   const projectsPrev = document.getElementById("projectsPrev");
   const projectsNext = document.getElementById("projectsNext");
 
   if (projectsTrack && projectsPrev && projectsNext) {
-    let projectIndex = 0;
+    let currentIndex = 0;
     const cards = projectsTrack.querySelectorAll(".card");
     const totalCards = cards.length;
 
@@ -197,44 +197,78 @@ document.addEventListener("DOMContentLoaded", () => {
     function getVisibleCards() {
       if (window.innerWidth <= 600) return 1;
       if (window.innerWidth <= 900) return 2;
-      return 3;
+      return 3; // Desktop: Show 3 cards
     }
 
+    // Calculate maximum scroll index
+    function getMaxIndex() {
+      const visibleCards = getVisibleCards();
+      return Math.max(0, totalCards - visibleCards);
+    }
+
+    // Update slider position and arrow states
     function updateSlider() {
       const visibleCards = getVisibleCards();
       const cardWidth = cards[0]?.offsetWidth || 0;
       const gap = 22;
-      const offset = projectIndex * (cardWidth + gap);
+      
+      // Calculate offset for smooth scrolling
+      const offset = currentIndex * (cardWidth + gap);
       projectsTrack.style.transform = `translateX(-${offset}px)`;
 
-      // Disable/enable arrows based on position
-      projectsPrev.disabled = projectIndex === 0;
-      projectsNext.disabled = projectIndex >= totalCards - visibleCards;
+      // Update arrow button states
+      projectsPrev.disabled = currentIndex === 0;
+      projectsPrev.style.opacity = currentIndex === 0 ? '0.4' : '1';
+      projectsPrev.style.cursor = currentIndex === 0 ? 'not-allowed' : 'pointer';
+      
+      projectsNext.disabled = currentIndex >= getMaxIndex();
+      projectsNext.style.opacity = currentIndex >= getMaxIndex() ? '0.4' : '1';
+      projectsNext.style.cursor = currentIndex >= getMaxIndex() ? 'not-allowed' : 'pointer';
     }
 
+    // Navigate to previous card
     projectsPrev.addEventListener("click", () => {
-      if (projectIndex > 0) {
-        projectIndex--;
+      if (currentIndex > 0) {
+        currentIndex--;
         updateSlider();
       }
     });
 
+    // Navigate to next card
     projectsNext.addEventListener("click", () => {
-      const visibleCards = getVisibleCards();
-      if (projectIndex < totalCards - visibleCards) {
-        projectIndex++;
+      const maxIndex = getMaxIndex();
+      if (currentIndex < maxIndex) {
+        currentIndex++;
         updateSlider();
       }
     });
 
-    // Update on resize
+    // Handle window resize
+    let resizeTimer;
     window.addEventListener("resize", () => {
-      projectIndex = 0;
-      updateSlider();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        // Reset to first card on resize to avoid layout issues
+        currentIndex = 0;
+        updateSlider();
+      }, 150);
     });
 
-    // Initial setup
-    updateSlider();
+    // Keyboard navigation (optional enhancement)
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft" && currentIndex > 0) {
+        currentIndex--;
+        updateSlider();
+      } else if (e.key === "ArrowRight" && currentIndex < getMaxIndex()) {
+        currentIndex++;
+        updateSlider();
+      }
+    });
+
+    // Initial setup with slight delay to ensure DOM is ready
+    setTimeout(() => {
+      updateSlider();
+    }, 100);
   }
 
 });

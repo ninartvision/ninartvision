@@ -1,14 +1,24 @@
 *{ margin:0; padding:0; box-sizing:border-box; }
 
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body{
   font-family: Arial, Helvetica, sans-serif;
   color:#000000;
   background:#ffffff;
+  overflow-x: hidden;
+  max-width: 100vw;
+  position: relative;
 }
 
 .container{
   width: min(1100px, 92%);
   margin: 0 auto;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* HEADER */
@@ -1517,7 +1527,7 @@ body{
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 10px !important;
-    overflow-x: visible !important;
+    overflow-x: hidden !important;
   }
 
   #homeShopGrid .shop-item{
@@ -2118,67 +2128,133 @@ background: #f2f2f2;
 .modalThumb:hover{
   transform: scale(1.05);
 }
-/* Featured Projects Slider */
+/* ===========================
+   FEATURED PROJECTS SLIDER
+   (Shows 3 cards at a time)
+=========================== */
 .projects-slider-wrap {
   position: relative;
   display: flex;
   align-items: center;
+  gap: 0;
 }
 
 .projects-slider {
   width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .projects-track {
   display: flex;
   gap: 22px;
-  transition: transform 0.45s ease;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
+/* Desktop: Show exactly 3 cards */
 .projects-track .card {
-  flex: 0 0 calc((100% - 44px) / 3); /* 3 card ჩანს */
+  flex: 0 0 calc((100% - 44px) / 3);
   min-width: 0;
+  max-width: calc((100% - 44px) / 3);
 }
 
-/* Arrows */
+/* Arrow Buttons */
 .projects-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  border: 1px solid #e6e6e6;
-  background: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
   cursor: pointer;
   font-size: 20px;
+  font-weight: 700;
   z-index: 10;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  color: #111;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.projects-arrow.left { left: -60px; }
-.projects-arrow.right { right: -60px; }
+.projects-arrow.left { 
+  left: -60px; 
+}
 
-.projects-arrow:hover {
+.projects-arrow.right { 
+  right: -60px; 
+}
+
+.projects-arrow:hover:not(:disabled) {
   border-color: #111;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-50%) scale(1.05);
 }
 
-/* Responsive */
+.projects-arrow:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.projects-arrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Tablet: Show 2 cards */
 @media (max-width: 900px) {
   .projects-track .card {
-    flex: 0 0 calc((100% - 22px) / 2); /* 2 card */
+    flex: 0 0 calc((100% - 22px) / 2);
+    max-width: calc((100% - 22px) / 2);
+  }
+  
+  .projects-arrow.left { 
+    left: 5px; 
+  }
+  
+  .projects-arrow.right { 
+    right: 5px; 
+  }
+  
+  .projects-slider-wrap {
+    overflow: hidden;
   }
 }
 
+/* Mobile: Show 1 card */
 @media (max-width: 600px) {
   .projects-track .card {
-    flex: 0 0 100%; /* 1 card */
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 
-  .projects-arrow.left { left: -10px; }
-  .projects-arrow.right { right: -10px; }
+  .projects-track {
+    gap: 16px;
+  }
+
+  .projects-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .projects-arrow.left { 
+    left: 5px; 
+  }
+  
+  .projects-arrow.right { 
+    right: 5px; 
+  }
+  
+  .projects-slider-wrap {
+    overflow: hidden;
+  }
 }
 .project-paragraph{
   line-height: 1.3;      /* ხაზებს შორის დაშორება */
@@ -3687,5 +3763,47 @@ background: #f2f2f2;
 
   .payment-input {
     font-size: 13px;
+  }
+}
+/* ===================================
+   MOBILE HORIZONTAL SCROLL FIX
+   Prevent any sideways movement
+=================================== */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    position: relative;
+  }
+  
+  body > * {
+    max-width: 100vw;
+  }
+  
+  .container,
+  .section,
+  .hero-slider,
+  .projects-slider-wrap,
+  .artists-grid,
+  .shop-grid {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Ensure all images stay within bounds */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Lock sliders horizontally */
+  .projects-slider,
+  .shop-slider {
+    overflow-x: hidden !important;
+  }
+  
+  /* Prevent any element from creating horizontal scroll */
+  * {
+    max-width: 100vw;
   }
 }
