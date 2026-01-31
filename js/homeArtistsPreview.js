@@ -8,7 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  grid.innerHTML = artists.map(artist => `
+  // Show only first 4 artists on home page
+  const displayArtists = artists.slice(0, 4);
+
+  grid.innerHTML = displayArtists.map(artist => `
     <a class="artist-card" href="artists/artist.html?artist=${artist.id}">
       <div class="artist-avatar" style="background-image:url('${artist.avatar}')"></div>
       <h3>${artist.name}</h3>

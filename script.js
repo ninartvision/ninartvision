@@ -85,12 +85,23 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.classList.add("open");
   }
 
-  document.querySelectorAll(".shop-item").forEach(item => {
-    item.addEventListener("click", e => {
-      if (e.target.closest("a, button")) return;
-      openModal(item);
+  // Function to initialize shop items with modal functionality
+  window.initShopItems = function() {
+    document.querySelectorAll(".shop-item").forEach(item => {
+      // Remove existing listener if any
+      item.replaceWith(item.cloneNode(true));
     });
-  });
+
+    document.querySelectorAll(".shop-item").forEach(item => {
+      item.addEventListener("click", e => {
+        if (e.target.closest("a, button")) return;
+        openModal(item);
+      });
+    });
+  };
+
+  // Initial call for static items
+  window.initShopItems();
 
   closeBtn?.addEventListener("click", () =>
     modal.classList.remove("open")
@@ -170,6 +181,62 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+  /* =========================
+     FEATURED PROJECTS SLIDER
+  ========================= */
+  const projectsTrack = document.getElementById("projectsTrack");
+  const projectsPrev = document.getElementById("projectsPrev");
+  const projectsNext = document.getElementById("projectsNext");
+
+  if (projectsTrack && projectsPrev && projectsNext) {
+    let projectIndex = 0;
+    const cards = projectsTrack.querySelectorAll(".card");
+    const totalCards = cards.length;
+
+    // Determine how many cards are visible at once
+    function getVisibleCards() {
+      if (window.innerWidth <= 600) return 1;
+      if (window.innerWidth <= 900) return 2;
+      return 3;
+    }
+
+    function updateSlider() {
+      const visibleCards = getVisibleCards();
+      const cardWidth = cards[0]?.offsetWidth || 0;
+      const gap = 22;
+      const offset = projectIndex * (cardWidth + gap);
+      projectsTrack.style.transform = `translateX(-${offset}px)`;
+
+      // Disable/enable arrows based on position
+      projectsPrev.disabled = projectIndex === 0;
+      projectsNext.disabled = projectIndex >= totalCards - visibleCards;
+    }
+
+    projectsPrev.addEventListener("click", () => {
+      if (projectIndex > 0) {
+        projectIndex--;
+        updateSlider();
+      }
+    });
+
+    projectsNext.addEventListener("click", () => {
+      const visibleCards = getVisibleCards();
+      if (projectIndex < totalCards - visibleCards) {
+        projectIndex++;
+        updateSlider();
+      }
+    });
+
+    // Update on resize
+    window.addEventListener("resize", () => {
+      projectIndex = 0;
+      updateSlider();
+    });
+
+    // Initial setup
+    updateSlider();
+  }
+
 });
 
 /* =========================
@@ -178,7 +245,6 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("click", e => {
   const item = e.target.closest(".news-item");
   if (!item) return;
-  if (e.target.closest("a")) return;
 
   document
     .querySelectorAll(".news-item.open")

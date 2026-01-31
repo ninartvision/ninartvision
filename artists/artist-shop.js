@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
         data-photos="${a.photos.join(",")}">
 
         <img src="../${a.img}" alt="${a.title}">
+        ${a.status === 'sold' ? '<div class="sold-badge"></div>' : ''}
 
         <div class="shop-meta">
           <span>${a.title}</span>

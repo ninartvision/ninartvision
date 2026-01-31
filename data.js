@@ -62,9 +62,9 @@ window.ARTWORKS = [
       "images/naturmort3.jpg",
       "images/naturmort4.jpg",
       "images/naturmort5.JPG",
-      "images/naturmort7.jpg",
+      "images/naturmort7.png",
       "images/naturmort8.png",
-      "images/naturmort9.jpg"
+      "images/naturmort9.png"
     ]
   },
   {
@@ -265,12 +265,11 @@ window.ARTWORKS = [
     desc: "This artwork has been sold.",
     img: "images/deer5.jpg",
     photos: [
-      "images/deer5.JPeG",
+      "images/deer5.jpg",
       "images/deer3.JPG",
       "images/deer2.JPG",
       "images/deer4.jpg",
-      "images/deer1.jpg",
-      "images/deer15.jpg"
+      
     ]
   },
   {
@@ -352,7 +351,7 @@ window.ARTWORKS = [
       "images/lilac4.jpg",
       "images/lilac5.jpg",
       "images/lilac1.jpg",
-      "images/lilac1.png"
+      
     ]
   },
   {
