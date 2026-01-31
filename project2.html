@@ -65,9 +65,9 @@
   </main>
 
   <!-- ✅ LIGHTBOX (აქ უნდა იყოს ერთხელ და მხოლოდ body-ში) -->
-  <div class="lightbox" id="lightbox">
-    <span class="close" id="lightboxClose">&times;</span>
-    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <span class="close" id="lightboxClose" aria-label="Close lightbox">&times;</span>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="Enlarged view">
   </div>
 
   <!-- ✅ SCRIPT (უნდა იყოს ბოლოში) -->
@@ -76,26 +76,43 @@
     const lightboxImg = document.getElementById("lightboxImg");
     const closeBtn = document.getElementById("lightboxClose");
 
+    // Open lightbox
+    function openLightbox(imgSrc) {
+      lightbox.classList.add("open");
+      lightboxImg.src = imgSrc;
+      document.body.style.overflow = "hidden"; // Prevent body scroll
+      lightbox.setAttribute("aria-hidden", "false");
+      closeBtn.focus(); // Focus on close button for accessibility
+    }
+
+    // Close lightbox
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      document.body.style.overflow = ""; // Restore body scroll
+      lightbox.setAttribute("aria-hidden", "true");
+    }
+
+    // Add click event to all gallery images
     document.querySelectorAll(".gallery-list img").forEach(img => {
       img.addEventListener("click", () => {
-        lightbox.classList.add("open");
-        lightboxImg.src = img.src;
+        openLightbox(img.src);
       });
     });
 
-    closeBtn.addEventListener("click", () => {
-      lightbox.classList.remove("open");
-    });
+    // Close button click
+    closeBtn.addEventListener("click", closeLightbox);
 
+    // Click outside image to close
     lightbox.addEventListener("click", (e) => {
       if (e.target === lightbox) {
-        lightbox.classList.remove("open");
+        closeLightbox();
       }
     });
 
+    // Escape key to close
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        lightbox.classList.remove("open");
+      if (e.key === "Escape" && lightbox.classList.contains("open")) {
+        closeLightbox();
       }
     });
   </script>

@@ -1086,7 +1086,65 @@ body{
     font-size: 8px;
   }
 }
+.hero-slider{
+  position: relative;
+  height: 85vh;
+  min-height: 520px;
+  overflow: hidden;
+}
 
+.slides{
+  position: absolute;
+  inset: 0;
+}
+
+.slide{
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.slide.active{
+  opacity: 1;
+}
+
+.hero-overlay{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 2;
+}
+
+.hero-content{
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: #fff;
+  padding-top: 76px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hero-arrow{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  width: 54px;
+  height: 54px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 36px;
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+}
+
+.hero-arrow.left{ left: 20px; }
+.hero-arrow.right{ right: 20px; }
 /* ===== ArtistShare-style Hero Slider ===== */
 .hero-as-slider{
   position: relative;
@@ -1337,6 +1395,14 @@ body{
   }
 }
 
+
+.gallery-list img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.10);
+}
 
 @media (max-width: 850px){
   .project-hero{
@@ -1830,6 +1896,117 @@ a.pill:visited{
 .menu-social .soc:hover svg {
   transform: scale(1.05);
 }
+.menu-social{
+  margin-top: 26px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.menu-social .soc{
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.25);
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(8px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.menu-social .soc svg{
+  width: 22px;
+  height: 22px;
+  fill: #111;
+}
+
+
+@media (max-width: 900px){
+  .artists-grid{ 
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin: 40px auto;
+  }
+
+  .artist-avatar{
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 768px){
+  .artists-grid{ 
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px;
+    margin: 40px auto;
+    display: grid !important;
+  }
+
+  #homeArtistsGrid.artists-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    display: grid !important;
+  }
+
+  .artist-card{
+    padding: 14px 10px;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .artist-avatar{
+    width: 70px;
+    height: 70px;
+  }
+
+  .artist-name,
+  .artist-card h3{
+    font-size: 13px;
+  }
+
+  .artist-style,
+  .artist-card p{
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 520px){
+  .artists-grid{ 
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 5px;
+    margin: 30px auto;
+    display: grid !important;
+  }
+
+  #homeArtistsGrid.artists-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    display: grid !important;
+  }
+
+  .artist-card{
+    padding: 8px 3px;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .artist-avatar{
+    width: 45px;
+    height: 45px;
+  }
+
+  .artist-name,
+  .artist-card h3{
+    font-size: 9px;
+  }
+
+  .artist-style,
+  .artist-card p{
+    font-size: 7px;
+  }
+}
 .imgModal{
   position: fixed;
   inset: 0;
@@ -2166,6 +2343,26 @@ background: #f2f2f2;
     touch-action: manipulation !important;
   }
 }
+.modalThumbs{
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.modalThumb{
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid rgba(0,0,0,0.12);
+  transition: transform .15s ease;
+}
+
+.modalThumb:hover{
+  transform: scale(1.05);
+}
 /* ===========================
    FEATURED PROJECTS SLIDER
    (Shows 3 cards at a time)
@@ -2377,6 +2574,18 @@ background: #f2f2f2;
 }
 
 
+.product-thumb:hover{
+  transform: scale(1.06);
+  opacity: 1;
+}
+
+.product-thumb.active{
+  opacity: 1;
+  border-color: #111;
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+}
+
 .welcome-banner{
   padding-top: 90px;        /* header fixed-ის გამო */
   padding-bottom: 18px;
@@ -2578,6 +2787,28 @@ background: #f2f2f2;
   transform: rotate(180deg);
 }
 
+.modalThumbs{
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.modalThumb{
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  opacity: .85;
+}
+
+.modalThumb.active{
+  border-color: #111;
+  opacity: 1;
+}
 .product-buy{
   display:flex;
   align-items:center;
@@ -2764,6 +2995,14 @@ background: #f2f2f2;
   text-decoration: underline;
 }
 
+.artist-avatar{
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
 #support.section{
   padding-bottom: 20px !important;  /* დააკელი */
   margin-bottom: 0 !important;
@@ -2838,6 +3077,28 @@ background: #f2f2f2;
 }
 
 
+.artist-card {
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.artist-avatar {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+.artists-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 48px;
+  margin-top: 60px;
+  justify-items: center;
+}
+/* ===== ARTISTS GRID ===== */
 .artists-grid{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -3677,6 +3938,23 @@ background: #f2f2f2;
 .artist-arrow:hover{
   opacity: 1;
 }
+.news-content{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.news-item.open .news-content{
+  max-height: 600px;
+}
+
+.news-item .arrow{
+  transition: transform 0.3s ease;
+}
+
+.news-item.open .arrow{
+  transform: rotate(90deg);
+}
 /* =========================
    MOBILE MENU FIX
 ========================= */
@@ -3763,6 +4041,20 @@ background: #f2f2f2;
     font-size: 16px;
     letter-spacing: 1px;
   }
+}
+/* ===== MOBILE MENU CLICK FIX ===== */
+
+.menu-overlay {
+  pointer-events: auto;
+}
+
+.menu-links {
+  position: relative;
+  z-index: 10;
+}
+
+.menu-links a {
+  pointer-events: auto;
 }
 /* 🔥 FIX: overlays must not block clicks */
 .hero-overlay {
