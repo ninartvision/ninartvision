@@ -23,10 +23,13 @@ body{
 }
 
 .header-row{
-  height: 76px;
+  min-height: 76px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  flex-wrap: wrap;
+  padding: 8px 0;
+  gap: 12px;
 }
 
 .brand img{
@@ -433,7 +436,9 @@ body{
 
   /* საძიებო ველი მობილურზე */
   .header-search{
-    max-width: 200px;
+    flex: 1 1 auto;
+    max-width: 100%;
+    min-width: auto;
   }
   
   .header-search input{
@@ -444,6 +449,11 @@ body{
   .search-icon{
     right: 12px;
     font-size: 11px;
+  }
+
+  /* მობილურზე header social-ები ჩანს */
+  .header-social{
+    display: flex;
   }
 
   .grid{
@@ -1820,7 +1830,7 @@ background: #f2f2f2;
 /* ===== CLOTH BANNER under header ===== */
 .cloth-banner{
   margin-top: 76px; /* header fixed height */
-  height: 150px;
+  height: 200px;
   width: 100%;
 
   background-image: url("images/linen.png");
@@ -1899,7 +1909,7 @@ background: #f2f2f2;
   /* ✅ banner ცოტა დაბალი იყოს და არ ჩამოწიოს კონტენტი */
   .cloth-banner{
     margin-top: 70px;
-    height: 70px;
+    height: 100px;
     padding: 10px 8px;
   }
 
@@ -1918,7 +1928,7 @@ background: #f2f2f2;
 @media (max-width: 600px) {
   .cloth-banner {
     margin-top: 65px;
-    height: 60px;
+    height: 85px;
     padding: 8px 5px;
   }
 
@@ -1935,6 +1945,8 @@ background: #f2f2f2;
 
   /* ✅ Font */
   font-family: "FiraGO", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -2249,20 +2261,59 @@ background: #f2f2f2;
 }
 .header-search{
   position: relative;
-  flex: 1;
-  max-width: 300px;
+  flex: 1 1 auto;
+  max-width: 350px;
+  order: 10;
+  width: 100%;
+}
+
+/* Header Social Icons */
+.header-social{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  order: 11;
+}
+
+.header-social .soc{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.6);
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  text-decoration: none;
+  color: #111;
+  
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.header-social .soc svg{
+  width: 18px;
+  height: 18px;
+  fill: #111;
+}
+
+.header-social .soc:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.85);
 }
 
 .header-search input{
   width: 100%;
-  padding: 10px 40px 10px 16px;
-  border-radius: 999px; /* 🔥 სრულად მომრგვალებული */
+  padding: 8px 36px 8px 14px;
+  border-radius: 999px;
   border: 1px solid rgba(0,0,0,0.08);
-  font-size: 14px;
+  font-size: 13px;
   background: #fff;
 
   box-shadow:
-    0 6px 18px rgba(0,0,0,0.08),
+    0 3px 10px rgba(0,0,0,0.06),
     inset 0 1px 0 rgba(255,255,255,0.6);
 
   transition: all 0.25s ease;
@@ -2279,7 +2330,7 @@ background: #f2f2f2;
   position: absolute;
   right: 18px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-48%);
   opacity: 0.55;
   font-size: 15px;
 }
@@ -2660,15 +2711,15 @@ background: #f2f2f2;
 @media (max-width: 768px) {
 
   .cloth-banner-text {
-    font-size: 11px;
-    line-height: 1.25;
+    font-size: 13px;
+    line-height: 1.4;
     padding: 0 12px;
     transform: translateY(-6px);
   }
 
   .cloth-banner-text .ka,
   .cloth-banner-text .en {
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .cloth-banner-text .en-wide {
@@ -2723,15 +2774,15 @@ background: #f2f2f2;
 
 @media (max-width: 480px) {
   .cloth-banner-text {
-    font-size: 10px;
-    line-height: 1.2;
+    font-size: 12px;
+    line-height: 1.35;
     padding: 0 8px;
     transform: translateY(-4px);
   }
 
   .cloth-banner-text .ka,
   .cloth-banner-text .en {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .menu-link,
