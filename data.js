@@ -118,7 +118,7 @@ window.ARTWORKS = [
     artist: "nini",
     status: "sale",
     title: "Painting 4",
-    price: 50,
+    price: 250,
     size: "40 x 50 cm",
     medium: "Acrylic on canvas",
     year: "2025",
