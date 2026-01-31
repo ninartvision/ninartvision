@@ -239,10 +239,30 @@ body{
 /* mobile */
 @media(max-width: 900px){
   .hero-slider{
-    min-height: 420px;
+    height: 85vh;
+    min-height: 450px;
   }
 
-  .hero-slider .hero-content h1{ font-size: 34px; }
+  .hero-slider .slide{
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-slider .hero-inner{
+    padding: 0 20px;
+  }
+
+  .hero-slider .hero-content h1{ 
+    font-size: 36px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .hero-slider .hero-content p{
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
   .hero-slider .hero-arrow{ font-size: 65px; }
 
   .hero-slider .hero-arrow.left{ left: 14px; }
@@ -696,19 +716,51 @@ body{
     height: 32px;
   }
 
+  .hero-slider{
+    height: 75vh;
+    min-height: 380px;
+  }
+
+  .hero-slider .slide{
+    background-size: cover;
+  }
+
+  .hero-slider .hero-inner{
+    padding: 0 16px;
+  }
+
+  .hero-slider .hero-content h1{
+    font-size: 28px;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .hero-slider .hero-content p{
+    font-size: 13px;
+    line-height: 1.4;
+    max-width: 90%;
+  }
+
+  .hero-slider .hero-arrow{
+    font-size: 50px;
+  }
+
+  .hero-slider .hero-arrow.left{ left: 8px; }
+  .hero-slider .hero-arrow.right{ right: 8px; }
+
   .search-section{
     margin-top: 65px; /* Match smaller header height */
     padding: 10px 0;
   }
 
   .search-social-row{
-    flex-direction: column;
-    gap: 12px;
+    gap: 10px;
   }
 
   .search-wrapper{
-    flex: 1;
-    max-width: 100%;
+    flex: 1 1 auto;
+    max-width: 60%;
+    min-width: 150px;
   }
 
   .search-input{
@@ -722,8 +774,7 @@ body{
   }
 
   .social-icons{
-    gap: 8px;
-    justify-content: center;
+    gap: 6px;
   }
 
   .social-icons .soc{
@@ -776,24 +827,25 @@ body{
     flex: 0 0 100%;
   }
 
-  /* მობილურზე არტისტები - 4 სვეტი */
+  /* მობილურზე არტისტები - 3 სვეტი */
   .artists-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px;
   }
 
   .artist-card{
-    padding: 12px 8px;
+    padding: 10px 6px;
   }
 
   .artist-avatar{
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 8px;
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 6px;
   }
 
   .artist-card h4{
     font-size: 11px;
+    margin-bottom: 2px;
   }
 
   .artist-card p{
@@ -1373,29 +1425,46 @@ body{
   background: #fff;     /* რომ ცარიელი ადგილი თეთრი იყოს */
   display: block;
 }
-/* ===== MOBILE SLIDER for HOME SHOP ===== */
+/* ===== MOBILE 3-COLUMN GRID for HOME SHOP ===== */
 @media (max-width: 900px){
   #homeShopGrid{
-    display: flex !important;
-    gap: 14px !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 10px;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+    overflow-x: visible !important;
   }
 
   #homeShopGrid .shop-item{
-    flex: 0 0 80% !important;
-    scroll-snap-align: start;
+    flex: none !important;
   }
 
-  /* ✅ ფოტო არ მოიჭრება */
+  /* ✅ Scale down images to fit 3 columns */
   #homeShopGrid .shop-item img{
     width: 100%;
-    height: 360px;        /* შეგიძლია გაზარდო 380/420 */
-    object-fit: contain;  /* ✅ აღარ ჭრის */
+    height: 180px;
+    object-fit: cover;
     background: #fff;
     display: block;
+  }
+}
+
+@media (max-width: 768px){
+  #homeShopGrid{
+    gap: 8px !important;
+  }
+
+  #homeShopGrid .shop-item img{
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px){
+  #homeShopGrid{
+    gap: 6px !important;
+  }
+
+  #homeShopGrid .shop-item img{
+    height: 140px;
   }
 }
 .shop-meta{
@@ -1548,28 +1617,53 @@ a.pill:visited{
   }
 }
 
+@media (max-width: 768px){
+  .artists-grid{ 
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px;
+    margin: 40px auto;
+  }
+
+  .artist-card{
+    padding: 14px 10px;
+  }
+
+  .artist-avatar{
+    width: 70px;
+    height: 70px;
+  }
+
+  .artist-name{
+    font-size: 13px;
+  }
+
+  .artist-style{
+    font-size: 10px;
+  }
+}
+
 @media (max-width: 520px){
   .artists-grid{ 
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px;
     margin: 30px auto;
   }
 
   .artist-card{
-    padding: 20px 14px;
+    padding: 12px 8px;
   }
 
   .artist-avatar{
-    width: 90px;
-    height: 90px;
+    width: 60px;
+    height: 60px;
   }
 
   .artist-name{
-    font-size: 16px;
+    font-size: 12px;
   }
 
   .artist-style{
-    font-size: 12px;
+    font-size: 9px;
   }
 }
 .imgModal{
@@ -2699,6 +2793,49 @@ background: #f2f2f2;
   opacity: 1;
 }
 @media (max-width: 768px) {
+  /* Search bar and social icons: keep horizontal on mobile */
+  .search-social-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 12px;
+  }
+
+  .search-wrapper{
+    flex: 1 1 auto;
+    max-width: 65%;
+    min-width: 140px;
+  }
+
+  .search-input{
+    padding: 9px 32px 9px 14px;
+    font-size: 12px;
+  }
+
+  .search-icon{
+    right: 14px;
+    font-size: 13px;
+  }
+
+  .social-icons{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .social-icons .soc{
+    width: 32px;
+    height: 32px;
+  }
+
+  .social-icons .soc svg{
+    width: 15px;
+    height: 15px;
+  }
+
   .lang-switch {
     margin-left: auto;
     gap: 6px;
