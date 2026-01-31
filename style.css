@@ -1014,17 +1014,23 @@ body{
 /* mobile */
 @media (max-width: 700px){
   .shop-grid-small{
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .shop-grid-small .shop-item img{
+    height: 140px;
   }
 }
 
 @media (max-width: 420px){
   .shop-grid-small{
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
   }
 
   .shop-grid-small .shop-item img{
-    height: 260px;
+    height: 120px;
   }
 }
 .product-modal{
@@ -2061,6 +2067,29 @@ background: #f2f2f2;
   grid-template-columns: repeat(3, 1fr);
   gap:20px;
   margin-bottom:20px;
+}
+
+/* მობილურზე home-shop-grid */
+@media (max-width: 700px){
+  .home-shop-grid{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .home-card-img{
+    height: 140px;
+  }
+}
+
+@media (max-width: 420px){
+  .home-shop-grid{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .home-card-img{
+    height: 120px;
+  }
 }
 
 .home-card{
