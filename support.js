@@ -3,7 +3,13 @@ function scrollToForm() {
     .scrollIntoView({ behavior: "smooth" });
 }
 
-function setLang(lang) {
+function setLang(lang, event) {
+  // Prevent event propagation to avoid conflicts
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
   document.querySelectorAll("[data-en]").forEach(el => {
     el.textContent = el.dataset[lang];
   });
@@ -12,10 +18,29 @@ function setLang(lang) {
     btn.classList.remove("active");
   });
 
-  document
-    .querySelector(`.lang-item[onclick="setLang('${lang}')"]`)
-    .classList.add("active");
+  const activeBtn = document.querySelector(
+    `.lang-item[onclick*="'${lang}'"]`
+  );
+  if (activeBtn) {
+    activeBtn.classList.add("active");
+  }
+
+  // Save language preference
+  localStorage.setItem("siteLang", lang);
 }
 
-// default language
-setLang("en");
+// Initialize language on page load
+document.addEventListener("DOMContentLoaded", () => {
+  const savedLang = localStorage.getItem("siteLang") || "en";
+  setLang(savedLang);
+
+  // Add proper event listeners to language buttons
+  document.querySelectorAll(".lang-item").forEach(btn => {
+    btn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      const langCode = this.getAttribute("onclick").match(/'(\w+)'/)[1];
+      setLang(langCode, e);
+    });
+  });
+});

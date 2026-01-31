@@ -61,11 +61,11 @@
       </p>
 
       <div class="support-hero-actions">
-        <a href="#supportOptions" class="btn btn-dark"
+        <button id="openPaymentModal" class="btn btn-dark"
            data-en="Support the Project"
            data-ka="პროექტის მხარდაჭერა">
           Support the Project
-        </a>
+        </button>
 
         <a href="mailto:YOUR@EMAIL.COM" class="btn btn-outline-light"
            data-en="Collaborate"
@@ -99,7 +99,7 @@
     <!-- SUPPORT OPTIONS -->
     <section id="supportOptions" class="support-options">
 
-      <div class="support-card" onclick="scrollToForm()">
+      <div class="support-card" id="openPaymentModalCard">
         <h3
           data-en="💛 Support the Project"
           data-ka="💛 პროექტის მხარდაჭერა">
@@ -112,20 +112,28 @@
         </p>
       </div>
 
-      <div class="support-card" onclick="scrollToForm()">
+      <a 
+        href="https://wa.me/995579388833?text=Hello%2C%20I%27m%20interested%20in%20a%20collaboration%20with%20Ninart%20Vision.%20I%27d%20like%20to%20discuss%20potential%20opportunities%20for%20working%20together."
+        target="_blank"
+        rel="noopener noreferrer"
+        class="support-card support-card-link">
         <h3
           data-en="🎨 Collaborations"
           data-ka="🎨 კოლაბორაციები">
           🎨 Collaborations
         </h3>
         <p
-          data-en="Artists, galleries, brands, and curators — let’s collaborate."
+          data-en="Artists, galleries, brands, and curators — let's collaborate."
           data-ka="არტისტები, გალერეები, ბრენდები და კურატორები — მოდი ვიკოლაბორიროთ.">
-          Artists, galleries, brands, and curators — let’s collaborate.
+          Artists, galleries, brands, and curators — let's collaborate.
         </p>
-      </div>
+      </a>
 
-      <div class="support-card" onclick="scrollToForm()">
+      <a 
+        href="https://wa.me/995579388833?text=Hello%2C%20I%27d%20like%20to%20share%20an%20idea%20or%20proposal%20with%20Ninart%20Vision.%20I%20have%20a%20suggestion%20that%20might%20be%20interesting%20for%20your%20platform."
+        target="_blank"
+        rel="noopener noreferrer"
+        class="support-card support-card-link">
         <h3
           data-en="💡 Ideas & Proposals"
           data-ka="💡 იდეები და შეთავაზებები">
@@ -136,7 +144,7 @@
           data-ka="გაქვს იდეა ან შეთავაზება? საინტერესო წინადადებები ყოველთვის მისაღwelcomeა.">
           Have an idea or suggestion?
         </p>
-      </div>
+      </a>
 
     </section>
 
@@ -170,8 +178,117 @@
   </div>
 </section>
 
+<!-- PAYMENT DETAILS MODAL -->
+<div id="paymentModal" class="payment-modal">
+  <div class="payment-modal-content">
+    <button class="payment-close" id="closePaymentModal" aria-label="Close">&times;</button>
+    
+    <h2 class="payment-title"
+        data-en="Payment Details"
+        data-ka="გადახდის დეტალები">
+      Payment Details
+    </h2>
+    
+    <p class="payment-subtitle"
+       data-en="Copy the details below to make a bank transfer"
+       data-ka="დააკოპირეთ ქვემოთ მოცემული დეტალები ბანკის გადარიცხვისთვის">
+      Copy the details below to make a bank transfer
+    </p>
+
+    <div class="payment-fields">
+      <!-- Full Name -->
+      <div class="payment-field">
+        <label class="payment-label"
+               data-en="Full Name"
+               data-ka="სრული სახელი">
+          Full Name
+        </label>
+        <div class="payment-input-group">
+          <input type="text" 
+                 id="paymentName" 
+                 value="Nini Mzhavia" 
+                 readonly 
+                 class="payment-input">
+          <button class="copy-btn" 
+                  data-copy="paymentName" 
+                  aria-label="Copy name">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span class="copy-text"
+                  data-en="Copy"
+                  data-ka="კოპირება">Copy</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bank Account / IBAN -->
+      <div class="payment-field">
+        <label class="payment-label"
+               data-en="Bank Account (IBAN)"
+               data-ka="ბანკის ანგარიში (IBAN)">
+          Bank Account (IBAN)
+        </label>
+        <div class="payment-input-group">
+          <input type="text" 
+                 id="paymentIBAN" 
+                 value="GE00TB0000000000000000" 
+                 readonly 
+                 class="payment-input">
+          <button class="copy-btn" 
+                  data-copy="paymentIBAN" 
+                  aria-label="Copy IBAN">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span class="copy-text"
+                  data-en="Copy"
+                  data-ka="კოპირება">Copy</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bank Name (Optional) -->
+      <div class="payment-field">
+        <label class="payment-label"
+               data-en="Bank Name"
+               data-ka="ბანკის დასახელება">
+          Bank Name
+        </label>
+        <div class="payment-input-group">
+          <input type="text" 
+                 id="paymentBank" 
+                 value="TBC Bank" 
+                 readonly 
+                 class="payment-input">
+          <button class="copy-btn" 
+                  data-copy="paymentBank" 
+                  aria-label="Copy bank name">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span class="copy-text"
+                  data-en="Copy"
+                  data-ka="კოპირება">Copy</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <p class="payment-note"
+       data-en="Thank you for your support! 💛"
+       data-ka="გმადლობთ მხარდაჭერისთვის! 💛">
+      Thank you for your support! 💛
+    </p>
+  </div>
+</div>
+
 <!-- JS -->
 <script src="support.js"></script>
+<script src="payment-modal.js"></script>
 
 </body>
 </html>
