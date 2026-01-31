@@ -405,7 +405,9 @@ body{
   background:#fff;
   text-decoration: none;
   color: inherit;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 #artists .btn{
   margin-top: 18px;
@@ -685,6 +687,7 @@ body{
 
   .shop-item img{
     height: 180px;
+    object-fit: contain;
   }
 
   .shop-meta{
@@ -695,6 +698,7 @@ body{
   /* Grid cards responsive styling */
   .card img{
     height: 180px;
+    object-fit: contain;
   }
 
   .card-body{
@@ -840,6 +844,7 @@ body{
 
   .card img{
     height: 150px;
+    object-fit: contain;
   }
 
   .card-body{
@@ -868,10 +873,19 @@ body{
   .artists-grid {
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 8px;
+    display: grid !important;
+  }
+
+  #homeArtistsGrid.artists-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    display: grid !important;
   }
 
   .artist-card{
     padding: 10px 6px;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
   }
 
   .artist-avatar{
@@ -880,6 +894,7 @@ body{
     margin: 0 auto 6px;
   }
 
+  .artist-card h3,
   .artist-card h4{
     font-size: 11px;
     margin-bottom: 2px;
@@ -1152,6 +1167,9 @@ body{
   .gallery-grid{
     grid-template-columns: repeat(2, 1fr);
   }
+  .gallery-grid img{
+    object-fit: contain;
+  }
 }
 @media (max-width: 480px){
   .gallery-grid{
@@ -1217,6 +1235,12 @@ body{
 
 .gallery-list img:hover{
   transform: scale(1.02);
+}
+
+@media (max-width: 768px){
+  .gallery-list img{
+    object-fit: contain;
+  }
 }
 
 /* Responsive: Keep 3 columns on all screen sizes */
@@ -1504,7 +1528,7 @@ body{
   #homeShopGrid .shop-item img{
     width: 100%;
     height: 180px;
-    object-fit: cover;
+    object-fit: contain;
     background: #fff;
     display: block;
   }
@@ -1517,6 +1541,7 @@ body{
 
   #homeShopGrid .shop-item img{
     height: 160px;
+    object-fit: contain;
   }
 }
 
@@ -1527,6 +1552,7 @@ body{
 
   #homeShopGrid .shop-item img{
     height: 140px;
+    object-fit: contain;
   }
 }
 .shop-meta{
@@ -1721,10 +1747,19 @@ a.pill:visited{
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 12px;
     margin: 40px auto;
+    display: grid !important;
+  }
+
+  #homeArtistsGrid.artists-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    display: grid !important;
   }
 
   .artist-card{
     padding: 14px 10px;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
   }
 
   .artist-avatar{
@@ -1732,11 +1767,13 @@ a.pill:visited{
     height: 70px;
   }
 
-  .artist-name{
+  .artist-name,
+  .artist-card h3{
     font-size: 13px;
   }
 
-  .artist-style{
+  .artist-style,
+  .artist-card p{
     font-size: 10px;
   }
 }
@@ -1746,10 +1783,19 @@ a.pill:visited{
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 8px;
     margin: 30px auto;
+    display: grid !important;
+  }
+
+  #homeArtistsGrid.artists-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    display: grid !important;
   }
 
   .artist-card{
     padding: 12px 8px;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
   }
 
   .artist-avatar{
@@ -1757,11 +1803,13 @@ a.pill:visited{
     height: 60px;
   }
 
-  .artist-name{
+  .artist-name,
+  .artist-card h3{
     font-size: 12px;
   }
 
-  .artist-style{
+  .artist-style,
+  .artist-card p{
     font-size: 9px;
   }
 }
@@ -2243,8 +2291,11 @@ background: #f2f2f2;
 /* ===== CLOTH BANNER under header ===== */
 .cloth-banner{
   margin-top: 76px; /* header fixed height */
-  height: 200px;
   width: 100%;
+  min-height: 200px;
+  height: auto;
+
+  padding: 20px 16px;
 
   background-image: url("images/linen.png");
   background-repeat: no-repeat;
@@ -2257,9 +2308,11 @@ background: #f2f2f2;
 
   background-color: #fff;
 
-  position: relative;   /* ✅ აუცილებელია */
-  overflow: hidden;     /* ✅ რომ layer არ გაცდეს */
+  position: relative;
+  overflow: visible; /* ტექსტი აღარ მოიჭრება */
 }
+
+/* soft overlay (lighter, text-friendly) */
 .cloth-banner::before{
   content:"";
   position:absolute;
@@ -2267,16 +2320,47 @@ background: #f2f2f2;
   pointer-events:none;
   z-index:1;
 
-  /* ✅ ეს არის ზუსტად ის ლეიერი */
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.25) 0%,
-    rgba(0,0,0,0.20) 35%,
+    rgba(0,0,0,0.18) 0%,
+    rgba(0,0,0,0.12) 35%,
     rgba(0,0,0,0.00) 70%
   );
 }
 
+/* ===== CLOTH BANNER TEXT ===== */
+.cloth-banner-text{
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
 
+  padding: 6px 0;
+
+  font-family: "FiraGO", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #111;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Georgian text */
+.cloth-banner-text .ka{
+  font-weight: 700;
+  font-size: clamp(16px, 4vw, 20px);
+  margin-bottom: 4px;
+}
+
+/* English text */
+.cloth-banner-text .en{
+  font-weight: 500;
+  font-size: clamp(14px, 3.5vw, 18px);
+  line-height: 1.6;
+}
+
+/* ===== HERO SLIDER ===== */
 .hero-slider{
   position: relative;
   height: 90vh;
@@ -2298,9 +2382,13 @@ background: #f2f2f2;
   background-repeat: no-repeat;
   opacity:0;
   transition: opacity .35s ease;
+  background-color: #fff;
 }
 
-.hero-slides .slide.active{ opacity:1; }
+.hero-slides .slide.active{
+  opacity:1;
+}
+
 .hero-slider::before{
   content:"";
   position:absolute;
@@ -2313,72 +2401,45 @@ background: #f2f2f2;
 
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.18),
+    rgba(0,0,0,0.15),
     rgba(0,0,0,0)
   );
 }
-@media (max-width: 900px){
 
-  /* ✅ banner ცოტა დაბალი იყოს და არ ჩამოწიოს კონტენტი */
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px){
   .cloth-banner{
     margin-top: 70px;
-    height: 100px;
-    padding: 10px 8px;
+    min-height: 140px;
+    padding: 14px 10px;
   }
 
-  /* ✅ მთავარი FIX: hero არ იყოს ასეთი მაღალი */
   .hero-slider{
     height: 62vh !important;
     min-height: 320px !important;
   }
-
-  /* ✅ სურათი არ დატოვოს ნაცრისფერი */
-  .hero-slides .slide{
-    background-color: #fff; /* ნაცვლად #000 */
-  }
 }
 
-@media (max-width: 600px) {
-  .cloth-banner {
+@media (max-width: 600px){
+  .cloth-banner{
     margin-top: 65px;
-    height: 85px;
-    padding: 8px 5px;
+    min-height: 160px;
+    padding: 14px 8px;
   }
 
-  .hero-slider {
+  .hero-slider{
     height: 55vh !important;
     min-height: 280px !important;
   }
 }
-.cloth-banner-text{
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  text-align: center;
 
-  /* ✅ Font */
-  font-family: "FiraGO", sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: geometricPrecision;
-
-  /* ✅ ტექსტის აწევა ზემოთ */
-  transform: translateY(-12px);  /* შეგიძლია -8px / -15px */
-}
-.cloth-banner-text .ka{ font-weight: 700 !important; }
-.cloth-banner-text .en{ font-weight: 700 !important; }
-
-.cloth-banner-text .ka{
-  transform: translateY(-6px);  /* ↑ ზემოთ წევს */
-}
+/* ===== MORE PHOTOS ===== */
 .morePhotosWrap{
   margin-top: 14px;
   display: flex;
   justify-content: center;
 }
+
 
 /* ✅ round button */
 .morePhotosBtn{
