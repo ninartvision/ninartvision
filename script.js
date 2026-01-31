@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     photos = (item.dataset.photos || "")
       .split(",")
       .map(p => p.trim())
+      .map(p => p.toLowerCase())
       .filter(Boolean);
 
     const isSubPage =

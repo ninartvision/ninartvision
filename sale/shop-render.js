@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   grid.innerHTML = items.map(a => `
     <div class="shop-item ${a.status}" data-artist="${a.artist}" data-status="${a.status}" data-title="${a.title}" data-price="${a.price}" data-size="${a.size}" data-medium="${a.medium}" data-year="${a.year}" data-desc="${a.desc}" data-photos="${a.photos.join(',')}">
-      <img src="../${a.img}" alt="${a.title}">
+      <img src="../${(a.img || '').toLowerCase()}" alt="${a.title}">
       ${a.status === 'sold' ? '<div class="sold-badge"></div>' : ''}
       <div class="shop-meta">
         <span>${a.title}</span>

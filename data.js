@@ -56,15 +56,15 @@ window.ARTWORKS = [
     desc: "Original artwork, signed by the artist.",
     img: "images/naturmort6.JPG",
     photos: [
-      "images/naturmort6.JPG",
-      "images/naturmort1.JPG",
-      "images/naturmort2.JPG",
-      "images/naturmort3.JPG",
-      "images/naturmort4.JPG",
+      "images/naturmort6.jpg",
+      "images/naturmort1.jpg",
+      "images/naturmort2.jpg",
+      "images/naturmort3.jpg",
+      "images/naturmort4.jpg",
       "images/naturmort5.JPG",
-      "images/naturmort7.JPG",
+      "images/naturmort7.jpg",
       "images/naturmort8.png",
-      "images/naturmort9.JPG"
+      "images/naturmort9.jpg"
     ]
   },
   {
@@ -263,7 +263,7 @@ window.ARTWORKS = [
     medium: "acrylic on canvas",
     year: "2025",
     desc: "This artwork has been sold.",
-    img: "images/deer5.JPeG",
+    img: "images/deer5.jpg",
     photos: [
       "images/deer5.JPeG",
       "images/deer3.JPG",

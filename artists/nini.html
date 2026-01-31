@@ -11,57 +11,6 @@
 
 <body>
 
-<header class="header">
-  <div class="container header-row">
-    <a class="brand" href="../index.html">
-      <img src="../images/logo.png" alt="Ninart Vision Logo">
-    </a>
-
-    <nav class="nav desktop-nav">
-      <a href="../index.html#home">Home</a>
-      <a href="../index.html#support">Support a Project</a>
-      <a href="../sale/shop.html">Shop</a>
-      <a href="artists/artists.html">Artists</a>
-      <a href="../index.html#news">News</a>
-      <a href="../index.html#about">About</a>
-    </nav>
-  </div>
-</header>
-
-<section class="section" style="padding-top:110px;">
-  <div class="container">
-
-    <a href="../index.html#artists" class="btn btn-dark">← Back</a>
-
-    <!-- ✅ ერთადერთი სათაური (ცარიელი, JS ავსებს) -->
-    <div class="section-top" style="margin-top:18px;">
-      <h2 class="artist-name"></h2>
-      <p class="muted">My artworks</p>
-    </div>
-
-    <!-- ✅ აქ ჩაიტვირთება Shop-დან გაფილტრული ნამუშევრები -->
-    <section class="artist-section">
-      <div class="shop-grid" id="shopGrid"></div>
-    </section>
-
-  </div>
-</section>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Artist - Ninart Vision</title>
-
-  <link rel="stylesheet" href="../style.css" />
-  <link rel="icon" href="../images/favicon.png">
-</head>
-
-<body>
-
 <!-- HEADER -->
 <header class="header">
   <div class="container header-row">
@@ -76,7 +25,7 @@
       <a href="../index.html#home">Home</a>
       <a href="../index.html#support">Support a Project</a>
       <a href="../sale/shop.html">Shop</a>
-      <a href="artists.html" class="active">Artists</a>
+      <a href="./" class="active">Artists</a>
       <a href="../index.html#news">News</a>
       <a href="../about.html">About</a>
     </nav>
@@ -97,7 +46,7 @@
     <a href="../index.html#home" class="menu-link">HOME</a>
     <a href="../index.html#support" class="menu-link">SUPPORT A PROJECT</a>
     <a href="../sale/shop.html" class="menu-link">SHOP</a>
-    <a href="artists.html" class="menu-link">ARTISTS</a>
+    <a href="./" class="menu-link">ARTISTS</a>
     <a href="../index.html#news" class="menu-link">NEWS</a>
     <a href="../about.html" class="menu-link">ABOUT</a>
   </nav>
@@ -107,7 +56,7 @@
 <section class="section" style="padding-top:110px;">
   <div class="container">
 
-    <a href="artists.html" class="btn btn-dark">← Back</a>
+    <a href="./" class="btn btn-dark">← Back</a>
 
     <div class="section-top" style="margin-top:20px;">
       <img id="artistAvatar" class="artist-avatar" src="" alt="Artist Avatar" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px;">
@@ -115,20 +64,15 @@
       <p class="muted">Artist's artworks</p>
     </div>
     <div class="filter-tabs">
-  <button class="pill" data-filter="all">ALL</button>
-<button class="pill" data-filter="sale">SALE</button>
-<button class="pill" data-filter="sold">SOLD</button>
+      <button class="pill" data-filter="all">ALL</button>
+      <button class="pill" data-filter="sale">SALE</button>
+      <button class="pill" data-filter="sold">SOLD</button>
+    </div>
 
-</div>
+    <div class="shop-grid shop-grid-small" id="shopGrid"></div>
 
-
-    <div class="shop-grid shop-grid-small" id="shopGrid">
-
-
-    </div> <!-- close #shopGrid -->
-
-  </div> <!-- close .container -->
-</section> <!-- close section -->
+  </div>
+</section>
 
 
 <!-- PRODUCT MODAL (same as shop) -->
@@ -164,9 +108,7 @@
             More photos <span class="arrow">↓</span>
           </button>
 
-          <button class="btn btn-dark" id="addToCartBtn">
-            Add to Cart
-          </button>
+          <button class="btn btn-dark" id="addToCartBtn">Add to Cart</button>
         </div>
 
         <div class="product-thumbs" id="productThumbs" style="display:none;"></div>
@@ -177,14 +119,9 @@
 </div>
 
 
-
 <!-- SCRIPT -->
 <script src="../script.js"></script>
-
-<!-- data first -->
 <script src="../data.js"></script>
-
-<!-- artist shop renderer -->
 <script src="artist-shop.js"></script>
 
 </body>
