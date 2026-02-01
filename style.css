@@ -4274,6 +4274,18 @@ background: #f2f2f2;
   text-align: center;
 }
 
+/* Clickable founder photo link */
+.founder-photo-link {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.founder-photo-link:hover {
+  transform: translateY(-3px);
+}
+
 .founder-photo-circle {
   width: 280px;
   height: 280px;
@@ -4282,12 +4294,21 @@ background: #f2f2f2;
   border: 5px solid #fff;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
   margin-bottom: 24px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
 }
 
-.founder-photo-circle:hover {
+.founder-photo-link:hover .founder-photo-circle {
   transform: scale(1.02);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+  opacity: 0.95;
+}
+
+/* Clickable founder name link */
+.founder-name-link {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .founder-name-below {
@@ -4296,6 +4317,15 @@ background: #f2f2f2;
   color: #111;
   letter-spacing: 2px;
   margin: 0;
+  transition: all 0.3s ease;
+}
+
+.founder-name-link:hover .founder-name-below {
+  color: #c9a66b; /* Soft beige/golden on hover */
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: #c9a66b;
+  transform: translateY(-1px);
 }
 
 /* RIGHT COLUMN - Content */
