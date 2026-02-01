@@ -11,7 +11,8 @@ function setLang(lang, event) {
   }
 
   document.querySelectorAll("[data-en]").forEach(el => {
-    el.textContent = el.dataset[lang];
+    // Use innerHTML to properly render HTML tags in translations
+    el.innerHTML = el.dataset[lang];
   });
 
   document.querySelectorAll(".lang-item").forEach(btn => {

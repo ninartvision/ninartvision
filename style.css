@@ -2940,6 +2940,24 @@ background: #f2f2f2;
   width: 80%;
 }
 
+/* Artist link styling (for inline links like Mzia Kashia in About page) */
+.artist-link {
+  color: #c9a66b; /* Soft beige/golden tone */
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(201, 166, 107, 0.3);
+  padding-bottom: 1px;
+}
+
+.artist-link:hover {
+  color: #b8935a; /* Darker on hover */
+  text-decoration: none;
+  border-bottom-color: #b8935a;
+  transform: translateY(-1px);
+}
+
 .flag-icon {
   width: 20px;
   height: 20px;
@@ -5019,14 +5037,3 @@ background: #f2f2f2;
     font-size: 38px;
   }
 
-  /* Artist link (Mzia Kashia) */
-  .artist-link {
-    color: #c2a68a; /* ბეჟი / კანისფერი */
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .artist-link:hover {
-    text-decoration: underline;
-  }
-}
