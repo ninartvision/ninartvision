@@ -86,19 +86,15 @@
         else if (a.id === "nanuli") artistPage = "nanuli.html";
         else artistPage = `artist.html?artist=${encodeURIComponent(a.id)}`;
 
-        // Add special styling for Mzia Kashia
-        const nameClass = a.id === "mzia" ? "artist-name artist-name-highlighted" : "artist-name";
-        const nameSpanClass = a.id === "mzia" ? "highlighted-artist-link" : "";
-
         return `
           <a class="artist-card" href="${artistPage}">
             <div class="artist-avatar"
                  style="background-image:url('../${a.avatar}')">
             </div>
 
-            <h3 class="${nameClass}">
+            <h3 class="artist-name">
               <img src="../images/icon.jpg" alt="Georgia" class="flag-icon">
-              <span class="${nameSpanClass}">${a.name}</span>
+              <span>${a.name}</span>
             </h3>
 
             <p class="artist-style">${a.style || ''}</p>
