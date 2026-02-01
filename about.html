@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="./style.css" />
   <link rel="icon" href="./images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=FiraGO:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=FiraGO:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
-<body data-lang="en">
+<body>
 
   <!-- TOP NAV -->
   <header class="header">
@@ -22,14 +22,27 @@
 
       <nav class="nav desktop-nav">
         <a href="./">Home</a>
-        <a href="#support">Support a Project</a>
+        <a href="support.html">Support a Project</a>
         <a href="sale/shop.html">Shop</a>
         <a href="artists/">Artists</a>
-
         <a href="news.html">News</a>
         <a href="about.html" class="active">About</a>
-        <a href="#login" class="nav-btn">Log In</a>
       </nav>
+
+      <!-- LANGUAGE SWITCH WITH FLAGS -->
+      <div class="lang-switch">
+        <button onclick="setLang('ka')" class="lang-item">
+          <img src="./images/icon.jpg" alt="KA">
+          <span>KA</span>
+          <i class="arrow">›</i>
+        </button>
+
+        <button onclick="setLang('en')" class="lang-item active">
+          <img src="./images/america.png" alt="EN">
+          <span>EN</span>
+          <i class="arrow">›</i>
+        </button>
+      </div>
 
       <button class="hamburger" id="openMenu" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -39,304 +52,173 @@
   </header>
 
   <!-- Mobile menu overlay -->
-<div class="menu-overlay" id="menuOverlay">
-  <button class="menu-close" id="closeMenu" aria-label="Close menu">✕</button>
+  <div class="menu-overlay" id="menuOverlay">
+    <button class="menu-close" id="closeMenu" aria-label="Close menu">✕</button>
 
-  <nav class="menu-links">
-    <a href="./" class="menu-link">HOME</a>
-    <a href="#support" class="menu-link">SUPPORT A PROJECT</a>
-    <a href="sale/shop.html" class="menu-link">SHOP</a>
-    <a href="artists/" class="menu-link">ARTISTS</a>
-    <a href="news.html" class="menu-link">NEWS</a>
-    <a href="about.html" class="menu-link active">ABOUT</a>
-    <a href="#login" class="menu-link">LOG IN</a>
-  </nav>
-</div>
+    <nav class="menu-links">
+      <a href="./" class="menu-link">HOME</a>
+      <a href="support.html" class="menu-link">SUPPORT A PROJECT</a>
+      <a href="sale/shop.html" class="menu-link">SHOP</a>
+      <a href="artists/" class="menu-link">ARTISTS</a>
+      <a href="news.html" class="menu-link">NEWS</a>
+      <a href="about.html" class="menu-link active">ABOUT</a>
+    </nav>
+  </div>
 
   <main>
 
-    <!-- Language Switcher -->
-    <div class="language-switcher">
-      <button class="lang-btn active" data-lang="en">EN</button>
-      <button class="lang-btn" data-lang="ka">KA</button>
-    </div>
-
-    <!-- FOUNDER SECTION WITH CIRCULAR AVATAR -->
-    <section class="about-founder-hero">
+    <!-- FOUNDER SECTION - TWO COLUMN LAYOUT -->
+    <section class="about-founder-section">
       <div class="container">
-        <div class="founder-avatar-wrapper">
-          <img src="./images/logo.png" alt="Nino Maisuradze" class="founder-avatar-circle">
-        </div>
-        <h1 class="founder-full-name" data-i18n="founderName">Nino Maisuradze</h1>
-        <p class="founder-title" data-i18n="founderTitle">Founder & Creative Director</p>
-      </div>
-    </section>
-
-    <!-- FOUNDER STORY SECTION -->
-    <section class="about-section founder-story-section">
-      <div class="container about-container">
-        <div class="about-content">
-          <div class="about-decorative-line"></div>
-          <h2 class="about-heading" data-i18n="founderHeading">Meet the Founder</h2>
+        <div class="about-founder-grid">
           
-          <div class="founder-story-content">
-            <p class="founder-story" data-i18n="founderStory1">
+          <!-- LEFT COLUMN: Photo -->
+          <div class="founder-photo-column">
+            <div class="founder-photo-wrapper">
+              <img src="./images/artists/ninimzhavia.jpg" alt="Nini Mzhavia" class="founder-photo-circle">
+              <h2 class="founder-name-below">NINI MZHAVIA</h2>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: Content -->
+          <div class="founder-content-column">
+            <h1 class="about-page-title" 
+                data-en="About the Founder" 
+                data-ka="დამფუძნებლის შესახებ">
+              About the Founder
+            </h1>
+            
+            <p class="founder-bio" 
+               data-en="As an artist and creative visionary, I've always believed that art has the power to connect souls, tell untold stories, and transform ordinary moments into extraordinary experiences. Growing up surrounded by Georgian culture, traditional craftsmanship, and the vibrant colors of our artistic heritage, I discovered my passion for bringing artists together."
+               data-ka="როგორც მხატვარმა და კრეატიულმა ხედვის მქონე ადამიანმა, ყოველთვის ვიწამე, რომ ხელოვნებას აქვს ძალა დააკავშიროს სულები, მოგვითხროს გაუთქმელი ისტორიები და ჩვეულებრივი მომენტები აქციოს უჩვეულო გამოცდილებად. ქართული კულტურით, ტრადიციული ხელოსნობით და ჩვენი მხატვრული მემკვიდრეობის ნათელი ფერებით გარემოცული ზრდისას, აღმოვაჩინე ჩემი ვნება მხატვრების გაერთიანებისთვის.">
               As an artist and creative visionary, I've always believed that art has the power to connect souls, 
               tell untold stories, and transform ordinary moments into extraordinary experiences. Growing up surrounded 
               by Georgian culture, traditional craftsmanship, and the vibrant colors of our artistic heritage, 
               I discovered my passion for bringing artists together.
             </p>
-            <p class="founder-story" data-i18n="founderStory2">
+
+            <p class="founder-bio" 
+               data-en="My journey began with a simple question: How can we create a space where authentic art thrives, where emerging and established artists share the same stage, and where collectors discover pieces that speak to their hearts? That question became Ninart Vision."
+               data-ka="ჩემი მოგზაურობა დაიწყო მარტივი კითხვით: როგორ შევქმნათ სივრცე, სადაც ავთენტური ხელოვნება აყვავდება, სადაც ახალბედა და მოწინავე მხატვრები ერთსა და იმავე სცენას იზიარებენ და სადაც კოლექციონერები აღმოაჩენენ ნამუშევრებს, რომლებიც მათ გულს ელაპარაკებიან? ეს კითხვა გახდა Ninart Vision.">
               My journey began with a simple question: How can we create a space where authentic art thrives, 
               where emerging and established artists share the same stage, and where collectors discover pieces 
               that speak to their hearts? That question became Ninart Vision.
             </p>
-            <p class="founder-story" data-i18n="founderStory3">
+
+            <p class="founder-bio" 
+               data-en="With years of experience in the art world, I founded this platform not just as a marketplace, but as a movement—a celebration of originality, creativity, and the human spirit expressed through art."
+               data-ka="მხატვრულ სამყაროში წლების გამოცდილებით, ეს პლატფორმა დავაარსე არა მხოლოდ როგორც ბაზარი, არამედ როგორც მოძრაობა - ორიგინალობის, შემოქმედების და ხელოვნებით გამოხატული ადამიანური სულის ზეიმი.">
               With years of experience in the art world, I founded this platform not just as a marketplace, 
               but as a movement—a celebration of originality, creativity, and the human spirit expressed through art.
             </p>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- SECTION 2: ABOUT THE PLATFORM -->
-    <section class="about-section platform-section">
-      <div class="container about-container">
-        <div class="about-content">
-          <div class="about-decorative-line"></div>
-          <h2 class="about-heading" data-i18n="platformHeading">About the Platform</h2>
+    <!-- PLATFORM SECTION -->
+    <section class="about-platform-section">
+      <div class="container">
+        <div class="about-section-content">
+          <h2 class="about-section-title" 
+              data-en="About the Platform" 
+              data-ka="პლატფორმის შესახებ">
+            About the Platform
+          </h2>
           
-          <div class="platform-info">
-            <p class="platform-description" data-i18n="platformDescription">
-              <strong>Ninart Vision</strong> is an independent art platform dedicated to showcasing original, 
-              handcrafted artworks from talented Georgian and international artists. We are a curated collective 
-              where creativity knows no boundaries.
-            </p>
-            
-            <div class="platform-features">
-              <div class="feature-item">
-                <div class="feature-icon">🎨</div>
-                <h4 data-i18n="feature1Title">Diverse Art Forms</h4>
-                <p data-i18n="feature1Text">From contemporary paintings and traditional illustrations to mixed media and digital art, 
-                   we celebrate every form of creative expression.</p>
-              </div>
-              
-              <div class="feature-item">
-                <div class="feature-icon">✨</div>
-                <h4 data-i18n="feature2Title">Authentic & Original</h4>
-                <p data-i18n="feature2Text">Every piece on our platform is an original work, carefully selected for its uniqueness, 
-                   quality, and emotional depth.</p>
-              </div>
-              
-              <div class="feature-item">
-                <div class="feature-icon">🤝</div>
-                <h4 data-i18n="feature3Title">Artist-Centered Community</h4>
-                <p data-i18n="feature3Text">We put artists first, providing them with a unified platform to showcase their work, 
-                   connect with collectors, and share their creative journeys.</p>
-              </div>
+          <p class="about-section-text" 
+             data-en="Ninart Vision is an independent art platform dedicated to showcasing original, handcrafted artworks from talented Georgian and international artists. We are a curated collective where creativity knows no boundaries."
+             data-ka="Ninart Vision არის დამოუკიდებელი სამხატვრო პლატფორმა, რომელიც ეძღვნება ქართველი და საერთაშორისო ნიჭიერი მხატვრების ორიგინალური, ხელით დამზადებული ნამუშევრების წარმოჩენას. ჩვენ ვართ კურატორული კოლექტივი, სადაც შემოქმედებას საზღვრები არ აქვს.">
+            Ninart Vision is an independent art platform dedicated to showcasing original, 
+            handcrafted artworks from talented Georgian and international artists. We are a curated collective 
+            where creativity knows no boundaries.
+          </p>
+
+          <div class="platform-features-grid">
+            <div class="platform-feature">
+              <div class="feature-icon">🎨</div>
+              <h3 data-en="Diverse Art Forms" data-ka="მრავალფეროვანი ხელოვნების ფორმები">Diverse Art Forms</h3>
+              <p data-en="From contemporary paintings and traditional illustrations to mixed media and digital art, we celebrate every form of creative expression."
+                 data-ka="თანამედროვე ნახატებიდან და ტრადიციული ილუსტრაციებიდან შერეული მედიისა და ციფრული ხელოვნებამდე, ჩვენ ვზეიმობთ შემოქმედებითი გამოხატვის ყველა ფორმას.">
+                From contemporary paintings and traditional illustrations to mixed media and digital art, 
+                we celebrate every form of creative expression.
+              </p>
             </div>
 
-            <p class="platform-unique" data-i18n="platformUnique">
-              <strong>What makes us unique?</strong> We're not just a gallery—we're a storytelling space. 
-              Each artwork comes with its narrative, each artist has a voice, and each collector becomes 
-              part of a larger creative community. We bridge the gap between traditional art appreciation 
-              and modern accessibility, making it effortless to discover, explore, and acquire meaningful art.
-            </p>
+            <div class="platform-feature">
+              <div class="feature-icon">✨</div>
+              <h3 data-en="Authentic & Original" data-ka="ავთენტური და ორიგინალური">Authentic & Original</h3>
+              <p data-en="Every piece on our platform is an original work, carefully selected for its uniqueness, quality, and emotional depth."
+                 data-ka="ჩვენს პლატფორმაზე თითოეული ნამუშევარი ორიგინალური ნამუშევარია, ფრთხილად შერჩეული მისი უნიკალურობის, ხარისხისა და ემოციური სიღრმისთვის.">
+                Every piece on our platform is an original work, carefully selected for its uniqueness, 
+                quality, and emotional depth.
+              </p>
+            </div>
+
+            <div class="platform-feature">
+              <div class="feature-icon">🤝</div>
+              <h3 data-en="Artist-Centered Community" data-ka="მხატვარზე ორიენტირებული საზოგადოება">Artist-Centered Community</h3>
+              <p data-en="We put artists first, providing them with a unified platform to showcase their work, connect with collectors, and share their creative journeys."
+                 data-ka="ჩვენ მხატვრებს პირველ რიგში ვაყენებთ, ვაწვდით მათ ერთიან პლატფორმას, რათა წარმოაჩინონ თავიანთი ნამუშევრები, დაუკავშირდნენ კოლექციონერებს და გაიზიარონ თავიანთი შემოქმედებითი მოგზაურობები.">
+                We put artists first, providing them with a unified platform to showcase their work, 
+                connect with collectors, and share their creative journeys.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 3: MISSION & VISION -->
-    <section class="about-section mission-section">
-      <div class="container about-container">
-        <div class="about-content">
-          <div class="about-decorative-line"></div>
-          <h2 class="about-heading" data-i18n="missionVisionHeading">Our Mission & Vision</h2>
+    <!-- MISSION & VISION SECTION -->
+    <section class="about-mission-section">
+      <div class="container">
+        <div class="mission-vision-wrapper">
           
-          <div class="mission-vision-grid">
-            <div class="mission-block">
-              <h3 class="block-title" data-i18n="missionTitle">Our Mission</h3>
-              <p class="block-text" data-i18n="missionIntro">
-                To empower artists by providing a professional, accessible, and artist-friendly platform 
-                where their work reaches a global audience. We are committed to:
-              </p>
-              <ul class="mission-list">
-                <li data-i18n="mission1"><strong>Supporting originality</strong> — Every artist deserves recognition for their unique voice</li>
-                <li data-i18n="mission2"><strong>Fostering creativity</strong> — We encourage experimentation, innovation, and artistic growth</li>
-                <li data-i18n="mission3"><strong>Celebrating storytelling</strong> — Art is more than aesthetics; it's emotion, history, and connection</li>
-                <li data-i18n="mission4"><strong>Making art accessible</strong> — Art should be for everyone, not confined to exclusive circles</li>
-                <li data-i18n="mission5"><strong>Building community</strong> — Artists, collectors, and art lovers united by passion</li>
-              </ul>
-            </div>
-
-            <div class="vision-block">
-              <h3 class="block-title" data-i18n="visionTitle">Our Vision</h3>
-              <p class="block-text" data-i18n="visionIntro">
-                We envision a world where art is not a luxury, but a vital part of everyday life. 
-                A world where artists thrive doing what they love, where collectors find pieces that 
-                resonate with their souls, and where culture and creativity flourish without borders.
-              </p>
-              <p class="block-text" data-i18n="visionSubtitle">
-                <strong>Our long-term vision:</strong>
-              </p>
-              <ul class="vision-list">
-                <li data-i18n="vision1">Become the <strong>leading platform</strong> for original Georgian and international art</li>
-                <li data-i18n="vision2">Expand our artist collective to include diverse voices from around the world</li>
-                <li data-i18n="vision3">Launch educational initiatives, workshops, and artist residency programs</li>
-                <li data-i18n="vision4">Create immersive art experiences that blend physical and digital spaces</li>
-                <li data-i18n="vision5">Champion emerging talent and provide mentorship opportunities</li>
-                <li data-i18n="vision6">Build a global community of art enthusiasts who value authenticity and originality</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="closing-message">
-            <p data-i18n="closingMessage">
-              Art is not just what we do—it's who we are. At Ninart Vision, every brushstroke, 
-              every color, every creation tells a story worth sharing. Join us on this journey, 
-              and let's make the world more beautiful, one masterpiece at a time.
+          <div class="mission-column">
+            <h2 class="mission-title" 
+                data-en="Our Mission" 
+                data-ka="ჩვენი მისია">
+              Our Mission
+            </h2>
+            <p class="mission-text" 
+               data-en="To empower artists by providing a professional, accessible, and artist-friendly platform where their work reaches a global audience."
+               data-ka="მხატვრების გაძლიერება პროფესიული, ხელმისაწვდომი და მხატვრებზე ორიენტირებული პლატფორმის უზრუნველყოფით, სადაც მათი ნამუშევრები მიაღწევს გლობალურ აუდიტორიას.">
+              To empower artists by providing a professional, accessible, and artist-friendly platform 
+              where their work reaches a global audience.
             </p>
-            <div class="signature">
-              <p class="signature-text" data-i18n="signatureText">With creativity and passion,</p>
-              <p class="signature-name" data-i18n="signatureName">— The Ninart Vision Team</p>
-            </div>
           </div>
+
+          <div class="vision-column">
+            <h2 class="vision-title" 
+                data-en="Our Vision" 
+                data-ka="ჩვენი ხედვა">
+              Our Vision
+            </h2>
+            <p class="vision-text" 
+               data-en="We envision a world where art is not a luxury, but a vital part of everyday life. A world where artists thrive doing what they love, and where culture and creativity flourish without borders."
+               data-ka="ჩვენ ვიხილავთ სამყაროს, სადაც ხელოვნება არ არის ფუფუნება, არამედ ყოველდღიური ცხოვრების სასიცოცხლო ნაწილი. სამყარო, სადაც მხატვრები აყვავდებიან სიყვარულით, სადაც კულტურა და შემოქმედება აყვავდება საზღვრების გარეშე.">
+              We envision a world where art is not a luxury, but a vital part of everyday life. 
+              A world where artists thrive doing what they love, and where culture and creativity flourish without borders.
+            </p>
+          </div>
+
         </div>
       </div>
     </section>
 
-      <!-- FOOTER -->
+  </main>
+
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-row">
       <p>share the experience™</p>
       <p class="muted">powered by Ninart Vision</p>
     </div>
   </footer>
-</main>
 
-<script defer src="script.js"></script>
-
-<!-- Language Switcher Script -->
-<script>
-  // Translation data
-  const translations = {
-    en: {
-      founderName: "Nino Maisuradze",
-      founderTitle: "Founder & Creative Director",
-      founderHeading: "Meet the Founder",
-      founderStory1: "As an artist and creative visionary, I've always believed that art has the power to connect souls, tell untold stories, and transform ordinary moments into extraordinary experiences. Growing up surrounded by Georgian culture, traditional craftsmanship, and the vibrant colors of our artistic heritage, I discovered my passion for bringing artists together.",
-      founderStory2: "My journey began with a simple question: How can we create a space where authentic art thrives, where emerging and established artists share the same stage, and where collectors discover pieces that speak to their hearts? That question became Ninart Vision.",
-      founderStory3: "With years of experience in the art world, I founded this platform not just as a marketplace, but as a movement—a celebration of originality, creativity, and the human spirit expressed through art.",
-      platformHeading: "About the Platform",
-      platformDescription: "Ninart Vision is an independent art platform dedicated to showcasing original, handcrafted artworks from talented Georgian and international artists. We are a curated collective where creativity knows no boundaries.",
-      feature1Title: "Diverse Art Forms",
-      feature1Text: "From contemporary paintings and traditional illustrations to mixed media and digital art, we celebrate every form of creative expression.",
-      feature2Title: "Authentic & Original",
-      feature2Text: "Every piece on our platform is an original work, carefully selected for its uniqueness, quality, and emotional depth.",
-      feature3Title: "Artist-Centered Community",
-      feature3Text: "We put artists first, providing them with a unified platform to showcase their work, connect with collectors, and share their creative journeys.",
-      platformUnique: "What makes us unique? We're not just a gallery—we're a storytelling space. Each artwork comes with its narrative, each artist has a voice, and each collector becomes part of a larger creative community. We bridge the gap between traditional art appreciation and modern accessibility, making it effortless to discover, explore, and acquire meaningful art.",
-      missionVisionHeading: "Our Mission & Vision",
-      missionTitle: "Our Mission",
-      missionIntro: "To empower artists by providing a professional, accessible, and artist-friendly platform where their work reaches a global audience. We are committed to:",
-      mission1: "Supporting originality — Every artist deserves recognition for their unique voice",
-      mission2: "Fostering creativity — We encourage experimentation, innovation, and artistic growth",
-      mission3: "Celebrating storytelling — Art is more than aesthetics; it's emotion, history, and connection",
-      mission4: "Making art accessible — Art should be for everyone, not confined to exclusive circles",
-      mission5: "Building community — Artists, collectors, and art lovers united by passion",
-      visionTitle: "Our Vision",
-      visionIntro: "We envision a world where art is not a luxury, but a vital part of everyday life. A world where artists thrive doing what they love, where collectors find pieces that resonate with their souls, and where culture and creativity flourish without borders.",
-      visionSubtitle: "Our long-term vision:",
-      vision1: "Become the leading platform for original Georgian and international art",
-      vision2: "Expand our artist collective to include diverse voices from around the world",
-      vision3: "Launch educational initiatives, workshops, and artist residency programs",
-      vision4: "Create immersive art experiences that blend physical and digital spaces",
-      vision5: "Champion emerging talent and provide mentorship opportunities",
-      vision6: "Build a global community of art enthusiasts who value authenticity and originality",
-      closingMessage: "Art is not just what we do—it's who we are. At Ninart Vision, every brushstroke, every color, every creation tells a story worth sharing. Join us on this journey, and let's make the world more beautiful, one masterpiece at a time.",
-      signatureText: "With creativity and passion,",
-      signatureName: "— The Ninart Vision Team"
-    },
-    ka: {
-      founderName: "ნინო მაისურაძე",
-      founderTitle: "დამფუძნებელი და კრეატიული დირექტორი",
-      founderHeading: "გაიცანით დამფუძნებელი",
-      founderStory1: "როგორც მხატვარმა და კრეატიულმა ხედვის მქონე ადამიანმა, ყოველთვის ვიწამე, რომ ხელოვნებას აქვს ძალა დააკავშიროს სულები, მოგვითხროს გაუთქმელი ისტორიები და ჩვეულებრივი მომენტები აქციოს უჩვეულო გამოცდილებად. ქართული კულტურით, ტრადიციული ხელოსნობით და ჩვენი მხატვრული მემკვიდრეობის ნათელი ფერებით გარემოცული ზრდისას, აღმოვაჩინე ჩემი ვნება მხატვრების გაერთიანებისთვის.",
-      founderStory2: "ჩემი მოგზაურობა დაიწყო მარტივი კითხვით: როგორ შევქმნათ სივრცე, სადაც ავთენტური ხელოვნება აყვავდება, სადაც ახალბედა და მოწინავე მხატვრები ერთსა და იმავე სცენას იზიარებენ და სადაც კოლექციონერები აღმოაჩენენ ნამუშევრებს, რომლებიც მათ გულს ელაპარაკებიან? ეს კითხვა გახდა Ninart Vision.",
-      founderStory3: "მხატვრულ სამყაროში წლების გამოცდილებით, ეს პლატფორმა დავაარსე არა მხოლოდ როგორც ბაზარი, არამედ როგორც მოძრაობა - ორიგინალობის, შემოქმედების და ხელოვნებით გამოხატული ადამიანური სულის ზეიმი.",
-      platformHeading: "პლატფორმის შესახებ",
-      platformDescription: "Ninart Vision არის დამოუკიდებელი სამხატვრო პლატფორმა, რომელიც ეძღვნება ქართველი და საერთაშორისო ნიჭიერი მხატვრების ორიგინალური, ხელით დამზადებული ნამუშევრების წარმოჩენას. ჩვენ ვართ კურატორული კოლექტივი, სადაც შემოქმედებას საზღვრები არ აქვს.",
-      feature1Title: "მრავალფეროვანი ხელოვნების ფორმები",
-      feature1Text: "თანამედროვე ნახატებიდან და ტრადიციული ილუსტრაციებიდან შერეული მედიისა და ციფრული ხელოვნებამდე, ჩვენ ვზეიმობთ შემოქმედებითი გამოხატვის ყველა ფორმას.",
-      feature2Title: "ავთენტური და ორიგინალური",
-      feature2Text: "ჩვენს პლატფორმაზე თითოეული ნამუშევარი ორიგინალური ნამუშევარია, ფრთხილად შერჩეული მისი უნიკალურობის, ხარისხისა და ემოციური სიღრმისთვის.",
-      feature3Title: "მხატვარზე ორიენტირებული საზოგადოება",
-      feature3Text: "ჩვენ მხატვრებს პირველ რიგში ვაყენებთ, ვაწვდით მათ ერთიან პლატფორმას, რათა წარმოაჩინონ თავიანთი ნამუშევრები, დაუკავშირდნენ კოლექციონერებს და გაიზიარონ თავიანთი შემოქმედებითი მოგზაურობები.",
-      platformUnique: "რა გვხდის უნიკალურს? ჩვენ არ ვართ მხოლოდ გალერეა - ჩვენ ვართ მოთხრობის სივრცე. თითოეულ ნამუშევარს აქვს თავისი ნარატივი, თითოეულ მხატვარს აქვს ხმა და თითოეული კოლექციონერი ხდება უფრო დიდი შემოქმედებითი საზოგადოების ნაწილი. ჩვენ ვაკავშირებთ ტრადიციულ ხელოვნების დაფასებასა და თანამედროვე ხელმისაწვდომობას შორის უფსკრულს.",
-      missionVisionHeading: "ჩვენი მისია და ხედვა",
-      missionTitle: "ჩვენი მისია",
-      missionIntro: "მხატვრების გაძლიერება პროფესიული, ხელმისაწვდომი და მხატვრებზე ორიენტირებული პლატფორმის უზრუნველყოფით, სადაც მათი ნამუშევრები მიაღწევს გლობალურ აუდიტორიას. ჩვენ ვართ ერთგულნი:",
-      mission1: "ორიგინალობის მხარდაჭერა — ყველა მხატვარი იმსახურებს აღიარებას თავისი უნიკალური ხმისთვის",
-      mission2: "შემოქმედების ხელშეწყობა — ჩვენ ვაწახალისებთ ექსპერიმენტებს, ინოვაციებსა და მხატვრულ ზრდას",
-      mission3: "მოთხრობის ზეიმი — ხელოვნება მეტია ვიდრე ესთეტიკა; ეს არის ემოცია, ისტორია და კავშირი",
-      mission4: "ხელოვნების ხელმისაწვდომობა — ხელოვნება უნდა იყოს ყველასთვის, არა მხოლოდ ექსკლუზიურ წრეებში",
-      mission5: "საზოგადოების შექმნა — მხატვრები, კოლექციონერები და ხელოვნების მოყვარულები გაერთიანებულნი ვნებით",
-      visionTitle: "ჩვენი ხედვა",
-      visionIntro: "ჩვენ ვიხილავთ სამყაროს, სადაც ხელოვნება არ არის ფუფუნება, არამედ ყოველდღიური ცხოვრების სასიცოცხლო ნაწილი. სამყარო, სადაც მხატვრები აყვავდებიან სიყვარულით, სადაც კოლექციონერები პოულობენ ნამუშევრებს, რომლებიც რეზონანსში მოდიან მათ სულებთან.",
-      visionSubtitle: "ჩვენი გრძელვადიანი ხედვა:",
-      vision1: "გავხდეთ წამყვანი პლატფორმა ქართული და საერთაშორისო ორიგინალური ხელოვნებისთვის",
-      vision2: "გავაფართოოთ ჩვენი მხატვრული კოლექტივი მსოფლიოს სხვადასხვა ხმების ჩართვით",
-      vision3: "დავიწყოთ საგანმანათლებლო ინიციატივები, სემინარები და მხატვრული რეზიდენციის პროგრამები",
-      vision4: "შევქმნათ განსახიერებული ხელოვნების გამოცდილებები, რომლებიც აერთიანებს ფიზიკურ და ციფრულ სივრცეებს",
-      vision5: "მხარი დავუჭიროთ ახალბედა ნიჭს და მივაწოდოთ მენტორობის შესაძლებლობები",
-      vision6: "ავაშენოთ ხელოვნების ენთუზიასტების გლობალური საზოგადოება, რომლებიც აფასებენ ავთენტურობასა და ორიგინალობას",
-      closingMessage: "ხელოვნება არ არის მხოლოდ ის, რასაც ვაკეთებთ - ეს არის ის, ვინც ვართ. Ninart Vision-ში, თითოეული ფუნჯის შტრიხი, თითოეული ფერი, თითოეული შექმნა მოგვითხრობს ისტორიას, რომელიც ღირს გაზიარების. შემოგვიერთდით ამ მოგზაურობაში და მოდით სამყარო უფრო ლამაზი გავხადოთ, ერთი შედევრით ერთდროულად.",
-      signatureText: "შემოქმედებითა და ვნებით,",
-      signatureName: "— Ninart Vision გუნდი"
-    }
-  };
-
-  // Language switcher functionality
-  const langButtons = document.querySelectorAll('.lang-btn');
-  const body = document.body;
-
-  // Load saved language or default to EN
-  const savedLang = localStorage.getItem('aboutPageLang') || 'en';
-  setLanguage(savedLang);
-
-  // Add click event to language buttons
-  langButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const lang = btn.getAttribute('data-lang');
-      setLanguage(lang);
-      localStorage.setItem('aboutPageLang', lang);
-    });
-  });
-
-  function setLanguage(lang) {
-    body.setAttribute('data-lang', lang);
-    
-    // Update active button
-    langButtons.forEach(btn => {
-      if (btn.getAttribute('data-lang') === lang) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-
-    // Update all translatable elements
-    const elements = document.querySelectorAll('[data-i18n]');
-    elements.forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (translations[lang] && translations[lang][key]) {
-        el.innerHTML = translations[lang][key];
-      }
-    });
-  }
-</script>
+  <script defer src="script.js"></script>
+  <script defer src="support.js"></script>
 
 </body>
 </html>

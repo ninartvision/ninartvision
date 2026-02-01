@@ -4179,22 +4179,329 @@ background: #f2f2f2;
 
 @media (max-width: 768px) {
   .artists-header {
-    flex-direction: row;        /* ← აღარ ჩამოვა ქვემოთ */
+    flex-direction: row;
     justify-content: center;
     gap: 16px;
   }
 
   .artists-art {
-    width: 250px;                /* მობილურზე პატარა */
+    width: 250px;
     height: 84px;
   }
 }
 
 /* ========================================
-   ABOUT PAGE STYLES
+   ABOUT PAGE STYLES - RESPONSIVE DESKTOP & MOBILE
    ======================================== */
 
-/* Language Switcher */
+/* FOUNDER SECTION - TWO COLUMN LAYOUT */
+.about-founder-section {
+  padding: 120px 0 80px;
+  background: #fafafa;
+}
+
+.about-founder-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 80px;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* LEFT COLUMN - Photo */
+.founder-photo-column {
+  position: sticky;
+  top: 120px;
+}
+
+.founder-photo-wrapper {
+  text-align: center;
+}
+
+.founder-photo-circle {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #fff;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+  margin-bottom: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.founder-photo-circle:hover {
+  transform: scale(1.02);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+}
+
+.founder-name-below {
+  font-size: 22px;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+/* RIGHT COLUMN - Content */
+.founder-content-column {
+  padding-top: 20px;
+}
+
+.about-page-title {
+  font-size: 48px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 32px;
+  letter-spacing: -1px;
+  line-height: 1.2;
+}
+
+.founder-bio {
+  font-size: 17px;
+  line-height: 1.9;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+/* PLATFORM SECTION */
+.about-platform-section {
+  padding: 80px 0;
+  background: #ffffff;
+}
+
+.about-section-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.about-section-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.about-section-text {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #333;
+  text-align: center;
+  margin-bottom: 60px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.platform-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.platform-feature {
+  text-align: center;
+  padding: 32px 24px;
+  background: #fafafa;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.platform-feature:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.platform-feature .feature-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.platform-feature h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 16px;
+}
+
+.platform-feature p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* MISSION & VISION SECTION */
+.about-mission-section {
+  padding: 80px 0;
+  background: #fafafa;
+}
+
+.mission-vision-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mission-column,
+.vision-column {
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.mission-title,
+.vision-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 3px solid #111;
+}
+
+.mission-text,
+.vision-text {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET
+   ======================================== */
+
+@media (max-width: 992px) {
+  .about-founder-grid {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .founder-photo-column {
+    position: relative;
+    top: 0;
+  }
+
+  .founder-photo-circle {
+    width: 220px;
+    height: 220px;
+  }
+
+  .about-page-title {
+    font-size: 38px;
+    text-align: center;
+  }
+
+  .founder-bio {
+    text-align: center;
+  }
+
+  .platform-features-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .mission-vision-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+  .about-founder-section {
+    padding: 100px 0 60px;
+  }
+
+  .about-founder-grid {
+    gap: 40px;
+  }
+
+  .founder-photo-circle {
+    width: 180px;
+    height: 180px;
+    border-width: 4px;
+  }
+
+  .founder-name-below {
+    font-size: 18px;
+    letter-spacing: 1.5px;
+  }
+
+  .about-page-title {
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+
+  .founder-bio {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .about-platform-section {
+    padding: 60px 0;
+  }
+
+  .about-section-title {
+    font-size: 32px;
+  }
+
+  .about-section-text {
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
+  .platform-features-grid {
+    gap: 24px;
+  }
+
+  .platform-feature {
+    padding: 28px 20px;
+  }
+
+  .platform-feature .feature-icon {
+    font-size: 40px;
+  }
+
+  .platform-feature h3 {
+    font-size: 18px;
+  }
+
+  .platform-feature p {
+    font-size: 14px;
+  }
+
+  .about-mission-section {
+    padding: 60px 0;
+  }
+
+  .mission-column,
+  .vision-column {
+    padding: 32px 24px;
+  }
+
+  .mission-title,
+  .vision-title {
+    font-size: 26px;
+  }
+
+  .mission-text,
+  .vision-text {
+    font-size: 15px;
+  }
+}
+
+
+/* OLD ABOUT PAGE STYLES - DEPRECATED - KEEPING FOR BACKWARDS COMPATIBILITY */
 .language-switcher {
   position: fixed;
   top: 100px;
@@ -4235,7 +4542,6 @@ background: #f2f2f2;
   border-color: #111;
 }
 
-/* Founder Hero Section with Circular Avatar */
 .about-founder-hero {
   padding: 140px 0 60px;
   background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
@@ -4280,7 +4586,6 @@ background: #f2f2f2;
   font-style: italic;
 }
 
-/* Founder Story Section */
 .founder-story-section {
   background: #ffffff;
 }
