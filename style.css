@@ -4280,6 +4280,7 @@ background: #f2f2f2;
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.3s ease;
+  -webkit-tap-highlight-color: rgba(201, 166, 107, 0.2); /* Mobile tap highlight */
 }
 
 .founder-photo-link:hover {
@@ -4295,6 +4296,8 @@ background: #f2f2f2;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
   margin-bottom: 24px;
   transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  user-select: none; /* Prevent text selection on mobile tap */
+  -webkit-user-select: none;
 }
 
 .founder-photo-link:hover .founder-photo-circle {
@@ -4309,6 +4312,7 @@ background: #f2f2f2;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  -webkit-tap-highlight-color: rgba(201, 166, 107, 0.2); /* Mobile tap highlight */
 }
 
 .founder-name-below {
@@ -4318,6 +4322,8 @@ background: #f2f2f2;
   letter-spacing: 2px;
   margin: 0;
   transition: all 0.3s ease;
+  user-select: none; /* Prevent text selection on mobile tap */
+  -webkit-user-select: none;
 }
 
 .founder-name-link:hover .founder-name-below {
@@ -4508,23 +4514,68 @@ background: #f2f2f2;
   }
 
   .about-founder-grid {
-    gap: 40px;
+    gap: 50px; /* Increased gap for better spacing between photo and content */
+  }
+
+  /* Ensure photo column is centered and well-spaced on mobile */
+  .founder-photo-column {
+    padding: 0 20px;
+  }
+
+  .founder-photo-wrapper {
+    margin-bottom: 16px; /* Space between wrapper and content below */
+  }
+
+  /* Mobile-specific clickable photo link */
+  .founder-photo-link {
+    display: block;
+    margin-bottom: 16px; /* Space between image and name */
+  }
+
+  /* Enhanced mobile tap feedback for photo */
+  .founder-photo-link:active .founder-photo-circle {
+    transform: scale(0.98);
+    opacity: 0.9;
   }
 
   .founder-photo-circle {
     width: 180px;
     height: 180px;
     border-width: 4px;
+    margin-bottom: 0; /* Remove bottom margin since link has spacing */
+  }
+
+  /* Mobile-specific clickable name link */
+  .founder-name-link {
+    display: block;
+    margin-bottom: 20px; /* Space after name before next section */
+    padding: 8px 16px; /* Increase tap area */
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  /* Enhanced mobile tap feedback for name */
+  .founder-name-link:active {
+    background: rgba(201, 166, 107, 0.1);
+    transform: scale(0.98);
   }
 
   .founder-name-below {
     font-size: 18px;
     letter-spacing: 1.5px;
+    margin: 0;
+  }
+
+  /* Add visual spacing before "About" title on mobile */
+  .founder-content-column {
+    padding-top: 12px;
   }
 
   .about-page-title {
     font-size: 32px;
-    margin-bottom: 24px;
+    margin-bottom: 28px; /* Increased space after title */
+    margin-top: 0;
+    padding-top: 0;
   }
 
   .founder-bio {
