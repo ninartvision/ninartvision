@@ -4190,3 +4190,318 @@ background: #f2f2f2;
   }
 }
 
+/* ========================================
+   ABOUT PAGE STYLES
+   ======================================== */
+
+/* About Hero Section */
+.about-hero {
+  padding: 140px 0 80px;
+  background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.about-hero-title {
+  font-size: 48px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+
+.about-hero-subtitle {
+  font-size: 18px;
+  color: #555;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* About Sections */
+.about-section {
+  padding: 80px 0;
+}
+
+.about-section:nth-child(even) {
+  background: #fafafa;
+}
+
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about-content {
+  position: relative;
+}
+
+/* Decorative Line */
+.about-decorative-line {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #111 0%, #888 100%);
+  margin-bottom: 24px;
+}
+
+/* Section Headings */
+.about-heading {
+  font-size: 36px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 32px;
+  letter-spacing: -0.5px;
+}
+
+/* Founder Section */
+.founder-section {
+  background: #ffffff;
+}
+
+.founder-name {
+  font-size: 28px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 20px;
+}
+
+.founder-story {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.founder-story em {
+  font-style: italic;
+  color: #555;
+}
+
+/* Platform Section */
+.platform-section {
+  background: #fafafa;
+}
+
+.platform-description {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.platform-description strong {
+  font-weight: 700;
+  color: #111;
+}
+
+.platform-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.feature-item {
+  text-align: center;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.feature-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.feature-item h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 12px;
+}
+
+.feature-item p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.platform-unique {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+  padding: 24px;
+  background: #fff;
+  border-left: 4px solid #111;
+  border-radius: 4px;
+}
+
+.platform-unique strong {
+  font-weight: 700;
+  color: #111;
+}
+
+/* Mission & Vision Section */
+.mission-section {
+  background: #ffffff;
+}
+
+.mission-vision-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin-bottom: 50px;
+}
+
+.mission-block,
+.vision-block {
+  padding: 32px;
+  background: #fafafa;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.block-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #111;
+}
+
+.block-text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.mission-list,
+.vision-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mission-list li,
+.vision-list li {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 12px;
+  padding-left: 24px;
+  position: relative;
+}
+
+.mission-list li:before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  color: #111;
+  font-weight: bold;
+}
+
+.vision-list li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #111;
+  font-weight: bold;
+}
+
+.mission-list li strong,
+.vision-list li strong {
+  font-weight: 700;
+  color: #111;
+}
+
+/* Closing Message */
+.closing-message {
+  text-align: center;
+  padding: 50px 40px;
+  background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.closing-message p {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+.signature {
+  margin-top: 32px;
+}
+
+.signature-text {
+  font-size: 15px;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.signature-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+}
+
+/* Responsive Design for About Page */
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 120px 0 60px;
+  }
+
+  .about-hero-title {
+    font-size: 32px;
+  }
+
+  .about-hero-subtitle {
+    font-size: 16px;
+  }
+
+  .about-section {
+    padding: 60px 0;
+  }
+
+  .about-heading {
+    font-size: 28px;
+  }
+
+  .platform-features {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .mission-vision-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .founder-name {
+    font-size: 24px;
+  }
+
+  .founder-story,
+  .platform-description,
+  .block-text {
+    font-size: 15px;
+  }
+
+  .closing-message {
+    padding: 40px 24px;
+  }
+
+  .closing-message p {
+    font-size: 15px;
+  }
+}
