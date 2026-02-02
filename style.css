@@ -1095,6 +1095,32 @@ body{
   }
 }
 
+/* Smaller artist cards for very small mobile screens */
+@media(max-width: 400px){
+  .artists-grid {
+    gap: 8px;
+  }
+
+  .artist-card{
+    padding: 10px 4px;
+  }
+
+  .artist-avatar{
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 5px;
+  }
+
+  .artist-card h3,
+  .artist-card h4{
+    font-size: 10px;
+  }
+
+  .artist-card p{
+    font-size: 8px;
+  }
+}
+
 /* ===== ArtistShare-style Hero Slider ===== */
 .hero-as-slider{
   position: relative;
@@ -4087,17 +4113,21 @@ background: #f2f2f2;
 
 /* Line art next to SALE / SOLD */
 .shop-line-art {
+  display: block;
   width: 280px;
   height: 70px;
   background-image: url("../images/line-hand.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: left center;
-  opacity: 0.65;
+  opacity: 0.85;
   flex-shrink: 0;
   
   margin-left: 30px;
   transform: translateY(-8px);
+  
+  /* Enhance visibility and sharpness */
+  filter: contrast(1.4) brightness(0.75);
 }
 
 /* Mobile / Tablet */
@@ -4122,10 +4152,14 @@ background: #f2f2f2;
 /* Small Mobile - further reduce decorative image */
 @media (max-width: 600px) {
   .shop-line-art {
+    display: block !important;
     max-width: 200px;
     height: 45px;
-    display: block !important;
-    margin: 0 auto;
+    margin: 10px auto 0;
+    opacity: 0.75;
+    
+    /* Maintain visibility on mobile */
+    filter: contrast(1.5) brightness(0.7);
   }
   
   /* Ensure shop header is visible and centered on mobile */
