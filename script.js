@@ -424,7 +424,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
-     FEATURED PROJECTS SLIDER (3 Cards Visible)
+     FEATURED PROJECTS SLIDER (Responsive)
   ========================= */
   const projectsTrack = document.getElementById("projectsTrack");
   const projectsPrev = document.getElementById("projectsPrev");
@@ -434,6 +434,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentIndex = 0;
     const cards = projectsTrack.querySelectorAll(".card");
     const totalCards = cards.length;
+
+    // Touch/swipe support variables
+    let touchStartX = 0;
+    let touchEndX = 0;
 
     // Determine how many cards are visible at once
     function getVisibleCards() {
@@ -452,19 +456,19 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateSlider() {
       const visibleCards = getVisibleCards();
       const cardWidth = cards[0]?.offsetWidth || 0;
-      const gap = 22;
+      const gap = window.innerWidth <= 600 ? 16 : 22;
       
       // Calculate offset for smooth scrolling
       const offset = currentIndex * (cardWidth + gap);
       projectsTrack.style.transform = `translateX(-${offset}px)`;
 
-      // Update arrow button states
+      // Update arrow button states (but keep them visible)
       projectsPrev.disabled = currentIndex === 0;
-      projectsPrev.style.opacity = currentIndex === 0 ? '0.4' : '1';
+      projectsPrev.style.opacity = currentIndex === 0 ? '0.5' : '1';
       projectsPrev.style.cursor = currentIndex === 0 ? 'not-allowed' : 'pointer';
       
       projectsNext.disabled = currentIndex >= getMaxIndex();
-      projectsNext.style.opacity = currentIndex >= getMaxIndex() ? '0.4' : '1';
+      projectsNext.style.opacity = currentIndex >= getMaxIndex() ? '0.5' : '1';
       projectsNext.style.cursor = currentIndex >= getMaxIndex() ? 'not-allowed' : 'pointer';
     }
 
@@ -485,13 +489,43 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // Touch/swipe support for mobile
+    projectsTrack.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    projectsTrack.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0 && currentIndex < getMaxIndex()) {
+          // Swipe left - go to next
+          currentIndex++;
+          updateSlider();
+        } else if (diff < 0 && currentIndex > 0) {
+          // Swipe right - go to previous
+          currentIndex--;
+          updateSlider();
+        }
+      }
+    }
+
     // Handle window resize
     let resizeTimer;
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        // Reset to first card on resize to avoid layout issues
-        currentIndex = 0;
+        // Keep current position but ensure it's within bounds
+        const maxIndex = getMaxIndex();
+        if (currentIndex > maxIndex) {
+          currentIndex = maxIndex;
+        }
         updateSlider();
       }, 150);
     });
@@ -510,6 +544,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initial setup with slight delay to ensure DOM is ready
     setTimeout(() => {
       updateSlider();
+      // Log total projects for verification
+      console.log(`Featured Projects: ${totalCards} total projects loaded`);
     }, 100);
   }
 

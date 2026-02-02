@@ -2286,24 +2286,32 @@ background: #f2f2f2;
     max-width: calc((100% - 22px) / 2);
   }
   
+  .projects-arrow {
+    /* Ensure arrows are always visible on tablet */
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: all !important;
+  }
+  
   .projects-arrow.left { 
-    left: 5px; 
+    left: 8px; 
   }
   
   .projects-arrow.right { 
-    right: 5px; 
+    right: 8px; 
   }
   
   .projects-slider-wrap {
     overflow: hidden;
+    padding: 0 4px;
   }
 }
 
-/* Mobile: Show 3 cards */
+/* Mobile: Show 1 card at a time */
 @media (max-width: 600px) {
   .projects-track .card {
-    flex: 0 0 calc((100% - 32px) / 3);
-    max-width: calc((100% - 32px) / 3);
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 
   .projects-track {
@@ -2311,21 +2319,27 @@ background: #f2f2f2;
   }
 
   .projects-arrow {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     font-size: 18px;
+    /* Ensure arrows are always visible and accessible */
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: all !important;
   }
 
   .projects-arrow.left { 
-    left: 5px; 
+    left: 8px; 
   }
   
   .projects-arrow.right { 
-    right: 5px; 
+    right: 8px; 
   }
   
   .projects-slider-wrap {
     overflow: hidden;
+    /* Ensure arrows don't get clipped */
+    padding: 0 4px;
   }
 }
 .project-paragraph{
