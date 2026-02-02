@@ -89,14 +89,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const bio = artistBios[artistId]?.[lang] || artistData?.about || "No biography available.";
       bioText.textContent = bio;
 
-      // Update button styles
+      // Update button styles with improved contrast
       langSwitches.forEach(btn => {
         if (btn.dataset.lang === lang) {
-          btn.style.background = "#333";
+          btn.style.background = "#1a1a1a";
           btn.style.color = "#fff";
+          btn.style.opacity = "1";
         } else {
-          btn.style.background = "#ddd";
-          btn.style.color = "#333";
+          btn.style.background = "#e8e8e8";
+          btn.style.color = "#666";
+          btn.style.opacity = "0.7";
         }
       });
     };
