@@ -1,13 +1,7 @@
-function setLang(lang, event) {
-  // Prevent event propagation to avoid conflicts with other buttons
-  if (event) {
-    event.stopPropagation();
-    event.preventDefault();
-  }
-
-  // შეცვალე ყველა data-en / data-ka ტექსტი
+function setLang(lang) {
+  // ტექსტების შეცვლა
   document.querySelectorAll("[data-en]").forEach(el => {
-    el.textContent = el.dataset[lang];
+    el.innerHTML = el.dataset[lang];
   });
 
   // active კლასის მართვა
@@ -16,26 +10,24 @@ function setLang(lang, event) {
   });
 
   const activeBtn = document.querySelector(
-    `.lang-item[onclick*="'${lang}'"]`
+    `.lang-item[data-lang="${lang}"]`
   );
   if (activeBtn) activeBtn.classList.add("active");
 
-  // 🔐 ენის დამახსოვრება
+  // ენის დამახსოვრება
   localStorage.setItem("siteLang", lang);
 }
 
-// 🔁 გვერდის ჩატვირთვისას – დამახსოვრებული ენა
+// გვერდის ჩატვირთვისას – KA default
 document.addEventListener("DOMContentLoaded", () => {
-  const savedLang = localStorage.getItem("siteLang") || "en";
+  const savedLang = localStorage.getItem("siteLang") || "ka";
   setLang(savedLang);
 
-  // Add proper event listeners to prevent conflicts
   document.querySelectorAll(".lang-item").forEach(btn => {
-    btn.addEventListener("click", function(e) {
-      e.stopPropagation();
+    btn.addEventListener("click", function (e) {
       e.preventDefault();
-      const langCode = this.getAttribute("onclick").match(/'(\w+)'/)[1];
-      setLang(langCode, e);
+      e.stopPropagation();
+      setLang(this.dataset.lang);
     });
   });
 });

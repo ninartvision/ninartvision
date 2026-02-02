@@ -32,7 +32,7 @@ function setLang(lang, event) {
 
 // Initialize language on page load
 document.addEventListener("DOMContentLoaded", () => {
-  const savedLang = localStorage.getItem("siteLang") || "en";
+  const savedLang = localStorage.getItem("siteLang") || "ka";
   setLang(savedLang);
 
   // Add proper event listeners to language buttons

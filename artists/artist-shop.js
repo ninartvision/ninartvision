@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     mzia: {
       en: "Mzia Kashia creates impressionist works that blend reality with artistic interpretation, capturing the essence of Georgian landscapes and cultural heritage.",
-      ka: "მზია ქაშია ქმნის იმპრესიონისტულ ნამუშევრებს, რომლებიც აერთიანებს რეალობას მხატვრულ ინტერპრეტაციასთან და ასახავს ქართული ლანდშაფტებისა და კულტურული მემკვიდრეობის არსს."
+      ka: "მზია კაშია ქმნის იმპრესიონისტულ ნამუშევრებს, რომლებიც აერთიანებს რეალობას მხატვრულ ინტერპრეტაციასთან და ასახავს ქართული ლანდშაფტებისა და კულტურული მემკვიდრეობის არსს."
     },
     nanuli: {
       en: "Nanuli Gogiberidze specializes in decorative impressionism, creating vivid artworks that celebrate beauty, nature, and Georgian artistic traditions.",
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  let currentLang = "en";
+  let currentLang = "ka";
 
   // Toggle About section
   if (aboutToggle && aboutContent) {
@@ -103,13 +103,16 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     };
 
-    // Set initial bio
-    updateBio("en");
+    // Set initial bio - default to Georgian (KA)
+    const savedLang = localStorage.getItem("siteLang") || "ka";
+    updateBio(savedLang);
 
     // Language switch handlers
     langSwitches.forEach(btn => {
       btn.addEventListener("click", () => {
-        updateBio(btn.dataset.lang);
+        const lang = btn.dataset.lang;
+        updateBio(lang);
+        localStorage.setItem("siteLang", lang);
       });
     });
   }
