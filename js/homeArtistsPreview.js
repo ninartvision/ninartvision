@@ -1,21 +1,27 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const grid = document.getElementById("homeArtistsGrid");
   const searchInput = document.querySelector(".search-input");
   const sectionTop = document.querySelector("#artists .section-top");
   
   if (!grid) return;
 
-  const artists = window.ARTISTS || [];
-  if (!artists.length) {
-    grid.innerHTML = `<p class="muted">No artists added yet.</p>`;
+  // Show loading state
+  grid.innerHTML = `<p class="muted">Loading artists...</p>`;
+
+  // Fetch featured artists from Sanity (exactly 3 for homepage)
+  let artists = [];
+  try {
+    artists = await fetchArtistsFromSanity(3, true); // Fetch only featured artists
+  } catch (error) {
+    console.error('Error loading artists:', error);
+    grid.innerHTML = `<p class="muted">Unable to load artists. Please try again later.</p>`;
     return;
   }
 
-  // Show all artists including placeholders
-  // To hide placeholders on homepage, uncomment the line below:
-  // const validArtists = artists.filter(a => a.avatar && !a.avatar.includes('placeholder.jpg'));
-  
-  const validArtists = artists; // Show all artists including placeholders
+  if (!artists.length) {
+    grid.innerHTML = `<p class="muted">No artists available yet.</p>`;
+    return;
+  }
 
   // Function to render artists with smooth transition
   function renderArtists(artistsToShow, isSearching = false) {
@@ -30,12 +36,28 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    grid.innerHTML = artistsToShow.map(artist => `
-      <a class="artist-card" href="artists/artist.html?artist=${artist.id}">
-        <div class="artist-avatar" style="background-image:url('${artist.avatar}')"></div>
-        <h3>${artist.name}</h3>
-      </a>
-    `).join("");
+    grid.innerHTML = artistsToShow.map(artist => {
+      // Map slugs to existing HTML filenames
+      const artistSlug = artist.slug?.current || artist.slug || artist._id;
+      const slugToFile = {
+        'nini-mzhavia': 'nini.html',
+        'mzia-kashia': 'mzia.html',
+        'nanuli-gogiberidze': 'nanuli.html',
+        'salome-mzhavia': 'salome.html'
+      };
+      const artistPage = slugToFile[artistSlug] || `${artistSlug}.html`;
+      
+      return `
+        <a class="artist-card" href="artists/${artistPage}">
+          <div class="artist-avatar" style="background-image:url('${artist.avatar || 'images/artists/placeholder.jpg'}')"></div>
+          <h3 class="artist-name">
+            <img src="images/icon.jpg" alt="Georgia" class="flag-icon">
+            <span>${artist.name}</span>
+          </h3>
+          ${artist.style ? `<p class="artist-style">${artist.style}</p>` : ''}
+        </a>
+      `;
+    }).join("");
     
     // Update section subtitle with search results count
     if (sectionTop && isSearching) {
@@ -53,14 +75,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Initial render - show only first 4 artists
-  renderArtists(validArtists.slice(0, 4), false);
+  // Initial render - show all fetched artists (max 3 from Sanity)
+  renderArtists(artists, false);
 
-  // Search functionality
+  // Search functionality - fetch ALL artists when user searches
   if (searchInput) {
     let searchTimeout;
+    let allArtists = null; // Cache for all artists
     
-    searchInput.addEventListener("input", (e) => {
+    searchInput.addEventListener("input", async (e) => {
       const searchTerm = e.target.value.toLowerCase().trim();
       
       // Add visual feedback
@@ -73,15 +96,25 @@ document.addEventListener("DOMContentLoaded", () => {
       // Debounce search for better performance
       clearTimeout(searchTimeout);
       
-      searchTimeout = setTimeout(() => {
+      searchTimeout = setTimeout(async () => {
         if (!searchTerm) {
-          // If search is empty, show only first 4 artists again
-          renderArtists(validArtists.slice(0, 4), false);
+          // If search is empty, show only first 3 artists again
+          renderArtists(artists, false);
           return;
         }
 
+        // Fetch all artists if not cached (for search)
+        if (!allArtists) {
+          try {
+            allArtists = await fetchArtistsFromSanity(); // Fetch all without limit
+          } catch (error) {
+            console.error('Error fetching all artists for search:', error);
+            return;
+          }
+        }
+
         // Filter artists by name (supports partial matches, case-insensitive)
-        const filtered = validArtists.filter(artist => {
+        const filtered = allArtists.filter(artist => {
           const name = (artist.name || "").toLowerCase();
           const style = (artist.style || "").toLowerCase();
           
@@ -94,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
           );
         });
 
-        // Show all matching results (not limited to 4 when searching)
+        // Show all matching results (not limited to 3 when searching)
         renderArtists(filtered, true);
       }, 150); // 150ms debounce delay
     });
@@ -104,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.key === "Escape") {
         searchInput.value = "";
         searchInput.classList.remove("searching");
-        renderArtists(validArtists.slice(0, 4), false);
+        renderArtists(artists, false);
         searchInput.blur();
       }
     });

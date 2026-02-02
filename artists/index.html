@@ -61,48 +61,57 @@
 
 <!-- SCRIPTS -->
 <script src="../script.js"></script>
-<script src="../data.js"></script>
+<script src="../sanity-client.js"></script>
 
 <script>
   const grid = document.getElementById("artistsGrid");
 
-  if (!window.ARTISTS || !ARTISTS.length) {
-    grid.innerHTML = "<p style='text-align:center'>No artists found.</p>";
-  } else {
-    // Show all artists including placeholders
-    // To hide placeholders, uncomment the filter below:
-    // const validArtists = ARTISTS.filter(a => a.avatar && !a.avatar.includes('placeholder.jpg'));
-    
-    const validArtists = ARTISTS; // Show all artists
+  // Show loading state
+  grid.innerHTML = "<p style='text-align:center'>Loading artists...</p>";
 
-    if (validArtists.length === 0) {
-      grid.innerHTML = "<p style='text-align:center'>No artists available.</p>";
-    } else {
-      grid.innerHTML = validArtists.map(a => {
-        // Determine the correct HTML file based on artist ID
-        let artistPage;
-        if (a.id === "nini") artistPage = "nini.html";
-        else if (a.id === "mzia") artistPage = "mzia.html";
-        else if (a.id === "nanuli") artistPage = "nanuli.html";
-        else artistPage = `artist.html?artist=${encodeURIComponent(a.id)}`;
+  // Fetch all artists from Sanity
+  (async function() {
+    try {
+      const artists = await fetchArtistsFromSanity(); // Fetch all artists without limit
+
+      if (!artists || artists.length === 0) {
+        grid.innerHTML = "<p style='text-align:center'>No artists available.</p>";
+        return;
+      }
+
+      // Render all artists from Sanity
+      grid.innerHTML = artists.map(artist => {
+        // Map slugs to existing HTML filenames
+        const artistSlug = artist.slug?.current || artist.slug || artist._id;
+        const slugToFile = {
+          'nini-mzhavia': 'nini.html',
+          'mzia-kashia': 'mzia.html',
+          'nanuli-gogiberidze': 'nanuli.html',
+          'salome-mzhavia': 'salome.html'
+        };
+        const artistPage = slugToFile[artistSlug] || `${artistSlug}.html`;
 
         return `
           <a class="artist-card" href="${artistPage}">
             <div class="artist-avatar"
-                 style="background-image:url('../${a.avatar}')">
+                 style="background-image:url('${artist.avatar || '../images/artists/placeholder.jpg'}')">
             </div>
 
             <h3 class="artist-name">
               <img src="../images/icon.jpg" alt="Georgia" class="flag-icon">
-              <span>${a.name}</span>
+              <span>${artist.name}</span>
             </h3>
 
-            <p class="artist-style">${a.style || ''}</p>
+            <p class="artist-style">${artist.style || ''}</p>
           </a>
         `;
       }).join("");
+
+    } catch (error) {
+      console.error('Error loading artists:', error);
+      grid.innerHTML = "<p style='text-align:center'>Unable to load artists. Please try again later.</p>";
     }
-  }
+  })();
 </script>
 
 

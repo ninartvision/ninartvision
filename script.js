@@ -434,6 +434,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentIndex = 0;
     const cards = projectsTrack.querySelectorAll(".card");
     const totalCards = cards.length;
+    
+    console.log(`🎨 Featured Projects Slider Initialized`);
+    console.log(`   Total cards: ${totalCards}`);
+    console.log(`   Arrows found:`, { prev: !!projectsPrev, next: !!projectsNext });
 
     // Touch/swipe support variables
     let touchStartX = 0;
@@ -441,8 +445,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Determine how many cards are visible at once
     function getVisibleCards() {
-      if (window.innerWidth <= 600) return 1;
-      if (window.innerWidth <= 900) return 2;
+      if (window.innerWidth <= 600) return 3; // Mobile: Show 3 cards
+      if (window.innerWidth <= 900) return 2; // Tablet: Show 2 cards
       return 3; // Desktop: Show 3 cards
     }
 
@@ -545,8 +549,14 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       updateSlider();
       // Log total projects for verification
-      console.log(`Featured Projects: ${totalCards} total projects loaded`);
+      console.log(`   ✅ Slider ready with ${totalCards} projects`);
     }, 100);
+  } else {
+    console.warn('⚠️ Featured Projects Slider elements not found:', {
+      track: !!projectsTrack,
+      prev: !!projectsPrev,
+      next: !!projectsNext
+    });
   }
 
 });

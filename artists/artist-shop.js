@@ -32,14 +32,84 @@ document.addEventListener("DOMContentLoaded", () => {
 
   title.textContent = artistData ? artistData.name : artistId.toUpperCase();
 
-  if (avatar && artistData?.avatar) {
-    avatar.src = "../" + artistData.avatar;
+  if (avatar) {
+    if (artistData?.avatar) {
+      avatar.src = "../" + artistData.avatar;
+      avatar.style.display = "block";
+    } else {
+      avatar.style.display = "none";
+    }
   }
 
   // ABOUT ARTIST (optional block)
   const aboutTextEl = document.getElementById("aboutText");
   if (aboutTextEl && artistData?.about) {
     aboutTextEl.textContent = artistData.about;
+  }
+
+  // ---------------------------
+  // ABOUT ARTIST - COLLAPSIBLE + LANGUAGE SWITCHER
+  // ---------------------------
+  const aboutToggle = document.getElementById("aboutToggle");
+  const aboutContent = document.getElementById("aboutContent");
+  const bioText = document.getElementById("bioText");
+  const langSwitches = document.querySelectorAll(".lang-switch");
+
+  // Artist biographies (EN / KA)
+  const artistBios = {
+    nini: {
+      en: "Nini Mzhavia is a contemporary abstract artist whose works explore modern visual language, emotion, and form through vibrant colors and dynamic compositions.",
+      ka: "ნინი მჟავია არის თანამედროვე აბსტრაქტული მხატვარი, რომლის ნამუშევრები იკვლევს თანამედროვე ვიზუალურ ენას, ემოციას და ფორმას ცოცხალი ფერებითა და დინამიური კომპოზიციებით."
+    },
+    mzia: {
+      en: "Mzia Kashia creates impressionist works that blend reality with artistic interpretation, capturing the essence of Georgian landscapes and cultural heritage.",
+      ka: "მზია ქაშია ქმნის იმპრესიონისტულ ნამუშევრებს, რომლებიც აერთიანებს რეალობას მხატვრულ ინტერპრეტაციასთან და ასახავს ქართული ლანდშაფტებისა და კულტურული მემკვიდრეობის არსს."
+    },
+    nanuli: {
+      en: "Nanuli Gogiberidze specializes in decorative impressionism, creating vivid artworks that celebrate beauty, nature, and Georgian artistic traditions.",
+      ka: "ნანული გოგიბერიძე სპეციალიზირებულია დეკორატიულ იმპრესიონიზმში და ქმნის ცოცხალ ნამუშევრებს, რომლებიც ადიდებენ სილამაზეს, ბუნებას და ქართულ მხატვრულ ტრადიციებს."
+    }
+  };
+
+  let currentLang = "en";
+
+  // Toggle About section
+  if (aboutToggle && aboutContent) {
+    aboutToggle.addEventListener("click", () => {
+      const isHidden = aboutContent.style.display === "none";
+      aboutContent.style.display = isHidden ? "block" : "none";
+      aboutToggle.innerHTML = isHidden ? "About artist ▲" : "About artist ▼";
+    });
+  }
+
+  // Language switcher
+  if (bioText && langSwitches.length > 0) {
+    const updateBio = (lang) => {
+      currentLang = lang;
+      const bio = artistBios[artistId]?.[lang] || artistData?.about || "No biography available.";
+      bioText.textContent = bio;
+
+      // Update button styles
+      langSwitches.forEach(btn => {
+        if (btn.dataset.lang === lang) {
+          btn.style.background = "#333";
+          btn.style.color = "#fff";
+        } else {
+          btn.style.background = "#ddd";
+          btn.style.color = "#333";
+        }
+      });
+    };
+
+    // Set initial bio
+    updateBio("en");
+
+    // Language switch handlers
+    langSwitches.forEach(btn => {
+      btn.addEventListener("click", () => {
+        updateBio(btn.dataset.lang);
+      });
+    });
   }
 
   // ---------------------------

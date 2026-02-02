@@ -7,6 +7,24 @@
 
   <link rel="stylesheet" href="../style.css" />
   <link rel="icon" href="../images/favicon.png">
+  <style>
+    .artist-header-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 20px;
+      gap: 20px;
+    }
+    @media (max-width: 768px) {
+      .artist-header-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      #aboutContent {
+        max-width: 100% !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -21,9 +39,9 @@
       <a href="../index.html#home">Home</a>
       <a href="../index.html#support">Support a Project</a>
       <a href="../sale/shop.html">Shop</a>
-      <a href="artists/artists.html">Artists</a>
+      <a href="index.html" class="active">Artists</a>
       <a href="../index.html#news">News</a>
-      <a href="../index.html#about">About</a>
+      <a href="../about.html">About</a>
     </nav>
   </div>
 </header>
@@ -31,18 +49,42 @@
 <section class="section" style="padding-top:110px;">
   <div class="container">
 
-    <a href="../index.html#artists" class="btn btn-dark">← Back</a>
+    <a href="index.html" class="btn btn-dark">← Back</a>
 
-    <!-- ✅ ერთადერთი სათაური (ცარიელი, JS ავსებს) -->
-    <div class="section-top" style="margin-top:18px;">
-      <h2 class="artist-name"></h2>
-      <p class="muted">My artworks</p>
+    <div class="artist-header-wrapper">
+      <!-- Left: Artist Info -->
+      <div class="section-top" style="display: flex; align-items: center; gap: 20px; margin: 0;">
+        <img id="artistAvatar" class="artist-avatar" src="" alt="Artist Avatar" style="width: 95px; height: 95px; border-radius: 50%; object-fit: cover; flex-shrink: 0;">
+        <div>
+          <h2 class="artist-name" style="margin: 0 0 4px 0;"></h2>
+          <p class="muted" style="margin: 0;">My artworks</p>
+        </div>
+      </div>
+
+      <!-- Right: About Artist -->
+      <div style="flex-shrink: 0;">
+        <button id="aboutToggle" style="background: #333; color: #fff; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; white-space: nowrap;">
+          About artist ▼
+        </button>
+        <div id="aboutContent" style="display: none; margin-top: 12px; background: #f9f9f9; padding: 16px; border-radius: 12px; max-width: 400px; position: relative;">
+          <!-- Language Switcher -->
+          <div style="display: flex; gap: 4px; margin-bottom: 12px; justify-content: flex-end;">
+            <button class="lang-switch" data-lang="en" style="background: #333; color: #fff; border: none; padding: 4px 12px; border-radius: 12px; cursor: pointer; font-size: 12px; font-weight: 600;">�🇸 EN</button>
+            <button class="lang-switch" data-lang="ka" style="background: #ddd; color: #333; border: none; padding: 4px 12px; border-radius: 12px; cursor: pointer; font-size: 12px; font-weight: 600;">🇬🇪 KA</button>
+          </div>
+          <!-- Biography Text -->
+          <p id="bioText" style="margin: 0; font-size: 14px; line-height: 1.6; color: #333;"></p>
+        </div>
+      </div>
     </div>
 
-    <!-- ✅ აქ ჩაიტვირთება Shop-დან გაფილტრული ნამუშევრები -->
-    <section class="artist-section">
-      <div class="shop-grid" id="shopGrid"></div>
-    </section>
+    <div class="filter-tabs">
+      <button class="pill" data-filter="all">ALL</button>
+      <button class="pill" data-filter="sale">SALE</button>
+      <button class="pill" data-filter="sold">SOLD</button>
+    </div>
+
+    <div class="shop-grid shop-grid-small" id="shopGrid"></div>
 
   </div>
 </section>

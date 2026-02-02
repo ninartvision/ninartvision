@@ -1078,8 +1078,8 @@ body{
   }
 
   .artist-avatar{
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
     margin: 0 auto 6px;
     border-width: 2px;
   }
@@ -1106,8 +1106,8 @@ body{
   }
 
   .artist-avatar{
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     margin: 0 auto 5px;
   }
 
@@ -2204,6 +2204,12 @@ background: #f2f2f2;
    FEATURED PROJECTS SLIDER
    (Shows 3 cards at a time)
 =========================== */
+#support .container {
+  /* Add padding on desktop to accommodate arrows positioned outside */
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
 .projects-slider-wrap {
   position: relative;
   display: flex;
@@ -2246,12 +2252,13 @@ background: #f2f2f2;
   font-size: 20px;
   font-weight: 700;
   z-index: 10;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   transition: all 0.25s ease;
   color: #111;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  pointer-events: all;
 }
 
 .projects-arrow.left { 
@@ -2281,6 +2288,12 @@ background: #f2f2f2;
 
 /* Tablet: Show 2 cards */
 @media (max-width: 900px) {
+  /* Remove desktop container padding on tablet */
+  #support .container {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+  
   .projects-track .card {
     flex: 0 0 calc((100% - 22px) / 2);
     max-width: calc((100% - 22px) / 2);
@@ -2307,11 +2320,17 @@ background: #f2f2f2;
   }
 }
 
-/* Mobile: Show 1 card at a time */
+/* Mobile: Show 3 cards simultaneously */
 @media (max-width: 600px) {
+  /* Remove desktop container padding on mobile */
+  #support .container {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+  
   .projects-track .card {
-    flex: 0 0 100%;
-    max-width: 100%;
+    flex: 0 0 calc((100% - 32px) / 3);
+    max-width: calc((100% - 32px) / 3);
   }
 
   .projects-track {
@@ -2851,10 +2870,7 @@ background: #f2f2f2;
   justify-content: center;
   white-space: nowrap;
 }
-.artist-card{
-  border: none !important;
-  box-shadow: none !important;
-}
+
 #artists a.btn{
   font-family: Arial, Helvetica, sans-serif !important; /* ✅ იგივე შრიფტი */
   font-size: 18px !important;                           /* შეგიძლია 15px-ც */
@@ -2908,6 +2924,21 @@ background: #f2f2f2;
   flex-direction: column;
   align-items: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.artist-card h3 {
+  font-size: 1.125rem; /* 18px - subtle emphasis */
+  font-weight: 600;
+  margin: 0 0 6px 0;
+  color: #111;
+  line-height: 1.3;
+}
+
+.artist-card .artist-style {
+  font-size: 0.9375rem; /* 15px - improved readability */
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
 }
 
 .artist-card:hover{
@@ -2972,7 +3003,7 @@ background: #f2f2f2;
 
 .artist-style {
   margin: 0;
-  font-size: 13px;
+  font-size: 0.9375rem; /* 15px - base size, improved from 13px */
   color: #666;
   line-height: 1.4;
   text-align: center;

@@ -1,0 +1,113 @@
+/**
+ * SANITY CMS CLIENT CONFIGURATION
+ * 
+ * This file handles all communication with Sanity CMS.
+ * Replace YOUR_PROJECT_ID and YOUR_DATASET with your actual Sanity credentials.
+ * 
+ * Get these from: sanity.cli.ts or https://sanity.io/manage
+ */
+
+const SANITY_CONFIG = {
+  projectId: '8t5h923j',          // Ninart Vision Sanity project ID
+  dataset: 'production',          // Production dataset
+  apiVersion: '2024-01-01',       // Use current date or a fixed API version
+  useCdn: true                     // Use CDN for faster responses (set to false for real-time data)
+};
+
+/**
+ * Fetch artists from Sanity CMS
+ * @param {number} limit - Maximum number of artists to fetch (optional)
+ * @param {boolean} featuredOnly - Fetch only featured artists (optional)
+ * @returns {Promise<Array>} Array of artist objects
+ */
+async function fetchArtistsFromSanity(limit = null, featuredOnly = false) {
+  try {
+    // Build GROQ query with optional featured filter
+    let query = featuredOnly 
+      ? `*[_type == "artist" && featured == true] | order(_createdAt desc)`
+      : `*[_type == "artist"] | order(_createdAt desc)`;
+    
+    if (limit) {
+      query += `[0...${limit}]`;
+    }
+    
+    // Add field projection
+    query += `{
+      _id,
+      name,
+      "avatar": image.asset->url,
+      whatsapp,
+      country,
+      style,
+      about,
+      featured,
+      "slug": slug.current
+    }`;
+
+    // Build Sanity API URL
+    const url = `https://${SANITY_CONFIG.projectId}.${SANITY_CONFIG.useCdn ? 'apicdn' : 'api'}.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${encodeURIComponent(query)}`;
+
+    console.log('🔍 Fetching artists from Sanity...');
+    
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      throw new Error(`Sanity API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    
+    if (!data.result) {
+      console.warn('⚠️ No artists found in Sanity');
+      return [];
+    }
+
+    console.log(`✅ Fetched ${data.result.length} artists from Sanity`);
+    return data.result;
+
+  } catch (error) {
+    console.error('❌ Error fetching artists from Sanity:', error);
+    
+    // Show user-friendly error message
+    if (error.message.includes('YOUR_PROJECT_ID')) {
+      console.error('🔧 Please update SANITY_CONFIG in sanity-client.js with your actual project ID');
+    }
+    
+    return [];
+  }
+}
+
+/**
+ * Fetch a single artist by slug or ID
+ * @param {string} identifier - Artist slug or _id
+ * @returns {Promise<Object|null>} Artist object or null
+ */
+async function fetchArtistBySlug(identifier) {
+  try {
+    const query = `*[_type == "artist" && (slug.current == "${identifier}" || _id == "${identifier}")][0]{
+      _id,
+      name,
+      "avatar": image.asset->url,
+      whatsapp,
+      country,
+      style,
+      about,
+      "slug": slug.current
+    }`;
+
+    const url = `https://${SANITY_CONFIG.projectId}.${SANITY_CONFIG.useCdn ? 'apicdn' : 'api'}.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${encodeURIComponent(query)}`;
+
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      throw new Error(`Sanity API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.result || null;
+
+  } catch (error) {
+    console.error('❌ Error fetching artist from Sanity:', error);
+    return null;
+  }
+}
