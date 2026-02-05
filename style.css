@@ -812,6 +812,8 @@ body{
   font-size: 20px;
   letter-spacing: 2px;
   font-weight: 400;
+  display: inline-block;
+  width: fit-content;
 }
 
 /* RESPONSIVE */
@@ -3628,8 +3630,13 @@ background: #f2f2f2;
   }
 
   /* Prevent event conflicts on mobile */
-  .desktop-nav a,
-  .menu-link {
+  .desktop-nav a {
+    pointer-events: auto;
+    touch-action: manipulation;
+  }
+  
+  /* Menu links only clickable when overlay is active */
+  .menu-overlay.active .menu-link {
     pointer-events: auto;
     touch-action: manipulation;
   }
