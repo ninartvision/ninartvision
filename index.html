@@ -3,12 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Ninart Vision</title>
+  <title>Ninart Vision | Contemporary Georgian Art & Artists</title>
+  <meta name="description" content="Discover contemporary Georgian artists and their unique artworks. Shop original paintings, support creative projects, and explore the vibrant art scene of Georgia.">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ninart Vision | Contemporary Georgian Art & Artists">
+  <meta property="og:description" content="Discover contemporary Georgian artists and their unique artworks. Shop original paintings, support creative projects, and explore the vibrant art scene of Georgia.">
+  <meta property="og:url" content="https://ninartvision.com">
+  <meta property="og:image" content="https://ninartvision.com/images/logo.png">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ninart Vision | Contemporary Georgian Art & Artists">
+  <meta name="twitter:description" content="Discover contemporary Georgian artists and their unique artworks. Shop original paintings, support creative projects, and explore the vibrant art scene of Georgia.">
+  <meta name="twitter:image" content="https://ninartvision.com/images/logo.png">
+  
   <link rel="stylesheet" href="./style.css" />
   <link rel="icon" href="./images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=FiraGO:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID', {
+    'anonymize_ip': true,
+    'allow_google_signals': false,
+    'allow_ad_personalization_signals': false
+  });
+</script>
+<script src="./analytics.js"></script>
 
 <!-- Prevent flash of unstyled icons and hash navigation jump -->
 <script>
@@ -224,7 +253,7 @@ Colors speak louder 💫
       <div class="projects-slider" id="projectsSlider">
         <div class="projects-track" id="projectsTrack">
           <article class="card">
-            <img src="./images/me9.jpg" alt="Project">
+            <img src="./images/me9.jpg" alt="Project" loading="lazy">
             <div class="card-body">
               <h3>„Svaneti“-„სვანეთი“</h3>
               <p class="muted">Limited edition artworks and fan experiences.</p>
@@ -549,6 +578,7 @@ Colors speak louder 💫
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
+<script defer src="./sanity-client.js"></script>
 <script defer src="./data.js"></script>
 <script defer src="./js/homeShopPreview.js"></script>
 <script defer src="./js/homeArtistsPreview.js"></script>

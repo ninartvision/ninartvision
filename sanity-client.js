@@ -40,14 +40,16 @@ async function fetchArtistsFromSanity(limit = null, featuredOnly = false) {
       country,
       style,
       about,
+      bio_en,
+      bio_ka,
+      seoTitle,
+      seoDescription,
       featured,
       "slug": slug.current
     }`;
 
     // Build Sanity API URL
     const url = `https://${SANITY_CONFIG.projectId}.${SANITY_CONFIG.useCdn ? 'apicdn' : 'api'}.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${encodeURIComponent(query)}`;
-
-    console.log('🔍 Fetching artists from Sanity...');
     
     const response = await fetch(url);
     
@@ -62,7 +64,6 @@ async function fetchArtistsFromSanity(limit = null, featuredOnly = false) {
       return [];
     }
 
-    console.log(`✅ Fetched ${data.result.length} artists from Sanity`);
     return data.result;
 
   } catch (error) {
@@ -92,6 +93,10 @@ async function fetchArtistBySlug(identifier) {
       country,
       style,
       about,
+      bio_en,
+      bio_ka,
+      seoTitle,
+      seoDescription,
       "slug": slug.current
     }`;
 
@@ -109,5 +114,63 @@ async function fetchArtistBySlug(identifier) {
   } catch (error) {
     console.error('❌ Error fetching artist from Sanity:', error);
     return null;
+  }
+}
+
+/**
+ * Fetch featured artworks from Sanity CMS
+ * @param {number} limit - Maximum number of artworks to fetch (optional)
+ * @returns {Promise<Array>} Array of featured artwork objects
+ */
+async function fetchFeaturedArtworks(limit = null) {
+  try {
+    // Build GROQ query for featured artworks
+    let query = `*[_type == "artwork" && featured == true] | order(_createdAt desc)`;
+    
+    if (limit) {
+      query += `[0...${limit}]`;
+    }
+    
+    // Add field projection
+    query += `{
+      _id,
+      title,
+      "image": image.asset->url,
+      price,
+      size,
+      medium,
+      year,
+      status,
+      description,
+      featured,
+      "slug": slug.current,
+      "artist": artist->{
+        _id,
+        name,
+        "slug": slug.current
+      }
+    }`;
+
+    // Build Sanity API URL
+    const url = `https://${SANITY_CONFIG.projectId}.${SANITY_CONFIG.useCdn ? 'apicdn' : 'api'}.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${encodeURIComponent(query)}`;
+    
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      throw new Error(`Sanity API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    
+    if (!data.result) {
+      console.warn('⚠️ No featured artworks found in Sanity');
+      return [];
+    }
+
+    return data.result;
+
+  } catch (error) {
+    console.error('❌ Error fetching featured artworks from Sanity:', error);
+    return [];
   }
 }

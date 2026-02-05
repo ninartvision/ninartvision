@@ -3,10 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Artist | Ninart Vision</title>
+  <title id="pageTitle">Artist | Ninart Vision</title>
+  <meta name="description" id="pageDescription" content="Discover contemporary Georgian artists and their artworks at Ninart Vision.">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="profile">
+  <meta property="og:title" id="ogTitle" content="Artist | Ninart Vision">
+  <meta property="og:description" id="ogDescription" content="Discover contemporary Georgian artists and their artworks at Ninart Vision.">
+  <meta property="og:image" id="ogImage" content="">
+  <meta property="og:url" id="ogUrl" content="">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="twitterTitle" content="Artist | Ninart Vision">
+  <meta name="twitter:description" id="twitterDescription" content="Discover contemporary Georgian artists and their artworks at Ninart Vision.">
+  <meta name="twitter:image" id="twitterImage" content="">
 
   <link rel="stylesheet" href="../style.css" />
   <link rel="icon" href="../images/favicon.png">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID', {
+    'anonymize_ip': true,
+    'allow_google_signals': false,
+    'allow_ad_personalization_signals': false
+  });
+</script>
+<script src="../analytics.js"></script>
 </head>
 <body>
 
@@ -53,24 +81,26 @@
 </div>
 
 <!-- PAGE -->
-<section class="section" style="padding-top:110px;">
+<section class="section" style="padding-top:75px;">
   <div class="container">
 
     <!-- BACK -->
     <a href="./" class="btn btn-dark">← Back</a>
 
-    <div class="section-top" style="margin-top:20px;">
-      <img id="artistAvatar" class="artist-avatar" src="" alt="Artist Avatar"
-           style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:10px;">
-      <h2 class="artist-name"></h2>
-      <p class="muted">Artist's artworks</p>
-    </div>
-
-    <!-- ABOUT ARTIST -->
-    <div class="about-section">
-      <button class="about-toggle" onclick="toggleAbout()">About artist</button>
-      <div id="aboutArtist" class="about-artist hidden">
-        <p id="aboutText"></p>
+    <!-- ARTIST HEADER -->
+    <div class="artist-header">
+      <div class="artist-info">
+        <img id="artistAvatar" class="artist-avatar" src="" alt="Artist Avatar">
+        
+        <div class="artist-title-row">
+          <h2 class="artist-name"></h2>
+          <button class="about-toggle" id="aboutToggle">About ▼</button>
+        </div>
+        
+        <!-- ABOUT ARTIST CONTENT -->
+        <div id="aboutArtist" class="about-artist">
+          <p id="aboutText" class="about-text"></p>
+        </div>
       </div>
     </div>
 
@@ -132,7 +162,9 @@
 
 <!-- SCRIPTS -->
 <script src="../script.js"></script>
+<script src="../sanity-client.js"></script>
 <script src="../data.js"></script>
+<script src="artist.js"></script>
 <script src="artist-shop.js"></script>
 
 </body>

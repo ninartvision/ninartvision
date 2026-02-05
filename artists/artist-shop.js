@@ -10,9 +10,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // GET ARTIST ID
   // ---------------------------
   const params = new URLSearchParams(location.search);
-  let artistId = params.get("artist");
+  const artistSlug = params.get("artist");
+  
+  // Extract short artist ID from slug for artwork filtering
+  const slugToId = {
+    'nini-mzhavia': 'nini',
+    'mzia-kashia': 'mzia',
+    'nanuli-gogiberidze': 'nanuli',
+    'salome-mzhavia': 'salome'
+  };
+  let artistId = slugToId[artistSlug] || artistSlug?.split('-')[0] || artistSlug;
 
-  // fallback filename-based (optional)
+  // Fallback filename-based (optional)
   if (!artistId) {
     const path = location.pathname.toLowerCase();
     if (path.includes("nini")) artistId = "nini";
@@ -26,9 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ---------------------------
-  // ARTIST INFO
+  // ARTIST INFO (from Sanity via artist.js or fallback to legacy data)
   // ---------------------------
-  const artistData = (window.ARTISTS || []).find(a => a.id === artistId);
+  const artistData = window.CURRENT_ARTIST || (window.ARTISTS || []).find(a => a.id === artistId);
 
   title.textContent = artistData ? artistData.name : artistId.toUpperCase();
 
@@ -55,22 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const bioText = document.getElementById("bioText");
   const langSwitches = document.querySelectorAll(".lang-switch");
 
-  // Artist biographies (EN / KA)
-  const artistBios = {
-    nini: {
-      en: "Nini Mzhavia is a contemporary abstract artist whose works explore modern visual language, emotion, and form through vibrant colors and dynamic compositions.",
-      ka: "ნინი მჟავია არის თანამედროვე აბსტრაქტული მხატვარი, რომლის ნამუშევრები იკვლევს თანამედროვე ვიზუალურ ენას, ემოციას და ფორმას ცოცხალი ფერებითა და დინამიური კომპოზიციებით."
-    },
-    mzia: {
-      en: "Mzia Kashia creates impressionist works that blend reality with artistic interpretation, capturing the essence of Georgian landscapes and cultural heritage.",
-      ka: "მზია კაშია ქმნის იმპრესიონისტულ ნამუშევრებს, რომლებიც აერთიანებს რეალობას მხატვრულ ინტერპრეტაციასთან და ასახავს ქართული ლანდშაფტებისა და კულტურული მემკვიდრეობის არსს."
-    },
-    nanuli: {
-      en: "Nanuli Gogiberidze specializes in decorative impressionism, creating vivid artworks that celebrate beauty, nature, and Georgian artistic traditions.",
-      ka: "ნანული გოგიბერიძე სპეციალიზირებულია დეკორატიულ იმპრესიონიზმში და ქმნის ცოცხალ ნამუშევრებს, რომლებიც ადიდებენ სილამაზეს, ბუნებას და ქართულ მხატვრულ ტრადიციებს."
-    }
-  };
-
   let currentLang = "ka";
 
   // Toggle About section
@@ -82,12 +75,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Function to get bio with fallback logic from Sanity data
+  function getBioText(lang) {
+    // Use Sanity data from window.CURRENT_ARTIST if available
+    const artist = window.CURRENT_ARTIST || artistData;
+    
+    if (!artist) return "No biography available.";
+
+    // Try requested language from Sanity
+    const requestedBio = lang === 'en' ? artist.bio_en : artist.bio_ka;
+    if (requestedBio && requestedBio.trim()) {
+      return requestedBio;
+    }
+
+    // Fallback to other language from Sanity
+    const fallbackBio = lang === 'en' ? artist.bio_ka : artist.bio_en;
+    if (fallbackBio && fallbackBio.trim()) {
+      return fallbackBio;
+    }
+
+    // Fallback to legacy 'about' field
+    if (artist.about && artist.about.trim()) {
+      return artist.about;
+    }
+
+    // Last resort: hardcoded bios (legacy support)
+    const artistBios = {
+      nini: {
+        en: "Nini Mzhavia is a contemporary abstract artist whose works explore modern visual language, emotion, and form through vibrant colors and dynamic compositions.",
+        ka: "ნინი მჟავია არის თანამედროვე აბსტრაქტული მხატვარი, რომლის ნამუშევრები იკვლევს თანამედროვე ვიზუალურ ენას, ემოციას და ფორმას ცოცხალი ფერებითა და დინამიური კომპოზიციებით."
+      },
+      mzia: {
+        en: "Mzia Kashia creates impressionist works that blend reality with artistic interpretation, capturing the essence of Georgian landscapes and cultural heritage.",
+        ka: "მზია კაშია ქმნის იმპრესიონისტულ ნამუშევრებს, რომლებიც აერთიანებს რეალობას მხატვრულ ინტერპრეტაციასთან და ასახავს ქართული ლანდშაფტებისა და კულტურული მემკვიდრეობის არსს."
+      },
+      nanuli: {
+        en: "Nanuli Gogiberidze specializes in decorative impressionism, creating vivid artworks that celebrate beauty, nature, and Georgian artistic traditions.",
+        ka: "ნანული გოგიბერიძე სპეციალიზირებულია დეკორატიულ იმპრესიონიზმში და ქმნის ცოცხალ ნამუშევრებს, რომლებიც ადიდებენ სილამაზეს, ბუნებას და ქართულ მხატვრულ ტრადიციებს."
+      }
+    };
+
+    return artistBios[artistId]?.[lang] || "No biography available.";
+  }
+
   // Language switcher
   if (bioText && langSwitches.length > 0) {
     const updateBio = (lang) => {
       currentLang = lang;
-      const bio = artistBios[artistId]?.[lang] || artistData?.about || "No biography available.";
-      bioText.textContent = bio;
+      bioText.textContent = getBioText(lang);
 
       // Update button styles with improved contrast
       langSwitches.forEach(btn => {

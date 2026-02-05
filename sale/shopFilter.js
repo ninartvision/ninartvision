@@ -4,10 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const items = document.querySelectorAll(".shop-item");
 
-  console.log("artistId:", artistId);
-  console.log("items:", items.length);
-
-  // ✅ თუ artistId არ არის — არაფერი დამალო (რომ არ გაქრეს ყველაფერი)
+  // If artistId is empty, show all items
   if (!artistId) return;
 
   items.forEach(item => {

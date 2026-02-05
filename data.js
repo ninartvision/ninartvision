@@ -168,7 +168,8 @@ window.ARTWORKS = [
       "images/naturmort7.png",
       "images/naturmort8.png",
       "images/naturmort9.png"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_02",
@@ -191,7 +192,8 @@ window.ARTWORKS = [
       "images/abstract1.jpg",
       "images/abstract2.jpg",
       "images/abstract4.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_03",
@@ -214,7 +216,8 @@ window.ARTWORKS = [
       "images/garden2.jpg",
       "images/garden4.jpg",
       "images/garden1.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_04",
@@ -234,7 +237,8 @@ window.ARTWORKS = [
       "images/sea5.jpg",
       "images/sea6.jpg",
       "images/sea7.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_05",
@@ -257,7 +261,8 @@ window.ARTWORKS = [
       "images/rose2.jpg",
       "images/rose9.jpg",
       "images/rose11.png"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_06",
@@ -279,7 +284,8 @@ window.ARTWORKS = [
       "images/seaorange4.jpg",
       "images/seaorange7.jpg",
       "images/seaorange5.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_07",
@@ -300,7 +306,8 @@ window.ARTWORKS = [
       "images/lily15.jpg",
       "images/lily10.jpg",
       "images/lily11.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_08",
@@ -320,7 +327,8 @@ window.ARTWORKS = [
       "images/swan2.jpg",
       "images/swan6.jpg",
       "images/swan5.png"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_09",
@@ -339,7 +347,8 @@ window.ARTWORKS = [
       "images/waterlily5.jpg",
       "images/waterlily6.png",
       "images/waterlily7.png"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_10",
@@ -354,7 +363,8 @@ window.ARTWORKS = [
     img: "images/boat.jpg",
     photos: [
       "images/boat.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_14",
@@ -373,7 +383,8 @@ window.ARTWORKS = [
       "images/deer2.jpg",
       "images/deer4.jpg",
       
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_16",
@@ -394,7 +405,8 @@ window.ARTWORKS = [
       "images/jvari2.jpg",
       "images/jvari6.jpg",
       "images/jvari5.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_19",
@@ -414,7 +426,8 @@ window.ARTWORKS = [
       "images/kids8.jpg",
       "images/kids5.jpg",
       "images/kids4.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_13",
@@ -434,7 +447,8 @@ window.ARTWORKS = [
       "images/daffodils3.jpg",
       "images/daffodils2.jpg",
       "images/daffodils5.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_18",
@@ -455,7 +469,8 @@ window.ARTWORKS = [
       "images/lilac5.jpg",
       "images/lilac1.jpg",
       
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_11",
@@ -482,7 +497,8 @@ window.ARTWORKS = [
       "images/svaneti13.jpg",
       "images/svaneti14.jpg",
       "images/svaneti15.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_12",
@@ -503,7 +519,8 @@ window.ARTWORKS = [
       "images/babuacvera5.jpg",
       "images/babuacvera6.jpg",
       "images/babuacvera7.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_17",
@@ -522,7 +539,8 @@ window.ARTWORKS = [
       "images/jvarimonastery1.jpg",
       "images/jvarimonastery4.jpg",
       "images/jvarimonastery3.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "nini_15",
@@ -545,7 +563,8 @@ window.ARTWORKS = [
       "images/dream8.jpg",
       "images/dream10.jpg",
       "images/dream2.jpg"
-    ]
+    ],
+    showInShop: true
   },
   {
     id: "mzia_01",
@@ -560,7 +579,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia1.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia1.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "mzia_02",
@@ -575,7 +595,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia2.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia2.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "mzia_03",
@@ -590,7 +611,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia3.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia3.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "mzia_04",
@@ -605,7 +627,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia8.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia8.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "mzia_01",
@@ -620,7 +643,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia5.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia5.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "mzia_02",
@@ -635,7 +659,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia7.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia7.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "mzia_03",
@@ -650,7 +675,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia4.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia4.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "mzia_04",
@@ -665,7 +691,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia6.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia6.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "mzia_01",
@@ -680,7 +707,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia12.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia12.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "mzia_02",
@@ -695,7 +723,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia13.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia13.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "mzia_03",
@@ -710,7 +739,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia9.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia9.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "mzia_04",
@@ -725,7 +755,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia11.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia11.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "mzia_04",
@@ -740,7 +771,8 @@ window.ARTWORKS = [
     img: "images/artists/mziakashia/mziakashia10.jpg",
     photos: [
       "images/artists/mziakashia/mziakashia10.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "nanuli_01",
@@ -755,7 +787,8 @@ window.ARTWORKS = [
     img: "images/artists/nanuligogiberidze/nanuli1.jpg",
     photos: [
       "images/artists/nanuligogiberidze/nanuli1.jpg"
-    ]
+    ],
+    showInShop: false
   },
   {
     id: "nanuli_02",
@@ -770,7 +803,8 @@ window.ARTWORKS = [
     img: "images/artists/nanuligogiberidze/nanuli2.jpg",
     photos: [
       "images/artists/nanuligogiberidze/nanuli2.jpg"
-    ]
+    ],
+    showInShop: false
   }
 ,{
   id: "nanuli_03",
@@ -785,7 +819,8 @@ window.ARTWORKS = [
   img: "images/artists/nanuligogiberidze/nanuli3.jpg",
   photos: [
     "images/artists/nanuligogiberidze/nanuli3.jpg"
-  ]
+  ],
+  showInShop: false
 },
 {
   id: "nanuli_04",
@@ -800,7 +835,8 @@ window.ARTWORKS = [
   img: "images/artists/nanuligogiberidze/nanuli4.jpg",
   photos: [
     "images/artists/nanuligogiberidze/nanuli4.jpg"
-  ]
+  ],
+  showInShop: false
 },
 {
   id: "nanuli_05",
@@ -815,7 +851,8 @@ window.ARTWORKS = [
   img: "images/artists/nanuligogiberidze/nanuli5.jpg",
   photos: [
     "images/artists/nanuligogiberidze/nanuli5.jpg"
-  ]
+  ],
+  showInShop: false
 }
 
 ];

@@ -3,10 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>About | Ninart Vision</title>
-  <link rel="stylesheet" href="./style.css" />
+  <title>About | Ninart Vision</title>  <meta name="description" content="Learn about Ninart Vision - a platform dedicated to showcasing contemporary Georgian artists and fostering creative expression through original artworks.">  <link rel="stylesheet" href="./style.css" />
   <link rel="icon" href="./images/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID', {
+    'anonymize_ip': true,
+    'allow_google_signals': false,
+    'allow_ad_personalization_signals': false
+  });
+</script>
+<script src="./analytics.js"></script>  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=FiraGO:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
@@ -76,7 +87,7 @@
           <div class="founder-photo-column">
             <div class="founder-photo-wrapper">
               <a href="sale/shop.html" class="founder-photo-link" title="View Nini Mzhavia's artworks">
-                <img src="./images/artists/ninimzhavia.jpg" alt="Nini Mzhavia" class="founder-photo-circle">
+                <img src="./images/artists/ninimzhavia.jpg" alt="Nini Mzhavia" class="founder-photo-circle" loading="lazy">
               </a>
               <a href="sale/shop.html" class="founder-name-link" title="View Nini Mzhavia's artworks">
                 <h2 class="founder-name-below">Nini Mzhavia</h2>
@@ -112,8 +123,8 @@ This idea began with one simple question: how can we create a space where authen
             </p>
 
             <p class="founder-bio" 
-   data-en='I founded this platform together with my mother, <a href="artists/mzia.html" class="artist-link">Mzia Kashia</a>, as a space for originality, creativity, and emotions that go beyond words and are expressed through art.'
-   data-ka='ეს პლატფორმა დავაარსე დედასთან ერთად — <a href="artists/mzia.html" class="artist-link">მზია კაშიასთან</a> — როგორც ადგილი ორიგინალობისთვის, შემოქმედებისთვის და იმ გრძნობებისთვის, რომლებიც სიტყვებს სცდება და ხელოვნებით გამოიხატება.'>
+   data-en='I founded this platform together with my mother, <a href="artists/artist.html?artist=mzia-kashia" class="artist-link">Mzia Kashia</a>, as a space for originality, creativity, and emotions that go beyond words and are expressed through art.'
+   data-ka='ეს პლატფორმა დავაარსე დედასთან ერთად — <a href="artists/artist.html?artist=mzia-kashia" class="artist-link">მზია კაშიასთან</a> — როგორც ადგილი ორიგინალობისთვის, შემოქმედებისთვის და იმ გრძნობებისთვის, რომლებიც სიტყვებს სცდება და ხელოვნებით გამოიხატება.'>
 </p>
 
           </div>
