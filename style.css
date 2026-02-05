@@ -518,9 +518,9 @@ body{
 
 /* Avatar centering - for artists listing page only */
 .artist-card .artist-avatar{
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 16px;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 14px;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
@@ -2199,6 +2199,8 @@ background: #f2f2f2;
    (Shows 3 cards at a time)
 =========================== */
 #support .container {
+  /* Override global container to expand near-full-width on desktop */
+  width: min(1680px, 96%);
   /* Add padding on desktop to accommodate arrows positioned outside */
   padding-left: 80px;
   padding-right: 80px;
@@ -2219,16 +2221,16 @@ background: #f2f2f2;
 
 .projects-track {
   display: flex;
-  gap: 22px;
+  gap: 28px;
   transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
 
 /* Desktop: Show exactly 3 cards */
 .projects-track .card {
-  flex: 0 0 calc((100% - 44px) / 3);
+  flex: 0 0 calc((100% - 56px) / 3);
   min-width: 0;
-  max-width: calc((100% - 44px) / 3);
+  max-width: calc((100% - 56px) / 3);
 }
 
 /* Arrow Buttons */
@@ -2917,7 +2919,7 @@ background: #f2f2f2;
 }
 
 .artist-card h3 {
-  font-size: 1.125rem; /* 18px - subtle emphasis */
+  font-size: 1rem; /* 16px - refined elegance */
   font-weight: 600;
   margin: 0 0 6px 0;
   color: #111;
@@ -2925,7 +2927,7 @@ background: #f2f2f2;
 }
 
 .artist-card .artist-style {
-  font-size: 0.9375rem; /* 15px - improved readability */
+  font-size: 0.875rem; /* 14px - balanced readability */
   color: #666;
   margin: 0;
   line-height: 1.4;
