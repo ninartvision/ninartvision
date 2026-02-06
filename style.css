@@ -5334,5 +5334,85 @@ background: #f2f2f2;
   }
 
 }
+.wa-widget{
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 99999;
+  font-family: Arial, sans-serif;
+}
+
+/* popup */
+.wa-popup{
+  width: 280px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+  margin-bottom: 12px;
+  overflow: hidden;
+  display: none;
+}
+
+/* header */
+.wa-header{
+  background: #075E54;
+  color: #fff;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+}
+.wa-avatar img{
+  width: 34px;
+  height: 34px;
+}
+.wa-title span{
+  font-size: 12px;
+  opacity: .8;
+  display: block;
+}
+.wa-close{
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* body */
+.wa-body{
+  padding: 16px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* button */
+.wa-btn{
+  display: block;
+  background: #25D366;
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* floating whatsapp icon */
+.wa-float{
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25D366;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wa-float img{
+  width: 28px;
+  height: 28px;
+}
 
 

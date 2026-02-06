@@ -587,6 +587,52 @@ Colors speak louder 💫
 <script>
   // create a JavaScript image slider with arrows
 </script>
+<div class="wa-widget">
+
+  <div class="wa-popup" id="waPopup">
+    <div class="wa-header">
+      <div class="wa-avatar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
+      </div>
+      <div class="wa-title">
+        <strong>Ninart Vision</strong>
+        <span>Online</span>
+      </div>
+      <button class="wa-close" onclick="toggleWA()">×</button>
+    </div>
+
+    <div class="wa-body">
+      <p>Hi 👋</p>
+      <p><strong>Chat with product owner Nini</strong></p>
+    </div>
+
+    <a
+      href="https://wa.me/995579388833"
+      target="_blank"
+      class="wa-btn"
+    >
+      Chat on WhatsApp
+    </a>
+  </div>
+
+  <!-- FLOATING ICON -->
+  <button class="wa-float" onclick="toggleWA()" aria-label="WhatsApp chat">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </button>
+
+</div>
+  ...
+  <!-- WhatsApp widget HTML + CSS აქ ზემოთ -->
+
+  <script>
+    function toggleWA(){
+      const popup = document.getElementById("waPopup");
+      popup.style.display =
+        popup.style.display === "block" ? "none" : "block";
+    }
+  </script>
+</body>
+</html>
 
 
 </body>
