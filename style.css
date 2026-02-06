@@ -518,9 +518,9 @@ body{
 
 /* Avatar centering - for artists listing page only */
 .artist-card .artist-avatar{
-  width: 100px;
-  height: 100px;
-  margin: 0 auto 14px;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 16px;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
@@ -546,7 +546,7 @@ body{
   align-items: center;
 }
 #artists .btn{
-  margin-top: 18px;
+  margin-top: 14px;
   display: inline-block;
 }
 
@@ -1076,8 +1076,8 @@ body{
   }
 
   .artist-avatar{
-    width: 65px;
-    height: 65px;
+    width: 40px;
+    height: 40px;
     margin: 0 auto 6px;
     border-width: 2px;
   }
@@ -2199,11 +2199,9 @@ background: #f2f2f2;
    (Shows 3 cards at a time)
 =========================== */
 #support .container {
-  /* Override global container to expand near-full-width on desktop */
-  width: min(1680px, 96%);
   /* Add padding on desktop to accommodate arrows positioned outside */
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .projects-slider-wrap {
@@ -2211,6 +2209,8 @@ background: #f2f2f2;
   display: flex;
   align-items: center;
   gap: 0;
+  /* Explicitly allow arrows to extend outside on desktop */
+  overflow: visible;
 }
 
 .projects-slider {
@@ -2221,16 +2221,16 @@ background: #f2f2f2;
 
 .projects-track {
   display: flex;
-  gap: 28px;
+  gap: 22px;
   transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
 
 /* Desktop: Show exactly 3 cards */
 .projects-track .card {
-  flex: 0 0 calc((100% - 56px) / 3);
+  flex: 0 0 calc((100% - 44px) / 3);
   min-width: 0;
-  max-width: calc((100% - 56px) / 3);
+  max-width: calc((100% - 44px) / 3);
 }
 
 /* Arrow Buttons */
@@ -2247,7 +2247,7 @@ background: #f2f2f2;
   cursor: pointer;
   font-size: 20px;
   font-weight: 700;
-  z-index: 10;
+  z-index: 100;
   display: flex !important;
   align-items: center;
   justify-content: center;
@@ -2286,14 +2286,13 @@ background: #f2f2f2;
 @media (max-width: 900px) {
   /* Remove desktop container padding on tablet */
   #support .container {
-    width: min(1100px, 92%);
     padding-left: 4%;
     padding-right: 4%;
   }
   
   .projects-track .card {
-    flex: 0 0 calc((100% - 28px) / 2);
-    max-width: calc((100% - 28px) / 2);
+    flex: 0 0 calc((100% - 22px) / 2);
+    max-width: calc((100% - 22px) / 2);
   }
   
   .projects-arrow {
@@ -2312,6 +2311,7 @@ background: #f2f2f2;
   }
   
   .projects-slider-wrap {
+    /* Override desktop overflow for tablet */
     overflow: hidden;
     padding: 0 4px;
   }
@@ -2321,8 +2321,8 @@ background: #f2f2f2;
 @media (max-width: 600px) {
   /* Remove desktop container padding on mobile */
   #support .container {
-    padding-left: 4%;
-    padding-right: 4%;
+    padding-left: 0%;
+    padding-right: 0%;
   }
   
   .projects-track .card {
@@ -2353,11 +2353,38 @@ background: #f2f2f2;
   }
   
   .projects-slider-wrap {
+    /* Override desktop overflow for mobile */
     overflow: hidden;
-    /* Ensure arrows don't get clipped */
     padding: 0 4px;
   }
 }
+
+/* ===========================
+   CLICKABLE PROJECT CARDS
+   CSS Stretched-Link Pattern
+=========================== */
+/* Make card a positioning context */
+.projects-track .card {
+  position: relative;
+}
+
+/* Stretch the link to cover entire card */
+.projects-track .card .link::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+/* Keep link text above stretched area */
+.projects-track .card .link {
+  position: relative;
+  z-index: 1;
+}
+
 .project-paragraph{
   line-height: 1.3;      /* ხაზებს შორის დაშორება */
   margin: 0 0 18px;      /* აბზაცებს შორის დაშორება */
@@ -2920,7 +2947,7 @@ background: #f2f2f2;
 }
 
 .artist-card h3 {
-  font-size: 1rem; /* 16px - refined elegance */
+  font-size: 1.125rem; /* 18px - subtle emphasis */
   font-weight: 600;
   margin: 0 0 6px 0;
   color: #111;
@@ -2928,7 +2955,7 @@ background: #f2f2f2;
 }
 
 .artist-card .artist-style {
-  font-size: 0.875rem; /* 14px - balanced readability */
+  font-size: 0.9375rem; /* 15px - improved readability */
   color: #666;
   margin: 0;
   line-height: 1.4;
@@ -4189,11 +4216,16 @@ background: #f2f2f2;
   .container,
   .section,
   .hero-slider,
-  .projects-slider-wrap,
   .artists-grid,
   .shop-grid {
     max-width: 100% !important;
     overflow-x: hidden !important;
+  }
+  
+  /* Projects slider wrap manages its own overflow per breakpoint */
+  .projects-slider-wrap {
+    max-width: 100% !important;
+    /* Overflow controlled by specific breakpoints, not here */
   }
   
   /* Ensure all images stay within bounds */
@@ -5245,3 +5277,49 @@ background: #f2f2f2;
     font-size: 38px;
   }
 }
+/* =========================
+   FORCE MOBILE SIZE – ARTISTS
+========================= */
+@media (max-width: 768px) {
+
+  /* ONLY artists section */
+  #artists .artist-avatar,
+  #homeArtistsGrid .artist-avatar {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  #artists .artist-card h3,
+  #homeArtistsGrid .artist-card h3,
+  #artists .artist-card h4,
+  #homeArtistsGrid .artist-card h4 {
+    font-size: 13px !important;
+    line-height: 1.2;
+  }
+
+  #artists .artist-card p,
+  #homeArtistsGrid .artist-card p {
+    font-size: 11px !important;
+  }
+
+}
+/* =========================
+   MOBILE – REAL slider spacing FIX
+========================= */
+@media (max-width: 768px) {
+
+  /* slider moving track */
+  .projects-slider > div,
+  .projects-slider-track,
+  .swiper-wrapper {
+    column-gap: 8px !important;
+  }
+
+  /* if flex */
+  .projects-slider > div {
+    display: flex !important;
+  }
+
+}
+
+
