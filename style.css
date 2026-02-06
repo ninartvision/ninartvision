@@ -4,6 +4,8 @@ html {
   overflow-x: hidden;
   max-width: 100%;
   scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 html.loaded {
@@ -172,7 +174,7 @@ img, video {
 .hero-slider{
   position: relative;
   width: 100%;
-  height: 70vh;
+  height: 70dvh;
   min-height: 500px;
   max-height: 750px;
   overflow: hidden;
@@ -302,7 +304,7 @@ img, video {
 /* Tablet - 600px and up */
 @media (min-width: 600px){
   .hero-slider{
-    height: 75vh;
+    height: 75dvh;
     min-height: 550px;
     max-height: 850px;
   }
@@ -339,7 +341,7 @@ img, video {
 /* Desktop - 900px and up */
 @media (min-width: 900px){
   .hero-slider{
-    height: 82vh;
+    height: 82dvh;
     min-height: 600px;
     max-height: 950px;
   }
@@ -384,7 +386,7 @@ img, video {
 /* Large Desktop - 1400px and up */
 @media (min-width: 1400px){
   .hero-slider{
-    height: 85vh;
+    height: 85dvh;
     max-height: 1050px;
   }
   
@@ -467,6 +469,15 @@ img, video {
   border-radius: 16px;
   overflow:hidden;
   background:#fff;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .card img{
@@ -951,7 +962,7 @@ img, video {
   }
 
   .hero-slider{
-    height: 75vh;
+    height: 75dvh;
     min-height: 380px;
   }
 
@@ -1131,7 +1142,7 @@ img, video {
 /* ===== ArtistShare-style Hero Slider ===== */
 .hero-as-slider{
   position: relative;
-  height: 90vh;
+  height: 90dvh;
   min-height: 520px;
   background: #000;
   overflow: hidden;
@@ -1407,7 +1418,7 @@ img, video {
 
 .lightbox-img{
   max-width: 92vw;
-  max-height: 88vh;
+  max-height: 88dvh;
   border-radius: 18px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.5);
   transform: scale(0.8);
@@ -1595,7 +1606,7 @@ img, video {
 
 .product-left img{
   max-width: 100%;
-  max-height: 70vh;
+  max-height: 70dvh;
   object-fit: contain;
   border-radius: 16px;
 }
@@ -1630,7 +1641,7 @@ img, video {
 
   /* Fix mobile image cropping */
   .product-left{
-    min-height: 60vh;
+    min-height: 60dvh;
     padding: 12px;
     display: flex;
     align-items: center;
@@ -1638,7 +1649,7 @@ img, video {
   }
 
   .product-left img{
-    max-height: 60vh;
+    max-height: 60dvh;
     height: auto;
     width: 100%;
     object-fit: contain;
@@ -1650,13 +1661,13 @@ img, video {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 60vh;
+    min-height: 60dvh;
   }
 
   .product-gallery #productImg{
     width: 100%;
     height: auto;
-    max-height: 60vh;
+    max-height: 60dvh;
     object-fit: contain;
     cursor: pointer;
   }
@@ -1668,7 +1679,7 @@ img, video {
   }
   
   .product-modal-box{
-    max-height: 95vh;
+    max-height: 95dvh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -1888,7 +1899,7 @@ a.pill:visited{
 
 .imgModal img{
   max-width: 92vw;
-  max-height: 86vh;
+  max-height: 86dvh;
   border-radius: 18px;
   box-shadow: 0 24px 60px rgba(0,0,0,0.55);
   background: #fff;
@@ -2097,10 +2108,10 @@ background: #f2f2f2;
   .imgModalBox{
     grid-template-columns: 1fr;
     height: auto;
-    max-height: 90vh;
+    max-height: 90dvh;
   }
   .imgModalLeft{
-    height: 45vh;
+    height: 45dvh;
   }
 
   /* Ensure close button is visible on mobile */
@@ -2183,7 +2194,7 @@ background: #f2f2f2;
 
   .lightbox-img{
     max-width: 95vw;
-    max-height: 90vh;
+    max-height: 90dvh;
     border-radius: 12px;
   }
 
@@ -2374,28 +2385,22 @@ background: #f2f2f2;
 
 /* ===========================
    CLICKABLE PROJECT CARDS
-   CSS Stretched-Link Pattern
 =========================== */
-/* Make card a positioning context */
+/* Cards are now fully clickable anchor tags */
 .projects-track .card {
   position: relative;
+  cursor: pointer;
 }
 
-/* Stretch the link to cover entire card */
-.projects-track .card .link::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-}
-
-/* Keep link text above stretched area */
+/* Keep link text styling */
 .projects-track .card .link {
   position: relative;
-  z-index: 1;
+  display: inline-block;
+  margin-top: 10px;
+  color: #111;
+  text-decoration: none;
+  font-weight: 700;
+  pointer-events: none;
 }
 
 .project-paragraph{
@@ -2570,7 +2575,7 @@ background: #f2f2f2;
 /* ===== HERO SLIDER ===== */
 .hero-slider{
   position: relative;
-  height: 90vh;
+  height: 90dvh;
   min-height: 520px;
   overflow: hidden;
   background: #000;
@@ -2622,7 +2627,7 @@ background: #f2f2f2;
   }
 
   .hero-slider{
-    height: 62vh !important;
+    height: 62dvh !important;
     min-height: 320px !important;
   }
 }
@@ -2635,7 +2640,7 @@ background: #f2f2f2;
   }
 
   .hero-slider{
-    height: 55vh !important;
+    height: 55dvh !important;
     min-height: 280px !important;
   }
 }
@@ -3169,7 +3174,7 @@ background: #f2f2f2;
 
 /* SUPPORT HERO */
 .support-hero {
-  height: 75vh;
+  height: 75dvh;
   background: url("./images/garden9.jpg") center / cover no-repeat;
   position: relative;
   margin-top: 80px;
@@ -3552,7 +3557,7 @@ background: #f2f2f2;
   padding: 15px;
   transform: translateY(100%);
   transition: transform 0.3s ease;
-  max-height: 35vh;
+  max-height: 35dvh;
   overflow-y: auto;
 }
 
@@ -3627,7 +3632,7 @@ background: #f2f2f2;
   /* Product page mobile fixes */
   .product-left{
     padding: 10px;
-    min-height: 60vh;
+    min-height: 60dvh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3635,7 +3640,7 @@ background: #f2f2f2;
 
   .product-left img,
   .product-gallery #productImg{
-    max-height: 60vh !important;
+    max-height: 60dvh !important;
     height: auto !important;
     width: 100% !important;
     object-fit: contain !important;
@@ -4171,7 +4176,7 @@ background: #f2f2f2;
 
   .payment-modal-content {
     padding: 28px 20px;
-    max-height: 90vh;
+    max-height: 90dvh;
     overflow-y: auto;
   }
 
