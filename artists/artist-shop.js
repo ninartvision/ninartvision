@@ -199,19 +199,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const { result } = await res.json();
 
-      allArtworks = (result || [])
-        .filter(a => a.img) // Only include artworks with images
-        .map(a => ({
-          title: a.title,
-          price: a.price || "",
-          status: a.status === "sold" ? "sold" : "sale",
-          size: a.size || "",
-          medium: a.medium || "",
-          year: a.year || "",
-          img: a.img, // Full CDN URL from Sanity
-          desc: a.desc || "",
-          photos: a.photos && a.photos.length ? a.photos : [a.img]
-        }));
+    allArtworks = (result || [])
+  .filter(a => a.img) // ✅ სწორ ველზე ფილტრი
+  .map(a => ({
+    title: a.title,
+    price: a.price || "",
+    status: a.status === "sold" ? "sold" : "sale",
+    size: a.size || "",
+    medium: a.medium || "",
+    year: a.year || "",
+    img: a.img, // ✅ უკვე სწორად მოდის
+    desc: a.desc || "",
+    photos: a.photos && a.photos.length ? a.photos : [a.img]
+  }));
+
 
       console.log(`Loaded ${allArtworks.length} artworks from Sanity`);
 
