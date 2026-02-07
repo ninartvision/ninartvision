@@ -59,14 +59,32 @@ document.addEventListener("DOMContentLoaded", () => {
     photos = (item.dataset.photos || "")
       .split(",")
       .map(p => p.trim())
-      .map(p => p.toLowerCase())
       .filter(Boolean);
 
     const isSubPage =
       location.pathname.includes("/artists/") ||
       location.pathname.includes("/sale/");
 
-    if (isSubPage) photos = photos.map(p => "../" + p);
+    // Fix image paths: only prepend ../ for local images, not CDN URLs
+    if (isSubPage) {
+      photos = photos.map(p => {
+        // If it's a full URL (from Sanity CDN), use as-is
+        if (p.startsWith('http://') || p.startsWith('https://')) {
+          return p;
+        }
+        // For local images, prepend ../
+        return "../" + p.toLowerCase();
+      });
+    } else {
+      // On main page, just handle CDN vs local
+      photos = photos.map(p => {
+        if (p.startsWith('http://') || p.startsWith('https://')) {
+          return p;
+        }
+        return p.toLowerCase();
+      });
+    }
+    
     if (!photos.length) photos = [item.querySelector("img")?.src];
 
     showPhoto(0);

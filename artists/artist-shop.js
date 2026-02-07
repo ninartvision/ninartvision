@@ -153,51 +153,74 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ---------------------------
-// ARTWORKS (FROM SANITY)
-// ---------------------------
-let allArtworks = [];
+  // ARTWORKS (FROM SANITY ONLY)
+  // ---------------------------
+  let allArtworks = [];
 
-(async function loadArtworksFromSanity() {
-  try {
-    const query = `
-      *[_type == "artwork" && artist->slug.current == "${artistSlug}"] | order(_createdAt desc) {
-        title,
-        price,
-        status,
-        size,
-        medium,
-        year,
-        "img": image.asset->url,
-        desc,
-        "photos": images[].asset->url
-      }
-    `;
-
-    const res = await fetch(
-      "https://8t5h923j.api.sanity.io/v2024-01-01/data/query/production?query=" +
-        encodeURIComponent(query)
-    );
-
-    const { result } = await res.json();
-
-    allArtworks = (result || []).map(a => ({
-      title: a.title,
-      price: a.price || "",
-    status: a.status === "sold" ? "sold" : "sale",
-      size: a.size || "",
-      medium: a.medium || "",
-      year: a.year || "",
-      img: a.img,
-      desc: a.desc || "",
-      photos: a.photos && a.photos.length ? a.photos : [a.img]
-    }));
-
-    render("all");
-  } catch (err) {
-    console.error("Sanity artworks error:", err);
-    grid.innerHTML = "<p class='muted'>Failed to load artworks.</p>";
+  // Helper function to resolve image paths (Sanity CDN URLs)
+  function resolveImagePath(imgPath) {
+    if (!imgPath) return '';
+    // Sanity images are already full CDN URLs, use as-is
+    return imgPath;
   }
-})();
+
+  // Show loading state immediately
+  grid.innerHTML = '<p class="muted">Loading artworks...</p>';
+
+  (async function loadArtworks() {
+    if (!artistSlug) {
+      grid.innerHTML = '<p class="muted">Artist not found.</p>';
+      return;
+    }
+
+    try {
+      const query = `
+        *[_type == "artwork" && artist->slug.current == "${artistSlug}"] | order(_createdAt desc) {
+          title,
+          price,
+          status,
+          size,
+          medium,
+          year,
+          "img": image.asset->url,
+          desc,
+          "photos": images[].asset->url
+        }
+      `;
+
+      const res = await fetch(
+        "https://8t5h923j.api.sanity.io/v2024-01-01/data/query/production?query=" +
+          encodeURIComponent(query)
+      );
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const { result } = await res.json();
+
+      allArtworks = (result || [])
+        .filter(a => a.img) // Only include artworks with images
+        .map(a => ({
+          title: a.title,
+          price: a.price || "",
+          status: a.status === "sold" ? "sold" : "sale",
+          size: a.size || "",
+          medium: a.medium || "",
+          year: a.year || "",
+          img: a.img, // Full CDN URL from Sanity
+          desc: a.desc || "",
+          photos: a.photos && a.photos.length ? a.photos : [a.img]
+        }));
+
+      console.log(`Loaded ${allArtworks.length} artworks from Sanity`);
+
+      render("all");
+    } catch (err) {
+      console.error("Error loading artworks from Sanity:", err);
+      grid.innerHTML = '<p class="muted">Failed to load artworks. Please try again later.</p>';
+    }
+  })();
 
 
   function render(filter = "all") {
@@ -211,30 +234,31 @@ let allArtworks = [];
       return;
     }
 
-    grid.innerHTML = items.map(a => `
-  <div class="shop-item ${a.status}"
-    data-img="${a.img}"
-    data-artist="${artistSlug}"
-    data-status="${a.status}"
-    data-title="${a.title}"
-    data-price="${a.price}"
-    data-size="${a.size}"
-    data-medium="${a.medium}"
-    data-year="${a.year}"
-    data-desc="${a.desc}"
-    data-photos="${a.photos.join(",")}">
+    grid.innerHTML = items.map(a => {
+      return `
+        <div class="shop-item ${a.status}"
+          data-img="${a.img}"
+          data-artist="${artistSlug || artistId}"
+          data-status="${a.status}"
+          data-title="${a.title}"
+          data-price="${a.price}"
+          data-size="${a.size}"
+          data-medium="${a.medium}"
+          data-year="${a.year}"
+          data-desc="${a.desc}"
+          data-photos="${a.photos.join(",")}">
 
+          <img src="${a.img}" alt="${a.title}" loading="lazy">
 
-        <img src="${a.img}" alt="${a.title}" loading="lazy">
+          ${a.status === 'sold' ? '<div class="sold-badge"></div>' : ''}
 
-        ${a.status === 'sold' ? '<div class="sold-badge"></div>' : ''}
-
-        <div class="shop-meta">
-          <span>${a.title}</span>
-          <span class="price">₾${a.price}</span>
+          <div class="shop-meta">
+            <span>${a.title}</span>
+            ${a.price ? `<span class="price">₾${a.price}</span>` : ""}
+          </div>
         </div>
-      </div>
-    `).join("");
+      `;
+    }).join("");
 
     // 🔥 modal + gallery init
     if (window.initShopItems) initShopItems();
@@ -251,8 +275,7 @@ let allArtworks = [];
     });
   });
 
-  // INIT
-  render("all");
+  // Note: No initial render() call here - waiting for Sanity data to load
 });
 
 
