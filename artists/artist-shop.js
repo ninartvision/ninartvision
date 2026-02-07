@@ -183,7 +183,7 @@ let allArtworks = [];
     allArtworks = (result || []).map(a => ({
       title: a.title,
       price: a.price || "",
-      status: a.status || "available",
+    status: a.status === "sold" ? "sold" : "sale",
       size: a.size || "",
       medium: a.medium || "",
       year: a.year || "",
@@ -213,7 +213,7 @@ let allArtworks = [];
 
     grid.innerHTML = items.map(a => `
       <div class="shop-item ${a.status}"
-        data-artist="${a.artist}"
+        data-artist="${artistSlug}"
         data-status="${a.status}"
         data-title="${a.title}"
         data-price="${a.price}"
@@ -223,7 +223,8 @@ let allArtworks = [];
         data-desc="${a.desc}"
         data-photos="${a.photos.join(",")}">
 
-        <img src="../${a.img.toLowerCase()}" alt="${a.title}" loading="lazy">
+        <img src="${a.img}" alt="${a.title}" loading="lazy">
+
         ${a.status === 'sold' ? '<div class="sold-badge"></div>' : ''}
 
         <div class="shop-meta">
