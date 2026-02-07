@@ -153,20 +153,52 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ---------------------------
-  // ARTWORKS
-  // ---------------------------
-  if (!window.ARTWORKS) {
-    grid.innerHTML = "<p class='muted'>ARTWORKS not loaded</p>";
-    return;
-  }
+// ARTWORKS (FROM SANITY)
+// ---------------------------
+let allArtworks = [];
 
-  const allArtworks = window.ARTWORKS
-    .filter(a => a.artist === artistId)
-    .sort((a, b) => {
-      if (a.status === "sale" && b.status !== "sale") return -1;
-      if (a.status !== "sale" && b.status === "sale") return 1;
-      return 0;
-    });
+(async function loadArtworksFromSanity() {
+  try {
+    const query = `
+      *[_type == "artwork" && artist->slug.current == "${artistSlug}"] | order(_createdAt desc) {
+        title,
+        price,
+        status,
+        size,
+        medium,
+        year,
+        "img": image.asset->url,
+        desc,
+        "photos": images[].asset->url
+      }
+    `;
+
+    const res = await fetch(
+      "https://8t5h923j.api.sanity.io/v2024-01-01/data/query/production?query=" +
+        encodeURIComponent(query)
+    );
+
+    const { result } = await res.json();
+
+    allArtworks = (result || []).map(a => ({
+      title: a.title,
+      price: a.price || "",
+      status: a.status || "available",
+      size: a.size || "",
+      medium: a.medium || "",
+      year: a.year || "",
+      img: a.img,
+      desc: a.desc || "",
+      photos: a.photos && a.photos.length ? a.photos : [a.img]
+    }));
+
+    render("all");
+  } catch (err) {
+    console.error("Sanity artworks error:", err);
+    grid.innerHTML = "<p class='muted'>Failed to load artworks.</p>";
+  }
+})();
+
 
   function render(filter = "all") {
     const items =
