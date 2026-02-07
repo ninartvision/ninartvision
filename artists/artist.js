@@ -19,7 +19,7 @@
     const query = `
       *[_type == "artist" && slug.current == "${artistSlug}"][0]{
         name,
-        "avatar": avatar.asset->url,
+        "avatar": image.asset->url,
         bio_en,
         bio_ka,
         style
@@ -43,11 +43,11 @@
       *[_type == "artwork" && artist->slug.current == "${artistSlug}"] | order(_createdAt desc){
         title,
         price,
-        size,
+        "size": dimensions,
         medium,
         year,
         status,
-        desc,
+        "desc": description,
         "img": image.asset->url,
         "photos": images[].asset->url
       }

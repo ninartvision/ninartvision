@@ -179,11 +179,11 @@ document.addEventListener("DOMContentLoaded", () => {
           title,
           price,
           status,
-          size,
+          "size": dimensions,
           medium,
           year,
           "img": image.asset->url,
-          desc,
+          "desc": description,
           "photos": images[].asset->url
         }
       `;
