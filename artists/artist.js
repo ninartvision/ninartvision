@@ -51,32 +51,53 @@
   // Setup biography display
   setupBioDisplay(artist, artistId);
 
-  // Load artworks (using artistId for compatibility with legacy ARTWORKS array)
-  const artworks = window.ARTWORKS ? window.ARTWORKS.filter(a => a.artist === artistId).sort((a, b) => {
-    if (a.status === 'sale' && b.status !== 'sale') return -1;
-    if (a.status !== 'sale' && b.status === 'sale') return 1;
-    return 0;
-  }) : [];
+ // ---------------------------
+// ARTWORKS (FROM SANITY)
+// ---------------------------
+let allArtworks = [];
 
-  const grid = document.getElementById("shopGrid");
-  if (grid) {
-    if (!artworks.length) {
-      grid.innerHTML = '<p class="muted" style="text-align:center;">No artworks available for this artist.</p>';
-    } else {
-      grid.innerHTML = artworks.map(a => `
-        <div class="shop-item ${a.status}" data-artist="${a.artist}" data-status="${a.status}" data-title="${a.title}" data-price="${a.price}" data-size="${a.size}" data-medium="${a.medium}" data-year="${a.year}" data-desc="${a.desc}" data-photos="${a.photos.join(',')}">
-          <img src="../${a.img.toLowerCase()}" alt="${a.title}" loading="lazy">
-          ${a.status === 'sold' ? '<div class="sold-badge"></div>' : ''}
-          <div class="shop-meta">
-            <span>${a.title}</span>
-            <span class="price">₾${a.price}</span>
-          </div>
-        </div>
-      `).join("");
-    }
+(async function loadArtworksFromSanity() {
+  try {
+    const query = `
+      *[_type == "artwork" && artist->slug.current == "${artistSlug}"] | order(_createdAt desc) {
+        title,
+        price,
+        status,
+        size,
+        medium,
+        year,
+        desc,
+        "img": image.asset->url,
+        "photos": images[].asset->url
+      }
+    `;
+
+    const res = await fetch(
+      "https://8t5h923j.api.sanity.io/v2024-01-01/data/query/production?query=" +
+        encodeURIComponent(query)
+    );
+
+    const { result } = await res.json();
+
+    allArtworks = (result || []).map(a => ({
+      title: a.title,
+      price: a.price || "",
+      status: a.status || "sale",
+      size: a.size || "",
+      medium: a.medium || "",
+      year: a.year || "",
+      desc: a.desc || "",
+      img: a.img,
+      photos: a.photos && a.photos.length ? a.photos : [a.img]
+    }));
+
+    render("all");
+  } catch (err) {
+    console.error("❌ Sanity artworks error:", err);
+    grid.innerHTML = "<p class='muted'>Failed to load artworks.</p>";
   }
+})();
 
-  if (window.initShopItems) initShopItems();
 
   /**
    * Setup biography display (single language, with fallback logic)
