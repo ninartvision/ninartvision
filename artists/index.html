@@ -98,6 +98,24 @@
   // Show loading state
   grid.innerHTML = "<p style='text-align:center'>Loading artists...</p>";
 
+  // Pin specific artists to the top
+  function pinArtistsToTop(artistsList) {
+    const pinnedNames = ['Nini Mzhavia', 'Mzia Kashia'];
+    const pinned = [];
+    const others = [];
+    
+    artistsList.forEach(artist => {
+      const index = pinnedNames.indexOf(artist.name);
+      if (index !== -1) {
+        pinned[index] = artist;
+      } else {
+        others.push(artist);
+      }
+    });
+    
+    return [...pinned.filter(a => a), ...others];
+  }
+
   // Fetch all artists from Sanity
   (async function() {
     try {
@@ -108,6 +126,9 @@
         if (searchInput) searchInput.disabled = true;
         return;
       }
+
+      // Pin artists to top
+      allArtists = pinArtistsToTop(allArtists);
 
       // Initially show all artists
       filteredArtists = allArtists;
@@ -172,6 +193,9 @@
           name.includes(word) || style.includes(word)
         );
       });
+
+      // Apply pinning to filtered results
+      filteredArtists = pinArtistsToTop(filteredArtists);
 
       renderArtists(filteredArtists);
       
