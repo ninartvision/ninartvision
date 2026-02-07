@@ -60,8 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // ABOUT ARTIST - COLLAPSIBLE + LANGUAGE SWITCHER
   // ---------------------------
   const aboutToggle = document.getElementById("aboutToggle");
-  const aboutContent = document.getElementById("aboutContent");
-  const bioText = document.getElementById("bioText");
+  const aboutContent = document.getElementById("aboutArtist");
+  const bioText = document.getElementById("aboutText");
   const langSwitches = document.querySelectorAll(".lang-switch");
 
   let currentLang = "ka";

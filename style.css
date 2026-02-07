@@ -3117,6 +3117,7 @@ background: #f2f2f2;
   border-radius: 12px;
   text-align: left;
   margin-top: 0;
+  display: none;
 }
 
 .about-text {
