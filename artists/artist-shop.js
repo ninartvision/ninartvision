@@ -212,16 +212,18 @@ let allArtworks = [];
     }
 
     grid.innerHTML = items.map(a => `
-      <div class="shop-item ${a.status}"
-        data-artist="${artistSlug}"
-        data-status="${a.status}"
-        data-title="${a.title}"
-        data-price="${a.price}"
-        data-size="${a.size}"
-        data-medium="${a.medium}"
-        data-year="${a.year}"
-        data-desc="${a.desc}"
-        data-photos="${a.photos.join(",")}">
+  <div class="shop-item ${a.status}"
+    data-img="${a.img}"
+    data-artist="${artistSlug}"
+    data-status="${a.status}"
+    data-title="${a.title}"
+    data-price="${a.price}"
+    data-size="${a.size}"
+    data-medium="${a.medium}"
+    data-year="${a.year}"
+    data-desc="${a.desc}"
+    data-photos="${a.photos.join(",")}">
+
 
         <img src="${a.img}" alt="${a.title}" loading="lazy">
 
