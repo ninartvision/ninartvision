@@ -177,16 +177,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ---------------------------
-  // ABOUT TOGGLE
+  // ABOUT TOGGLE - UNIFIED (ONE CLICK ONLY)
   // ---------------------------
   const aboutToggle = document.getElementById("aboutToggle");
   const aboutContent = document.getElementById("aboutArtist");
 
   if (aboutToggle && aboutContent) {
+    // Set initial state
+    aboutContent.style.display = "none";
+    aboutToggle.innerHTML = "About artist ▼";
+
+    // Single unified toggle
     aboutToggle.addEventListener("click", () => {
-      const isHidden = aboutContent.style.display === "none";
-      aboutContent.style.display = isHidden ? "block" : "none";
-      aboutToggle.innerHTML = isHidden ? "About artist ▲" : "About artist ▼";
+      const isCurrentlyHidden = aboutContent.style.display === "none" || aboutContent.style.display === "";
+      aboutContent.style.display = isCurrentlyHidden ? "block" : "none";
+      aboutToggle.innerHTML = isCurrentlyHidden ? "About artist ▲" : "About artist ▼";
     });
   }
 
@@ -312,21 +317,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
-// ---------------------------
-// ABOUT TOGGLE (global function for legacy compatibility)
-// ---------------------------
-function toggleAbout() {
-  const box = document.getElementById("aboutArtist");
-  const btn = document.querySelector(".about-toggle");
-
-  if (!box) return;
-
-  box.classList.toggle("hidden");
-
-  if (btn) {
-    btn.textContent = box.classList.contains("hidden")
-      ? "About artist"
-      : "Hide about";
-  }
-}
