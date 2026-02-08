@@ -59,14 +59,32 @@ document.addEventListener("DOMContentLoaded", () => {
     photos = (item.dataset.photos || "")
       .split(",")
       .map(p => p.trim())
-      .map(p => p.toLowerCase())
       .filter(Boolean);
 
     const isSubPage =
       location.pathname.includes("/artists/") ||
       location.pathname.includes("/sale/");
 
-    if (isSubPage) photos = photos.map(p => "../" + p);
+    // Fix image paths: only prepend ../ for local images, not CDN URLs
+    if (isSubPage) {
+      photos = photos.map(p => {
+        // If it's a full URL (from Sanity CDN), use as-is
+        if (p.startsWith('http://') || p.startsWith('https://')) {
+          return p;
+        }
+        // For local images, prepend ../
+        return "../" + p.toLowerCase();
+      });
+    } else {
+      // On main page, just handle CDN vs local
+      photos = photos.map(p => {
+        if (p.startsWith('http://') || p.startsWith('https://')) {
+          return p;
+        }
+        return p.toLowerCase();
+      });
+    }
+    
     if (!photos.length) photos = [item.querySelector("img")?.src];
 
     showPhoto(0);
@@ -103,6 +121,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".shop-item").forEach(item => {
       item.addEventListener("click", e => {
         if (e.target.closest("a, button")) return;
+        
+        // Track artwork click
+        if (typeof trackArtworkClick === 'function') {
+          const title = item.dataset.title || 'Unknown';
+          const artistId = item.dataset.artist || '';
+          const artist = window.CURRENT_ARTIST || window.ARTISTS?.find(a => a.id === artistId);
+          trackArtworkClick(title, title, artist?.name || artistId);
+        }
+        
         openModal(item);
       });
     });
@@ -145,9 +172,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const title = currentItem.dataset.title || "";
     const price = currentItem.dataset.price || "";
     const artistId = currentItem.dataset.artist || "";
-    const artist = window.ARTISTS?.find(a => a.id === artistId);
+    // Use current artist from Sanity if available, otherwise fallback to legacy data
+    const artist = window.CURRENT_ARTIST || window.ARTISTS?.find(a => a.id === artistId);
     const artistName = artist?.name || "";
     const phone = artist?.whatsapp || "995579388833";
+
+    // Track WhatsApp contact
+    if (typeof trackWhatsAppClick === 'function') {
+      trackWhatsAppClick(artistName, 'cart');
+    }
 
     const msg = encodeURIComponent(
       `გამარჯობა, მაინტერესებს ნახატი: ${title}, ავტორი ${artistName}, ფასი ₾${price}`
@@ -434,10 +467,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentIndex = 0;
     const cards = projectsTrack.querySelectorAll(".card");
     const totalCards = cards.length;
-    
-    console.log(`🎨 Featured Projects Slider Initialized`);
-    console.log(`   Total cards: ${totalCards}`);
-    console.log(`   Arrows found:`, { prev: !!projectsPrev, next: !!projectsNext });
 
     // Touch/swipe support variables
     let touchStartX = 0;
@@ -548,8 +577,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initial setup with slight delay to ensure DOM is ready
     setTimeout(() => {
       updateSlider();
-      // Log total projects for verification
-      console.log(`   ✅ Slider ready with ${totalCards} projects`);
     }, 100);
   } else {
     console.warn('⚠️ Featured Projects Slider elements not found:', {

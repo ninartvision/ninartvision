@@ -4,6 +4,8 @@ html {
   overflow-x: hidden;
   max-width: 100%;
   scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 html.loaded {
@@ -15,15 +17,20 @@ body{
   color:#000000;
   background:#ffffff;
   overflow-x: hidden;
-  max-width: 100vw;
+  width: 100%;
   position: relative;
+}
+
+/* Prevent images/videos from causing horizontal overflow */
+img, video {
+  max-width: 100%;
+  height: auto;
 }
 
 .container{
   width: min(1100px, 92%);
   margin: 0 auto;
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 /* HEADER */
@@ -167,7 +174,7 @@ body{
 .hero-slider{
   position: relative;
   width: 100%;
-  height: 70vh;
+  height: 70dvh;
   min-height: 500px;
   max-height: 750px;
   overflow: hidden;
@@ -297,7 +304,7 @@ body{
 /* Tablet - 600px and up */
 @media (min-width: 600px){
   .hero-slider{
-    height: 75vh;
+    height: 75dvh;
     min-height: 550px;
     max-height: 850px;
   }
@@ -334,7 +341,7 @@ body{
 /* Desktop - 900px and up */
 @media (min-width: 900px){
   .hero-slider{
-    height: 82vh;
+    height: 82dvh;
     min-height: 600px;
     max-height: 950px;
   }
@@ -379,7 +386,7 @@ body{
 /* Large Desktop - 1400px and up */
 @media (min-width: 1400px){
   .hero-slider{
-    height: 85vh;
+    height: 85dvh;
     max-height: 1050px;
   }
   
@@ -462,6 +469,15 @@ body{
   border-radius: 16px;
   overflow:hidden;
   background:#fff;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .card img{
@@ -516,14 +532,17 @@ body{
 
 /* ARTISTS */
 
-.artist-avatar{
-  width: 160px;
-  height: 160px;
+/* Avatar centering - for artists listing page only */
+.artist-card .artist-avatar{
+  width: 120px;
+  height: 120px;
   margin: 0 auto 16px;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-color: #f5f5f5;
+  border: 2px solid rgba(0,0,0,0.06);
 }
 
 /* ✅ remove extra space for Artists section only */
@@ -537,11 +556,7 @@ body{
 
 
 .artist-card{
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 16px;
-  padding: 18px;
   text-align:center;
-  background:#fff;
   text-decoration: none;
   color: inherit;
   display: flex;
@@ -549,7 +564,7 @@ body{
   align-items: center;
 }
 #artists .btn{
-  margin-top: 18px;
+  margin-top: 14px;
   display: inline-block;
 }
 
@@ -815,6 +830,8 @@ body{
   font-size: 20px;
   letter-spacing: 2px;
   font-weight: 400;
+  display: inline-block;
+  width: fit-content;
 }
 
 /* RESPONSIVE */
@@ -947,7 +964,7 @@ body{
   }
 
   .hero-slider{
-    height: 75vh;
+    height: 75dvh;
     min-height: 380px;
   }
 
@@ -1071,15 +1088,14 @@ body{
   }
 
   .artist-card{
-    padding: 12px 6px;
     display: flex !important;
     flex-direction: column;
     align-items: center;
   }
 
   .artist-avatar{
-    width: 65px;
-    height: 65px;
+    width: 40px;
+    height: 40px;
     margin: 0 auto 6px;
     border-width: 2px;
   }
@@ -1094,15 +1110,19 @@ body{
     font-size: 9px;
   }
 }
+/* =========================
+   DESKTOP – show 3 projects
+========================= */
+@media (min-width: 769px) {
+  .projects-track .card {
+    flex: 0 0 33.3333%;
+  }
+}
 
 /* Smaller artist cards for very small mobile screens */
 @media(max-width: 400px){
   .artists-grid {
     gap: 8px;
-  }
-
-  .artist-card{
-    padding: 10px 4px;
   }
 
   .artist-avatar{
@@ -1124,7 +1144,7 @@ body{
 /* ===== ArtistShare-style Hero Slider ===== */
 .hero-as-slider{
   position: relative;
-  height: 90vh;
+  height: 90dvh;
   min-height: 520px;
   background: #000;
   overflow: hidden;
@@ -1400,7 +1420,7 @@ body{
 
 .lightbox-img{
   max-width: 92vw;
-  max-height: 88vh;
+  max-height: 88dvh;
   border-radius: 18px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.5);
   transform: scale(0.8);
@@ -1444,7 +1464,7 @@ body{
   display:flex;
   gap:14px;
   align-items:center;
-  margin: 18px 0 25px;
+  margin: 10px 0 20px;
 }
 
 .tab-btn{
@@ -1588,7 +1608,7 @@ body{
 
 .product-left img{
   max-width: 100%;
-  max-height: 70vh;
+  max-height: 70dvh;
   object-fit: contain;
   border-radius: 16px;
 }
@@ -1623,7 +1643,7 @@ body{
 
   /* Fix mobile image cropping */
   .product-left{
-    min-height: 60vh;
+    min-height: 60dvh;
     padding: 12px;
     display: flex;
     align-items: center;
@@ -1631,7 +1651,7 @@ body{
   }
 
   .product-left img{
-    max-height: 60vh;
+    max-height: 60dvh;
     height: auto;
     width: 100%;
     object-fit: contain;
@@ -1643,13 +1663,13 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 60vh;
+    min-height: 60dvh;
   }
 
   .product-gallery #productImg{
     width: 100%;
     height: auto;
-    max-height: 60vh;
+    max-height: 60dvh;
     object-fit: contain;
     cursor: pointer;
   }
@@ -1661,7 +1681,7 @@ body{
   }
   
   .product-modal-box{
-    max-height: 95vh;
+    max-height: 95dvh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -1881,7 +1901,7 @@ a.pill:visited{
 
 .imgModal img{
   max-width: 92vw;
-  max-height: 86vh;
+  max-height: 86dvh;
   border-radius: 18px;
   box-shadow: 0 24px 60px rgba(0,0,0,0.55);
   background: #fff;
@@ -2090,10 +2110,10 @@ background: #f2f2f2;
   .imgModalBox{
     grid-template-columns: 1fr;
     height: auto;
-    max-height: 90vh;
+    max-height: 90dvh;
   }
   .imgModalLeft{
-    height: 45vh;
+    height: 45dvh;
   }
 
   /* Ensure close button is visible on mobile */
@@ -2176,7 +2196,7 @@ background: #f2f2f2;
 
   .lightbox-img{
     max-width: 95vw;
-    max-height: 90vh;
+    max-height: 90dvh;
     border-radius: 12px;
   }
 
@@ -2206,8 +2226,8 @@ background: #f2f2f2;
 =========================== */
 #support .container {
   /* Add padding on desktop to accommodate arrows positioned outside */
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .projects-slider-wrap {
@@ -2215,6 +2235,8 @@ background: #f2f2f2;
   display: flex;
   align-items: center;
   gap: 0;
+  /* Explicitly allow arrows to extend outside on desktop */
+  overflow: visible;
 }
 
 .projects-slider {
@@ -2251,7 +2273,7 @@ background: #f2f2f2;
   cursor: pointer;
   font-size: 20px;
   font-weight: 700;
-  z-index: 10;
+  z-index: 100;
   display: flex !important;
   align-items: center;
   justify-content: center;
@@ -2315,6 +2337,7 @@ background: #f2f2f2;
   }
   
   .projects-slider-wrap {
+    /* Override desktop overflow for tablet */
     overflow: hidden;
     padding: 0 4px;
   }
@@ -2324,8 +2347,8 @@ background: #f2f2f2;
 @media (max-width: 600px) {
   /* Remove desktop container padding on mobile */
   #support .container {
-    padding-left: 4%;
-    padding-right: 4%;
+    padding-left: 0%;
+    padding-right: 0%;
   }
   
   .projects-track .card {
@@ -2356,11 +2379,32 @@ background: #f2f2f2;
   }
   
   .projects-slider-wrap {
+    /* Override desktop overflow for mobile */
     overflow: hidden;
-    /* Ensure arrows don't get clipped */
     padding: 0 4px;
   }
 }
+
+/* ===========================
+   CLICKABLE PROJECT CARDS
+=========================== */
+/* Cards are now fully clickable anchor tags */
+.projects-track .card {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Keep link text styling */
+.projects-track .card .link {
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
+  color: #111;
+  text-decoration: none;
+  font-weight: 700;
+  pointer-events: none;
+}
+
 .project-paragraph{
   line-height: 1.3;      /* ხაზებს შორის დაშორება */
   margin: 0 0 18px;      /* აბზაცებს შორის დაშორება */
@@ -2533,7 +2577,7 @@ background: #f2f2f2;
 /* ===== HERO SLIDER ===== */
 .hero-slider{
   position: relative;
-  height: 90vh;
+  height: 90dvh;
   min-height: 520px;
   overflow: hidden;
   background: #000;
@@ -2585,7 +2629,7 @@ background: #f2f2f2;
   }
 
   .hero-slider{
-    height: 62vh !important;
+    height: 62dvh !important;
     min-height: 320px !important;
   }
 }
@@ -2598,7 +2642,7 @@ background: #f2f2f2;
   }
 
   .hero-slider{
-    height: 55vh !important;
+    height: 55dvh !important;
     min-height: 280px !important;
   }
 }
@@ -2912,18 +2956,40 @@ background: #f2f2f2;
   padding: 0 20px;
 }
 
+/* Artists page only - match Featured Artists visual scale */
+.artists-grid .artist-avatar {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #f5f5f5;
+  border: 2px solid rgba(0,0,0,0.06);
+}
+
+.artists-grid .artist-card h3 {
+  font-size: 1rem; /* 16px */
+}
+
+.artists-grid .artist-style {
+  font-size: 0.8125rem; /* 13px */
+}
+
+.artists-grid .flag-icon {
+  width: 17px;
+  height: 17px;
+}
+
 .artist-card{
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 16px;
-  padding: 24px 18px;
   text-align: center;
-  background: #fff;
   text-decoration: none;
   color: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .artist-card h3 {
@@ -2942,37 +3008,50 @@ background: #f2f2f2;
 }
 
 .artist-card:hover{
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
 }
 
-.artist-avatar{
-  width: 110px;
-  height: 110px;
-  margin: 0 0 14px 0;
+/* Artist Header Layout */
+.artist-header {
+  margin: 20px 0 32px 0;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.artist-avatar {
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border: 3px solid rgba(0,0,0,0.08);
-  flex-shrink: 0;
-  /* Fallback background for placeholder/missing images */
+  object-fit: cover;
+  border: 2px solid rgba(0,0,0,0.06);
   background-color: #f5f5f5;
+  margin: 0 0 12px 0; /* Left-aligned */
+}
+
+.artist-info {
+  width: 100%;
+  text-align: left;
+  margin-left: 0;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.artist-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .artist-name {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
-  margin: 0 0 8px 0;
+  margin: 0;
   color: #111;
-}
-
-.artist-name span {
-  line-height: 1.3;
 }
 
 /* Artist link styling (for inline links like Mzia Kashia in About page) */
@@ -3014,53 +3093,117 @@ background: #f2f2f2;
 }
 
 /* ABOUT SECTION LAYOUT */
-.about-section {
-  max-width: 520px;
-  margin-left: auto;       /* მარჯვნივ */
-  margin-top: -20px;       /* ოდნავ ზემოთ */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;   /* ყველაფერი მარჯვნივ */
-  gap: 10px;
-}
-
-/* ABOUT BUTTON – BLACK */
+/* About Button - Light Outline Style */
 .about-toggle {
-  background: #000;
-  color: #fff;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-size: 16px;
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .about-toggle:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  border-color: #999;
+  color: #333;
+  background: #f9f9f9;
 }
 
 .about-toggle:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  background: #f0f0f0;
 }
 
-/* ABOUT TEXT BOX */
+/* About Artist Content */
 .about-artist {
   width: 100%;
-  padding: 16px;
-  background: #f7f7f7;
-  border-radius: 14px;
-  font-size: 14px;
-  line-height: 1.6;
+  padding: 14px;
+  background: #fafafa;
+  border-radius: 12px;
+  text-align: left;
+  margin-top: 0;
+  display: none;
 }
+
+.about-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #333;
+}
+
+/* Language Switcher */
+.lang-switcher {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  justify-content: flex-start;
+}
+
+.lang-switch {
+  background: #e8e8e8;
+  color: #666;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.lang-switch.active,
+.lang-switch:hover {
+  background: #1a1a1a;
+  color: #fff;
+  opacity: 1;
+}
+
+/* Responsive: Artist Header Mobile */
+@media (max-width: 768px) {
+  .artist-header {
+    margin: 16px 0 24px 0;
+  }
+  
+  .artist-avatar {
+    width: 75px;
+    height: 75px;
+    margin-bottom: 10px;
+  }
+  
+  .artist-name {
+    font-size: 18px;
+  }
+  
+  .artist-title-row {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .about-artist {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .artist-avatar {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .artist-name {
+    font-size: 17px;
+  }
+}
+
 /* SUPPORT HERO */
 .support-hero {
-  height: 75vh;
+  height: 75dvh;
   background: url("./images/garden9.jpg") center / cover no-repeat;
   position: relative;
   margin-top: 80px;
@@ -3443,7 +3586,7 @@ background: #f2f2f2;
   padding: 15px;
   transform: translateY(100%);
   transition: transform 0.3s ease;
-  max-height: 35vh;
+  max-height: 35dvh;
   overflow-y: auto;
 }
 
@@ -3518,7 +3661,7 @@ background: #f2f2f2;
   /* Product page mobile fixes */
   .product-left{
     padding: 10px;
-    min-height: 60vh;
+    min-height: 60dvh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3526,7 +3669,7 @@ background: #f2f2f2;
 
   .product-left img,
   .product-gallery #productImg{
-    max-height: 60vh !important;
+    max-height: 60dvh !important;
     height: auto !important;
     width: 100% !important;
     object-fit: contain !important;
@@ -3564,8 +3707,13 @@ background: #f2f2f2;
   }
 
   /* Prevent event conflicts on mobile */
-  .desktop-nav a,
-  .menu-link {
+  .desktop-nav a {
+    pointer-events: auto;
+    touch-action: manipulation;
+  }
+  
+  /* Menu links only clickable when overlay is active */
+  .menu-overlay.active .menu-link {
     pointer-events: auto;
     touch-action: manipulation;
   }
@@ -4057,7 +4205,7 @@ background: #f2f2f2;
 
   .payment-modal-content {
     padding: 28px 20px;
-    max-height: 90vh;
+    max-height: 90dvh;
     overflow-y: auto;
   }
 
@@ -4115,11 +4263,16 @@ background: #f2f2f2;
   .container,
   .section,
   .hero-slider,
-  .projects-slider-wrap,
   .artists-grid,
   .shop-grid {
     max-width: 100% !important;
     overflow-x: hidden !important;
+  }
+  
+  /* Projects slider wrap manages its own overflow per breakpoint */
+  .projects-slider-wrap {
+    max-width: 100% !important;
+    /* Overflow controlled by specific breakpoints, not here */
   }
   
   /* Ensure all images stay within bounds */
@@ -5171,3 +5324,129 @@ background: #f2f2f2;
     font-size: 38px;
   }
 }
+/* =========================
+   FORCE MOBILE SIZE – ARTISTS
+========================= */
+@media (max-width: 768px) {
+
+  /* ONLY artists section */
+  #artists .artist-avatar,
+  #homeArtistsGrid .artist-avatar {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  #artists .artist-card h3,
+  #homeArtistsGrid .artist-card h3,
+  #artists .artist-card h4,
+  #homeArtistsGrid .artist-card h4 {
+    font-size: 13px !important;
+    line-height: 1.2;
+  }
+
+  #artists .artist-card p,
+  #homeArtistsGrid .artist-card p {
+    font-size: 11px !important;
+  }
+
+}
+/* =========================
+   MOBILE – REAL slider spacing FIX
+========================= */
+@media (max-width: 768px) {
+
+  /* slider moving track */
+  .projects-slider > div,
+  .projects-slider-track,
+  .swiper-wrapper {
+    column-gap: 8px !important;
+  }
+
+  /* if flex */
+  .projects-slider > div {
+    display: flex !important;
+  }
+
+}
+.wa-widget{
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 99999;
+  font-family: Arial, sans-serif;
+}
+
+/* popup */
+.wa-popup{
+  width: 280px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+  margin-bottom: 12px;
+  overflow: hidden;
+  display: none;
+}
+
+/* header */
+.wa-header{
+  background: #075E54;
+  color: #fff;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+}
+.wa-avatar img{
+  width: 34px;
+  height: 34px;
+}
+.wa-title span{
+  font-size: 12px;
+  opacity: .8;
+  display: block;
+}
+.wa-close{
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* body */
+.wa-body{
+  padding: 16px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* button */
+.wa-btn{
+  display: block;
+  background: #25D366;
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* floating whatsapp icon */
+.wa-float{
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25D366;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wa-float img{
+  width: 28px;
+  height: 28px;
+}
+
+

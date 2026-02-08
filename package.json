@@ -1,0 +1,12 @@
+{
+  "name": "ninartvision-migration",
+  "version": "1.0.0",
+  "description": "Image migration script for Ninart Vision",
+  "type": "module",
+  "scripts": {
+    "migrate-images": "node migrate-images.js"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.15.7"
+  }
+}

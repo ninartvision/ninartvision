@@ -7,137 +7,301 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!grid || !title) return;
 
   // ---------------------------
-  // GET ARTIST ID
+  // GET ARTIST SLUG
   // ---------------------------
   const params = new URLSearchParams(location.search);
-  let artistId = params.get("artist");
+  const artistSlug = params.get("artist");
+  
+  // Extract short artist ID from slug (for legacy fallback)
+  const slugToId = {
+    'nini-mzhavia': 'nini',
+    'mzia-kashia': 'mzia',
+    'nanuli-gogiberidze': 'nanuli',
+    'salome-mzhavia': 'salome'
+  };
+  const artistId = slugToId[artistSlug] || artistSlug?.split('-')[0] || artistSlug;
 
-  // fallback filename-based (optional)
-  if (!artistId) {
-    const path = location.pathname.toLowerCase();
-    if (path.includes("nini")) artistId = "nini";
-    if (path.includes("mzia")) artistId = "mzia";
-    if (path.includes("nanuli")) artistId = "nanuli";
-  }
-
-  if (!artistId) {
+  if (!artistSlug) {
     title.textContent = "Artist not found";
     return;
   }
 
   // ---------------------------
-  // ARTIST INFO
+  // STATE
   // ---------------------------
-  const artistData = (window.ARTISTS || []).find(a => a.id === artistId);
-
-  title.textContent = artistData ? artistData.name : artistId.toUpperCase();
-
-  if (avatar) {
-    if (artistData?.avatar) {
-      avatar.src = "../" + artistData.avatar;
-      avatar.style.display = "block";
-    } else {
-      avatar.style.display = "none";
-    }
-  }
-
-  // ABOUT ARTIST (optional block)
-  const aboutTextEl = document.getElementById("aboutText");
-  if (aboutTextEl && artistData?.about) {
-    aboutTextEl.textContent = artistData.about;
-  }
-
-  // ---------------------------
-  // ABOUT ARTIST - COLLAPSIBLE + LANGUAGE SWITCHER
-  // ---------------------------
-  const aboutToggle = document.getElementById("aboutToggle");
-  const aboutContent = document.getElementById("aboutContent");
-  const bioText = document.getElementById("bioText");
-  const langSwitches = document.querySelectorAll(".lang-switch");
-
-  // Artist biographies (EN / KA)
-  const artistBios = {
-    nini: {
-      en: "Nini Mzhavia is a contemporary abstract artist whose works explore modern visual language, emotion, and form through vibrant colors and dynamic compositions.",
-      ka: "ნინი მჟავია არის თანამედროვე აბსტრაქტული მხატვარი, რომლის ნამუშევრები იკვლევს თანამედროვე ვიზუალურ ენას, ემოციას და ფორმას ცოცხალი ფერებითა და დინამიური კომპოზიციებით."
-    },
-    mzia: {
-      en: "Mzia Kashia creates impressionist works that blend reality with artistic interpretation, capturing the essence of Georgian landscapes and cultural heritage.",
-      ka: "მზია კაშია ქმნის იმპრესიონისტულ ნამუშევრებს, რომლებიც აერთიანებს რეალობას მხატვრულ ინტერპრეტაციასთან და ასახავს ქართული ლანდშაფტებისა და კულტურული მემკვიდრეობის არსს."
-    },
-    nanuli: {
-      en: "Nanuli Gogiberidze specializes in decorative impressionism, creating vivid artworks that celebrate beauty, nature, and Georgian artistic traditions.",
-      ka: "ნანული გოგიბერიძე სპეციალიზირებულია დეკორატიულ იმპრესიონიზმში და ქმნის ცოცხალ ნამუშევრებს, რომლებიც ადიდებენ სილამაზეს, ბუნებას და ქართულ მხატვრულ ტრადიციებს."
-    }
-  };
-
+  let artistData = null;
   let currentLang = "ka";
 
-  // Toggle About section
-  if (aboutToggle && aboutContent) {
-    aboutToggle.addEventListener("click", () => {
-      const isHidden = aboutContent.style.display === "none";
-      aboutContent.style.display = isHidden ? "block" : "none";
-      aboutToggle.innerHTML = isHidden ? "About artist ▲" : "About artist ▼";
+  // ---------------------------
+  // FETCH ARTIST FROM SANITY
+  // ---------------------------
+  async function fetchArtistData() {
+    try {
+      const query = `
+        *[_type == "artist" && slug.current == "${artistSlug}"][0]{
+          _id,
+          name,
+          "avatar": image.asset->url,
+          bio_en,
+          bio_ka,
+          about,
+          style,
+          seoTitle,
+          seoDescription,
+          "slug": slug.current
+        }
+      `;
+
+      const res = await fetch(
+        "https://8t5h923j.api.sanity.io/v2026-02-01/data/query/production?query=" +
+          encodeURIComponent(query),
+        {
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        }
+      );
+
+      if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+
+      const { result } = await res.json();
+      return result;
+    } catch (err) {
+      console.error("Error fetching artist:", err);
+      return null;
+    }
+  }
+
+  // ---------------------------
+  // INITIALIZE ARTIST DATA
+  // ---------------------------
+  async function initializeArtist() {
+    artistData = await fetchArtistData();
+    
+    // Fallback to legacy data if Sanity fetch fails
+    if (!artistData) {
+      artistData = (window.ARTISTS || []).find(a => a.id === artistId);
+    }
+
+    // Set artist name
+    title.textContent = artistData?.name || "Artist";
+
+    // Set avatar (defensive)
+    if (avatar && artistData?.avatar) {
+      avatar.src = artistData.avatar.startsWith('http') 
+        ? artistData.avatar 
+        : "../" + artistData.avatar;
+      avatar.style.display = "block";
+    } else if (avatar) {
+      avatar.style.display = "none";
+    }
+
+    // Store globally for legacy compatibility
+    window.CURRENT_ARTIST = artistData;
+
+    // Initialize bio rendering
+    initializeBio();
+  }
+
+  // ---------------------------
+  // BIO TEXT - SINGLE SOURCE OF TRUTH
+  // ---------------------------
+  function getBioText(lang) {
+    if (!artistData) return "Biography loading...";
+
+    // Priority 1: Requested language from Sanity
+    const requestedBio = lang === 'en' ? artistData.bio_en : artistData.bio_ka;
+    if (requestedBio?.trim()) return requestedBio;
+
+    // Priority 2: Fallback to other language from Sanity
+    const fallbackBio = lang === 'en' ? artistData.bio_ka : artistData.bio_en;
+    if (fallbackBio?.trim()) return fallbackBio;
+
+    // Priority 3: Legacy 'about' field
+    if (artistData.about?.trim()) return artistData.about;
+
+    // Priority 4: Hardcoded legacy bios
+    const legacyBios = {
+      nini: {
+        en: "Nini Mzhavia is a contemporary abstract artist whose works explore modern visual language, emotion, and form through vibrant colors and dynamic compositions.",
+        ka: "ნინი მჟავია არის თანამედროვე აბსტრაქტული მხატვარი, რომლის ნამუშევრები იკვლევს თანამედროვე ვიზუალურ ენას, ემოციას და ფორმას ცოცხალი ფერებითა და დინამიური კომპოზიციებით."
+      },
+      mzia: {
+        en: "Mzia Kashia creates impressionist works that blend reality with artistic interpretation, capturing the essence of Georgian landscapes and cultural heritage.",
+        ka: "მზია კაშია ქმნის იმპრესიონისტულ ნამუშევრებს, რომლებიც აერთიანებს რეალობას მხატვრულ ინტერპრეტაციასთან და ასახავს ქართული ლანდშაფტებისა და კულტურული მემკვიდრეობის არსს."
+      },
+      nanuli: {
+        en: "Nanuli Gogiberidze specializes in decorative impressionism, creating vivid artworks that celebrate beauty, nature, and Georgian artistic traditions.",
+        ka: "ნანული გოგიბერიძე სპეციალიზირებულია დეკორატიულ იმპრესიონიზმში და ქმნის ცოცხალ ნამუშევრებს, რომლებიც ადიდებენ სილამაზეს, ბუნებას და ქართულ მხატვრულ ტრადიციებს."
+      }
+    };
+
+    return legacyBios[artistId]?.[lang] || "No biography available.";
+  }
+
+  // ---------------------------
+  // BIO RENDERING - ONE PLACE ONLY
+  // ---------------------------
+  function updateBioText(lang) {
+    const bioText = document.getElementById("aboutText");
+    if (!bioText) return;
+
+    currentLang = lang;
+    bioText.textContent = getBioText(lang);
+
+    // Update language switcher button styles
+    const langSwitches = document.querySelectorAll(".lang-switch");
+    langSwitches.forEach(btn => {
+      if (btn.dataset.lang === lang) {
+        btn.style.background = "#1a1a1a";
+        btn.style.color = "#fff";
+        btn.style.opacity = "1";
+      } else {
+        btn.style.background = "#e8e8e8";
+        btn.style.color = "#666";
+        btn.style.opacity = "0.7";
+      }
     });
   }
 
-  // Language switcher
-  if (bioText && langSwitches.length > 0) {
-    const updateBio = (lang) => {
-      currentLang = lang;
-      const bio = artistBios[artistId]?.[lang] || artistData?.about || "No biography available.";
-      bioText.textContent = bio;
-
-      // Update button styles with improved contrast
-      langSwitches.forEach(btn => {
-        if (btn.dataset.lang === lang) {
-          btn.style.background = "#1a1a1a";
-          btn.style.color = "#fff";
-          btn.style.opacity = "1";
-        } else {
-          btn.style.background = "#e8e8e8";
-          btn.style.color = "#666";
-          btn.style.opacity = "0.7";
-        }
-      });
-    };
-
-    // Set initial bio - default to Georgian (KA)
+  // ---------------------------
+  // INITIALIZE BIO
+  // ---------------------------
+  function initializeBio() {
     const savedLang = localStorage.getItem("siteLang") || "ka";
-    updateBio(savedLang);
+    updateBioText(savedLang);
 
-    // Language switch handlers
+    // Language switcher event listeners
+    const langSwitches = document.querySelectorAll(".lang-switch");
     langSwitches.forEach(btn => {
       btn.addEventListener("click", () => {
         const lang = btn.dataset.lang;
-        updateBio(lang);
+        updateBioText(lang);
         localStorage.setItem("siteLang", lang);
       });
     });
   }
 
   // ---------------------------
-  // ARTWORKS
+  // ABOUT TOGGLE - UNIFIED (ONE CLICK ONLY)
   // ---------------------------
-  if (!window.ARTWORKS) {
-    grid.innerHTML = "<p class='muted'>ARTWORKS not loaded</p>";
-    return;
+  const aboutToggle = document.getElementById("aboutToggle");
+  const aboutContent = document.getElementById("aboutArtist");
+
+  if (aboutToggle && aboutContent) {
+    // Set initial state
+    aboutContent.style.display = "none";
+    aboutToggle.innerHTML = "About artist ▼";
+
+    // Single unified toggle
+    aboutToggle.addEventListener("click", () => {
+      const isCurrentlyHidden = aboutContent.style.display === "none" || aboutContent.style.display === "";
+      aboutContent.style.display = isCurrentlyHidden ? "block" : "none";
+      aboutToggle.innerHTML = isCurrentlyHidden ? "About artist ▲" : "About artist ▼";
+    });
   }
 
-  const allArtworks = window.ARTWORKS
-    .filter(a => a.artist === artistId)
-    .sort((a, b) => {
-      if (a.status === "sale" && b.status !== "sale") return -1;
-      if (a.status !== "sale" && b.status === "sale") return 1;
-      return 0;
-    });
+  // ---------------------------
+  // START: Initialize artist data
+  // ---------------------------
+  initializeArtist();
+
+
+  // ---------------------------
+  // ARTWORKS (FROM SANITY ONLY)
+  // ---------------------------
+  let allArtworks = [];
+
+  // Show loading state
+  grid.innerHTML = '<p class="muted">Loading artworks...</p>';
+
+  async function loadArtworks() {
+    if (!artistSlug) {
+      grid.innerHTML = '<p class="muted">Artist not found.</p>';
+      return;
+    }
+
+    try {
+      const query = `
+        *[_type == "artwork" && artist->slug.current == "${artistSlug}"] | order(_createdAt desc) {
+          _id,
+          title,
+          price,
+          status,
+          "size": dimensions,
+          medium,
+          year,
+          image{
+            asset->{
+              _id,
+              url
+            },
+            alt
+          },
+          "img": image.asset->url,
+          shortDescription,
+          "desc": shortDescription,
+          images[]{
+            asset->{
+              _id,
+              url
+            },
+            alt,
+            _key
+          },
+          "photos": images[].asset->url,
+          "slug": slug.current,
+          featured
+        }
+      `;
+
+      const res = await fetch(
+        "https://8t5h923j.api.sanity.io/v2026-02-01/data/query/production?query=" +
+          encodeURIComponent(query),
+        {
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(`HTTP error: ${res.status}`);
+      }
+
+      const { result } = await res.json();
+
+      allArtworks = (result || [])
+        .filter(a => a.img)
+        .map(a => ({
+          title: a.title || "Untitled",
+          price: a.price || "",
+          status: a.status === "sold" ? "sold" : "sale",
+          size: a.size || "",
+          medium: a.medium || "",
+          year: a.year || "",
+          img: a.img,
+          desc: a.desc || "",
+          photos: a.photos?.length ? a.photos : [a.img]
+        }));
+
+      console.log(`✅ Loaded ${allArtworks.length} artworks from Sanity`);
+
+      render("all");
+    } catch (err) {
+      console.error("❌ Error loading artworks:", err);
+      grid.innerHTML = '<p class="muted">Failed to load artworks. Please try again later.</p>';
+    }
+  }
 
   function render(filter = "all") {
-    const items =
-      filter === "all"
-        ? allArtworks
-        : allArtworks.filter(a => a.status === filter);
+    const items = filter === "all"
+      ? allArtworks
+      : allArtworks.filter(a => a.status === filter);
 
     if (!items.length) {
       grid.innerHTML = "<p class='muted'>No artworks found.</p>";
@@ -146,7 +310,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     grid.innerHTML = items.map(a => `
       <div class="shop-item ${a.status}"
-        data-artist="${a.artist}"
+        data-img="${a.img}"
+        data-artist="${artistSlug}"
         data-status="${a.status}"
         data-title="${a.title}"
         data-price="${a.price}"
@@ -156,19 +321,23 @@ document.addEventListener("DOMContentLoaded", () => {
         data-desc="${a.desc}"
         data-photos="${a.photos.join(",")}">
 
-        <img src="../${a.img.toLowerCase()}" alt="${a.title}" loading="lazy">
+        <img src="${a.img}" alt="${a.title}" loading="lazy" onerror="this.src='../images/placeholder.jpg'">
+
         ${a.status === 'sold' ? '<div class="sold-badge"></div>' : ''}
 
         <div class="shop-meta">
           <span>${a.title}</span>
-          <span class="price">₾${a.price}</span>
+          ${a.price ? `<span class="price">₾${a.price}</span>` : ""}
         </div>
       </div>
     `).join("");
 
-    // 🔥 modal + gallery init
-    if (window.initShopItems) initShopItems();
+    // Initialize modal/gallery
+    if (window.initShopItems) window.initShopItems();
   }
+
+  // Load artworks
+  loadArtworks();
 
   // ---------------------------
   // FILTER BUTTONS
@@ -180,26 +349,4 @@ document.addEventListener("DOMContentLoaded", () => {
       render(btn.dataset.filter);
     });
   });
-
-  // INIT
-  render("all");
 });
-
-
-// ---------------------------
-// ABOUT TOGGLE (outside DOMContentLoaded ✔️)
-// ---------------------------
-function toggleAbout() {
-  const box = document.getElementById("aboutArtist");
-  const btn = document.querySelector(".about-toggle");
-
-  if (!box) return;
-
-  box.classList.toggle("hidden");
-
-  if (btn) {
-    btn.textContent = box.classList.contains("hidden")
-      ? "About artist"
-      : "Hide about";
-  }
-}

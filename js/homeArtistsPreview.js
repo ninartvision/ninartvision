@@ -14,13 +14,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     artists = await fetchArtistsFromSanity(3, true); // Fetch only featured artists
   } catch (error) {
     console.error('Error loading artists:', error);
-    grid.innerHTML = `<p class="muted">Unable to load artists. Please try again later.</p>`;
+    // Hide the entire section on error
+    const artistsSection = document.getElementById('artists');
+    if (artistsSection) artistsSection.style.display = 'none';
     return;
   }
 
+  // Hide section gracefully if no featured artists exist
   if (!artists.length) {
-    grid.innerHTML = `<p class="muted">No artists available yet.</p>`;
+    const artistsSection = document.getElementById('artists');
+    if (artistsSection) artistsSection.style.display = 'none';
     return;
+  }
+
+  // Update section title to indicate Featured Artists
+  if (sectionTop) {
+    const title = sectionTop.querySelector('h2');
+    const subtitle = sectionTop.querySelector('.muted');
+    if (title) title.textContent = 'Featured Artists';
+    if (subtitle) subtitle.textContent = 'Discover our highlighted creators and explore their projects.';
   }
 
   // Function to render artists with smooth transition
@@ -37,19 +49,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     grid.innerHTML = artistsToShow.map(artist => {
-      // Map slugs to existing HTML filenames
+      // Use slug for dynamic artist page
       const artistSlug = artist.slug?.current || artist.slug || artist._id;
-      const slugToFile = {
-        'nini-mzhavia': 'nini.html',
-        'mzia-kashia': 'mzia.html',
-        'nanuli-gogiberidze': 'nanuli.html',
-        'salome-mzhavia': 'salome.html'
-      };
-      const artistPage = slugToFile[artistSlug] || `${artistSlug}.html`;
+      const artistPage = `artists/artist.html?artist=${encodeURIComponent(artistSlug)}`;
+      
+      // Handle new image structure with fallback
+      const avatarUrl = artist.image?.asset?.url || artist.avatar || 'images/artists/placeholder.jpg';
       
       return `
-        <a class="artist-card" href="artists/${artistPage}">
-          <div class="artist-avatar" style="background-image:url('${artist.avatar || 'images/artists/placeholder.jpg'}')"></div>
+        <a class="artist-card" href="${artistPage}">
+          <div class="artist-avatar" style="background-image:url('${avatarUrl}')"></div>
           <h3 class="artist-name">
             <img src="images/icon.jpg" alt="Georgia" class="flag-icon">
             <span>${artist.name}</span>
@@ -67,10 +76,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         subtitle.textContent = `Found ${count} artist${count !== 1 ? 's' : ''} matching your search`;
       }
     } else if (sectionTop) {
-      // Reset to original text when not searching
+      // Reset to Featured Artists text when not searching
       const subtitle = sectionTop.querySelector(".muted");
       if (subtitle) {
-        subtitle.textContent = "Discover creators and explore their projects.";
+        subtitle.textContent = "Discover our highlighted creators and explore their projects.";
       }
     }
   }

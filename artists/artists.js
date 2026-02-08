@@ -1,23 +1,38 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const grid = document.getElementById("artistsGrid");
   const pagination = document.getElementById("pagination");
 
-  // არტისტები მოდის data.js-დან
-  const artists = window.ARTISTS || [];
   const PER_PAGE = 8;
   let page = 1;
+  let artists = [];
+
+  // Show loading state
+  if (grid) {
+    grid.innerHTML = `<p class="muted">Loading artists...</p>`;
+  }
+
+  // Fetch artists from Sanity
+  try {
+    artists = await fetchArtistsFromSanity();
+  } catch (error) {
+    console.error('Error loading artists:', error);
+    if (grid) {
+      grid.innerHTML = `<p class="muted">Unable to load artists. Please try again later.</p>`;
+    }
+    return;
+  }
 
   // ✅ ერთიანი სწორი ლინკი ყველასთვის
   function getArtistLink(artist) {
-    const id = (artist.id || "").toLowerCase().trim();
-    return `artists/artist.html?artist=${encodeURIComponent(id)}`;
+    const slug = artist.slug || artist._id || "";
+    return `artists/artist.html?artist=${encodeURIComponent(slug)}`;
   }
 
   function render() {
     if (!grid) return;
 
     if (!artists.length) {
-      grid.innerHTML = `<p class="muted">No artists added yet.</p>`;
+      grid.innerHTML = `<p class="muted">No artists available.</p>`;
       if (pagination) pagination.innerHTML = "";
       return;
     }
@@ -28,13 +43,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     grid.innerHTML = items
       .map(
-        (artist) => `
+        (artist) => {
+          // Handle new image structure with fallback
+          const avatarUrl = artist.image?.asset?.url || artist.avatar || '';
+          
+          return `
         <a class="artist-card" href="${getArtistLink(artist)}">
-          <div class="artist-avatar" style="background-image:url('${artist.avatar || ""}');"></div>
+          <div class="artist-avatar" style="background-image:url('${avatarUrl}');"></div>
           <h3>${artist.name || ""}</h3>
-          ${artist.bio ? `<p class="muted">${artist.bio}</p>` : ""}
+          ${artist.style ? `<p class="muted">${artist.style}</p>` : ""}
         </a>
       `
+        }
       )
       .join("");
 
