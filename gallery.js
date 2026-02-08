@@ -13,13 +13,30 @@ document.addEventListener("DOMContentLoaded", async () => {
       *[_type == "artwork" && defined(image)] | order(_createdAt desc) {
         _id,
         title,
+        image{
+          asset->{
+            _id,
+            url,
+            metadata{lqip, dimensions}
+          },
+          alt
+        },
         "img": image.asset->url,
+        images[]{
+          asset->{
+            _id,
+            url,
+            metadata{lqip, dimensions}
+          },
+          alt,
+          _key
+        },
         "photos": images[].asset->url,
         medium,
         "size": dimensions,
         price,
         status,
-        description,
+        shortDescription,
         "slug": slug.current,
         featured,
         "artist": artist->{

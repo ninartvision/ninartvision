@@ -233,8 +233,24 @@ document.addEventListener("DOMContentLoaded", () => {
           "size": dimensions,
           medium,
           year,
+          image{
+            asset->{
+              _id,
+              url
+            },
+            alt
+          },
           "img": image.asset->url,
-          "desc": description,
+          shortDescription,
+          "desc": shortDescription,
+          images[]{
+            asset->{
+              _id,
+              url
+            },
+            alt,
+            _key
+          },
           "photos": images[].asset->url,
           "slug": slug.current,
           featured
