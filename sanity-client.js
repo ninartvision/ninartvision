@@ -11,7 +11,8 @@ const SANITY_CONFIG = {
   projectId: '8t5h923j',          // Ninart Vision Sanity project ID
   dataset: 'production',          // Production dataset
   apiVersion: '2024-01-01',       // Use current date or a fixed API version
-  useCdn: true                     // Use CDN for faster responses (set to false for real-time data)
+  useCdn: false,                   // ✅ CHANGED: Disable CDN for real-time updates (use true for production if you can wait 30min)
+  // For production with faster updates, consider: useCdn: true with webhook rebuilds
 };
 
 /**
