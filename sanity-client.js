@@ -255,3 +255,10 @@ async function fetchFeaturedArtworks(limit = null) {
     return [];
   }
 }
+// ⬆ ზემოთ: ყველა function (fetchArtistsFromSanity, fetchFeaturedArtworks და სხვ.)
+
+// expose Sanity functions globally
+window.fetchArtistsFromSanity = fetchArtistsFromSanity;
+window.fetchFeaturedArtworks = fetchFeaturedArtworks;
+window.fetchArtistBySlug = fetchArtistBySlug;
+
