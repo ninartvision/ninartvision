@@ -100,8 +100,7 @@
         medium,
         "size": dimensions,
         category,
-        shortDescription,
-        "desc": shortDescription,
+        "desc": description,
         price,
         status,
         featured

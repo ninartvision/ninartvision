@@ -38,11 +38,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       div.className = "shop-item " + p.status;
 
       div.innerHTML = `
-        <img src="${p.image}" alt="${p.title}" loading="lazy" onerror="this.src='images/placeholder.jpg'">
+        <img src="${p.image}" alt="${p.alt || p.title}" loading="lazy" onerror="this.src='images/placeholder.jpg'">
         <div class="shop-meta">
           <span>${p.title}</span>
-          <span class="price">${p.price}</span>
+          ${p.price ? `<span class="price">${p.price}</span>` : ''}
         </div>
+        ${p.shortDescription ? `<p class="short-desc">${p.shortDescription}</p>` : ''}
       `;
 
       grid.appendChild(div);
@@ -56,23 +57,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (featuredArtworks && featuredArtworks.length > 0) {
       // Use Sanity featured artworks with new image structure
       items = featuredArtworks.map(artwork => ({
-        status: artwork.status,
-        title: artwork.title,
-        price: "₾" + artwork.price,
-        image: artwork.image?.asset?.url || artwork.image || 'images/placeholder.jpg'
+        status: artwork.status || 'sale',
+        title: artwork.title || 'Untitled',
+        shortDescription: artwork.shortDescription || '',
+        price: artwork.price ? `₾${artwork.price}` : '',
+        // Prefer explicit asset URL, fall back to older shapes
+        image: artwork.image?.asset?.url || (Array.isArray(artwork.images) && artwork.images[0]?.asset?.url) || artwork.image || 'images/placeholder.jpg',
+        photos: Array.isArray(artwork.images) ? artwork.images.map(i => i?.asset?.url).filter(Boolean) : (artwork.image?.asset?.url ? [artwork.image.asset.url] : []),
+        alt: artwork.image?.alt || artwork.title || 'Artwork'
       }));
     } else {
       // Fallback to legacy data with showInShop filter
       if (window.ARTWORKS) {
-        items = window.ARTWORKS
-          .filter(a => a.showInShop === true) // Only show artworks marked for shop
-          .map(a => ({
-            status: a.status,
-            title: a.title,
-            price: "₾" + a.price,
-            image: a.img.toLowerCase()
-          }));
-      }
+          items = window.ARTWORKS
+            .filter(a => a.showInShop === true) // Only show artworks marked for shop
+            .map(a => ({
+              status: a.status || 'sale',
+              title: a.title || 'Untitled',
+              shortDescription: a.shortDescription || a.desc || '',
+              price: a.price ? `₾${a.price}` : '',
+              image: (a.img || '').toLowerCase(),
+              photos: a.photos || [a.img],
+              alt: a.alt || a.title || 'Artwork'
+            }));
+        }
     }
   } catch (error) {
     console.error('❌ Error loading featured artworks:', error);
@@ -82,10 +90,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       items = window.ARTWORKS
         .filter(a => a.showInShop === true) // Only show artworks marked for shop
         .map(a => ({
-          status: a.status,
-          title: a.title,
-          price: "₾" + a.price,
-          image: a.img.toLowerCase()
+          status: a.status || 'sale',
+          title: a.title || 'Untitled',
+          shortDescription: a.shortDescription || a.desc || '',
+          price: a.price ? `₾${a.price}` : '',
+          image: (a.img || '').toLowerCase(),
+          photos: a.photos || [a.img],
+          alt: a.alt || a.title || 'Artwork'
         }));
     }
   }
