@@ -175,7 +175,15 @@ async function fetchArtistBySlug(identifier) {
 async function fetchFeaturedArtworks(limit = null) {
   try {
     // Build GROQ query for featured artworks
-    let query = `*[_type == "artwork" && featured == true] | order(_createdAt desc)`;
+   let query = `
+  *[
+    _type == "artwork" &&
+    featured == true &&
+    (!defined(status) || status in ["published", "sold"])
+  ]
+  | order(coalesce(order, 999) asc, _createdAt desc)
+`;
+
     
     if (limit) {
       query += `[0...${limit}]`;
