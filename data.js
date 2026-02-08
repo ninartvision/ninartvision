@@ -156,7 +156,7 @@ window.ARTWORKS = [
     size: "40 x 50 cm",
     medium: "acrylic on canvas",
     year: "2025",
-    desc: "Original artwork, signed by the artist.",
+    
     img: "images/naturmort6.jpg",
     photos: [
       "images/naturmort6.jpg",
@@ -180,7 +180,7 @@ window.ARTWORKS = [
     size: "40 x 50 cm",
     medium: "acrylic on canvas",
     year: "2025",
-    desc: "Original artwork, signed by the artist.",
+    
     img: "images/abstract3.jpg",
     photos: [
       "images/abstract3.jpg",
@@ -204,7 +204,7 @@ window.ARTWORKS = [
     size: "40 x 50 cm",
     medium: "acrylic on canvas",
     year: "2025",
-    desc: "Original artwork, signed by the artist.",
+    
     img: "images/garden9.jpg",
     photos: [
       "images/garden9.jpg",
@@ -228,7 +228,7 @@ window.ARTWORKS = [
     size: "40 x 50 cm",
     medium: "Acrylic on canvas",
     year: "2025",
-    desc: "Original artwork, signed by the artist.",
+    
     img: "images/sea4.jpg",
     photos: [
       "images/sea4.jpg",
@@ -249,7 +249,7 @@ window.ARTWORKS = [
     size: "40 x 50 cm",
     medium: "Oil on canvas",
     year: "2025",
-    desc: "Original artwork, signed by the artist.",
+    
     img: "images/rose1.jpg",
     photos: [
       "images/rose1.jpg",
@@ -273,7 +273,7 @@ window.ARTWORKS = [
     size: "60 x 80 cm",
     medium: "Acrylic on canvas",
     year: "2025",
-    desc: "Original artwork, signed by the artist.",
+    
     img: "images/seaorange8.jpg",
     photos: [
       "images/seaorange8.jpg",
@@ -296,7 +296,7 @@ window.ARTWORKS = [
     size: "40 x 50 cm",
     medium: "acrylic on canvas",
     year: "2025",
-    desc: "Original artwork, signed by the artist.",
+    
     img: "images/lily8.jpg",
     photos: [
       "images/lily8.jpg",
@@ -318,7 +318,7 @@ window.ARTWORKS = [
     size: "20 x 30 cm",
     medium: "acrylic on canvas",
     year: "2025",
-    desc: "Original artwork, signed by the artist.",
+    
     img: "images/swan1.jpg",
     photos: [
       "images/swan1.jpg",
@@ -339,7 +339,7 @@ window.ARTWORKS = [
     size: "30 x 40 cm",
     medium: "acrylic on canvas",
     year: "2025",
-    desc: "Original artwork, signed by the artist.",
+   
     img: "images/waterlily1.jpg",
     photos: [
       "images/waterlily1.jpg",
@@ -359,7 +359,7 @@ window.ARTWORKS = [
     size: "20 x 30 cm",
     medium: "acrylic on canvas",
     year: "2025",
-    desc: "Original artwork, signed by the artist.",
+  
     img: "images/boat.jpg",
     photos: [
       "images/boat.jpg"
