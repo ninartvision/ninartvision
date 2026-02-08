@@ -220,9 +220,19 @@
 
       return `
         <a class="artist-card" href="${artistPage}">
-          <div class="artist-avatar"
-               style="background-image:url('${artist.avatar || '../images/artists/placeholder.jpg'}')">
-          </div>
+          ${(() => {
+  const avatarUrl =
+    artist.image && artist.image.asset && artist.image.asset.url
+      ? artist.image.asset.url
+      : "../images/artists/placeholder.jpg";
+
+  return `
+    <div class="artist-avatar"
+         style="background-image:url('${avatarUrl}')">
+    </div>
+  `;
+})()}
+
 
           <h3 class="artist-name">
             <img src="../images/icon.jpg" alt="Georgia" class="flag-icon">

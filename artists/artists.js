@@ -6,25 +6,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   let page = 1;
   let artists = [];
 
-  // Show loading state
-  if (grid) {
-    grid.innerHTML = `<p class="muted">Loading artists...</p>`;
-  }
+  if (grid) grid.innerHTML = `<p class="muted">Loading artists...</p>`;
 
-  // Fetch artists from Sanity
   try {
     artists = await fetchArtistsFromSanity();
   } catch (error) {
-    console.error('Error loading artists:', error);
-    if (grid) {
-      grid.innerHTML = `<p class="muted">Unable to load artists. Please try again later.</p>`;
-    }
+    console.error("Error loading artists:", error);
+    if (grid) grid.innerHTML = `<p class="muted">Unable to load artists.</p>`;
     return;
   }
 
-  // ✅ ერთიანი სწორი ლინკი ყველასთვის
   function getArtistLink(artist) {
-    const slug = artist.slug || artist._id || "";
+    const slug = artist.slug?.current || artist.slug || artist._id || "";
     return `artists/artist.html?artist=${encodeURIComponent(slug)}`;
   }
 
@@ -41,22 +34,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     const end = start + PER_PAGE;
     const items = artists.slice(start, end);
 
-    grid.innerHTML = items
-      .map(
-        (artist) => {
-          // Handle new image structure with fallback
-          const avatarUrl = artist.image?.asset?.url || artist.avatar || '';
-          
-          return `
+    grid.innerHTML = items.map(artist => {
+      const avatarUrl =
+        artist.image && artist.image.asset && artist.image.asset.url
+          ? artist.image.asset.url
+          : "../images/artists/placeholder.jpg";
+
+      return `
         <a class="artist-card" href="${getArtistLink(artist)}">
-          <div class="artist-avatar" style="background-image:url('${avatarUrl}');"></div>
+          <div class="artist-avatar" style="background-image:url('${avatarUrl}')"></div>
           <h3>${artist.name || ""}</h3>
           ${artist.style ? `<p class="muted">${artist.style}</p>` : ""}
         </a>
-      `
-        }
-      )
-      .join("");
+      `;
+    }).join("");
 
     renderPagination();
   }
@@ -75,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return `<button class="page-btn ${p === page ? "active" : ""}" data-page="${p}">${p}</button>`;
     }).join("");
 
-    pagination.querySelectorAll(".page-btn").forEach((btn) => {
+    pagination.querySelectorAll(".page-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         page = Number(btn.dataset.page);
         render();
