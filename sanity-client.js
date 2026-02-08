@@ -10,7 +10,7 @@
 const SANITY_CONFIG = {
   projectId: '8t5h923j',          // Ninart Vision Sanity project ID
   dataset: 'production',          // Production dataset
-  apiVersion: '2026-02-01',       // Current API version for real-time updates
+  apiVersion: '2025-02-05',       // API version matching schema
   useCdn: false,                   // ✅ NO CDN: Immediate updates, always fresh data
   perspective: 'published'         // Only show published content
 };
@@ -32,21 +32,38 @@ async function fetchArtistsFromSanity(limit = null, featuredOnly = false) {
       query += `[0...${limit}]`;
     }
     
-    // Add field projection
+    // Add field projection with ALL new fields
     query += `{
       _id,
       name,
-      "avatar": image.asset->url,
+      "slug": slug.current,
+      shortDescription,
+      subtitle,
+      image{
+        asset->{
+          _id,
+          url,
+          metadata{lqip, dimensions}
+        },
+        alt
+      },
+      gallery[]{
+        asset->{
+          _id,
+          url,
+          metadata{lqip, dimensions}
+        },
+        alt,
+        _key
+      },
+      bio,
+      style,
+      status,
+      featured,
       whatsapp,
       country,
-      style,
-      about,
-      bio_en,
-      bio_ka,
       seoTitle,
-      seoDescription,
-      featured,
-      "slug": slug.current
+      seoDescription
     }`;
 
     // Build Sanity API URL
@@ -96,16 +113,34 @@ async function fetchArtistBySlug(identifier) {
     const query = `*[_type == "artist" && (slug.current == "${identifier}" || _id == "${identifier}")][0]{
       _id,
       name,
-      "avatar": image.asset->url,
+      "slug": slug.current,
+      shortDescription,
+      subtitle,
+      image{
+        asset->{
+          _id,
+          url,
+          metadata{lqip, dimensions}
+        },
+        alt
+      },
+      gallery[]{
+        asset->{
+          _id,
+          url,
+          metadata{lqip, dimensions}
+        },
+        alt,
+        _key
+      },
+      bio,
+      style,
+      status,
+      featured,
       whatsapp,
       country,
-      style,
-      about,
-      bio_en,
-      bio_ka,
       seoTitle,
-      seoDescription,
-      "slug": slug.current
+      seoDescription
     }`;
 
     const url = `https://${SANITY_CONFIG.projectId}.api.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${encodeURIComponent(query)}`;
@@ -146,20 +181,43 @@ async function fetchFeaturedArtworks(limit = null) {
       query += `[0...${limit}]`;
     }
     
+    // Filter: Show artworks with no status (legacy) OR published/sold
+    query = query.replace(
+      '*[_type == "artwork"',
+      '*[_type == "artwork" && (!defined(status) || status in ["published", "sold"])'
+    );
+    
     // Add field projection with ALL artwork fields
     query += `{
       _id,
       title,
-      "image": image.asset->url,
-      price,
-      "size": dimensions,
-      medium,
-      year,
-      status,
-      description,
-      featured,
       "slug": slug.current,
-      "photos": images[].asset->url,
+      shortDescription,
+      image{
+        asset->{
+          _id,
+          url,
+          metadata{lqip, dimensions}
+        },
+        alt
+      },
+      images[]{
+        asset->{
+          _id,
+          url,
+          metadata{lqip, dimensions}
+        },
+        alt,
+        _key
+      },
+      year,
+      medium,
+      dimensions,
+      category,
+      description,
+      price,
+      status,
+      featured,
       "artist": artist->{
         _id,
         name,

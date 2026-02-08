@@ -54,12 +54,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const featuredArtworks = await fetchFeaturedArtworks();
     
     if (featuredArtworks && featuredArtworks.length > 0) {
-      // Use Sanity featured artworks
+      // Use Sanity featured artworks with new image structure
       items = featuredArtworks.map(artwork => ({
         status: artwork.status,
         title: artwork.title,
         price: "₾" + artwork.price,
-        image: artwork.image || 'images/placeholder.jpg'
+        image: artwork.image?.asset?.url || artwork.image || 'images/placeholder.jpg'
       }));
     } else {
       // Fallback to legacy data with showInShop filter

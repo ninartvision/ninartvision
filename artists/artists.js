@@ -43,13 +43,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     grid.innerHTML = items
       .map(
-        (artist) => `
+        (artist) => {
+          // Handle new image structure with fallback
+          const avatarUrl = artist.image?.asset?.url || artist.avatar || '';
+          
+          return `
         <a class="artist-card" href="${getArtistLink(artist)}">
-          <div class="artist-avatar" style="background-image:url('${artist.avatar || ""}');"></div>
+          <div class="artist-avatar" style="background-image:url('${avatarUrl}');"></div>
           <h3>${artist.name || ""}</h3>
           ${artist.style ? `<p class="muted">${artist.style}</p>` : ""}
         </a>
       `
+        }
       )
       .join("");
 

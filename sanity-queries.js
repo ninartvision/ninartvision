@@ -4,7 +4,7 @@
  * REAL-TIME MODE: No CDN, immediate updates
  */
 
-const SANITY_API_BASE = 'https://8t5h923j.api.sanity.io/v2026-02-01/data/query/production';
+const SANITY_API_BASE = 'https://8t5h923j.api.sanity.io/v2025-02-05/data/query/production';
 
 /**
  * Standard artist projection - use this in all artist queries
@@ -12,41 +12,82 @@ const SANITY_API_BASE = 'https://8t5h923j.api.sanity.io/v2026-02-01/data/query/p
 const ARTIST_PROJECTION = `{
   _id,
   name,
-  "avatar": image.asset->url,
-  bio_en,
-  bio_ka,
-  about,
+  "slug": slug.current,
+  shortDescription,
+  subtitle,
+  image{
+    asset->{
+      _id,
+      url,
+      metadata{lqip, dimensions}
+    },
+    alt
+  },
+  gallery[]{
+    asset->{
+      _id,
+      url,
+      metadata{lqip, dimensions}
+    },
+    alt,
+    _key
+  },
+  bio,
   style,
+  status,
+  featured,
   whatsapp,
   country,
   seoTitle,
-  seoDescription,
-  featured,
-  "slug": slug.current
+  seoDescription
 }`;
 
 /**
  * Standard artwork projection - use this in all artwork queries
+ * Filter includes legacy artworks (no status) and published/sold artworks
  */
 const ARTWORK_PROJECTION = `{
   _id,
   title,
-  price,
-  "size": dimensions,
-  medium,
-  year,
-  status,
-  "desc": description,
-  "img": image.asset->url,
-  "photos": images[].asset->url,
-  featured,
   "slug": slug.current,
+  shortDescription,
+  image{
+    asset->{
+      _id,
+      url,
+      metadata{lqip, dimensions}
+    },
+    alt
+  },
+  images[]{
+    asset->{
+      _id,
+      url,
+      metadata{lqip, dimensions}
+    },
+    alt,
+    _key
+  },
+  year,
+  medium,
+  "size": dimensions,
+  category,
+  "desc": description,
+  price,
+  status,
+  featured,
   "artist": artist->{
     _id,
     name,
     "slug": slug.current
   }
 }`;
+
+/**
+ * Standard status filter for artworks
+ * Shows legacy artworks (no status) AND published/sold artworks
+ */
+const ARTWORK_STATUS_FILTER = '(!defined(status) || status in ["published", "sold"])';
 
 /**
  * Fetch single artist by slug
@@ -81,7 +122,7 @@ async function fetchArtists(options = {}) {
  * Fetch artworks by artist slug
  */
 async function fetchArtworksByArtist(artistSlug) {
-  const query = `*[_type == "artwork" && artist->slug.current == $artistSlug] | order(_createdAt desc)${ARTWORK_PROJECTION}`;
+  const query = `*[_type == "artwork" && artist->slug.current == $artistSlug && ${ARTWORK_STATUS_FILTER}] | order(_createdAt desc)${ARTWORK_PROJECTION}`;
   return executeSanityQuery(query, { artistSlug });
 }
 
@@ -89,7 +130,7 @@ async function fetchArtworksByArtist(artistSlug) {
  * Fetch featured artworks
  */
 async function fetchFeaturedArtworks(limit = null) {
-  let query = `*[_type == "artwork" && featured == true] | order(_createdAt desc)`;
+  let query = `*[_type == "artwork" && featured == true && ${ARTWORK_STATUS_FILTER}] | order(_createdAt desc)`;
   
   if (limit) {
     query += `[0...${limit}]`;

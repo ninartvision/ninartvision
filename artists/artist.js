@@ -20,19 +20,37 @@
       *[_type == "artist" && slug.current == "${artistSlug}"][0]{
         _id,
         name,
-        "avatar": image.asset->url,
-        bio_en,
-        bio_ka,
-        about,
+        "slug": slug.current,
+        shortDescription,
+        subtitle,
+        image{
+          asset->{
+            _id,
+            url,
+            metadata{lqip, dimensions}
+          },
+          alt
+        },
+        gallery[]{
+          asset->{
+            _id,
+            url,
+            metadata{lqip, dimensions}
+          },
+          alt,
+          _key
+        },
+        bio,
         style,
+        status,
+        featured,
         seoTitle,
-        seoDescription,
-        "slug": slug.current
+        seoDescription
       }
     `
 
     const res = await fetch(
-      'https://8t5h923j.api.sanity.io/v2026-02-01/data/query/production?query=' +
+      'https://8t5h923j.api.sanity.io/v2025-02-05/data/query/production?query=' +
         encodeURIComponent(query),
       {
         headers: {
@@ -56,24 +74,41 @@
   --------------------------- */
   async function fetchArtworks() {
     const query = `
-      *[_type == "artwork" && artist->slug.current == "${artistSlug}"] | order(_createdAt desc){
+      *[_type == "artwork" && artist->slug.current == "${artistSlug}" && (!defined(status) || status in ["published", "sold"])] | order(_createdAt desc){
         _id,
         title,
-        price,
-        "size": dimensions,
-        medium,
-        year,
-        status,
-        "desc": description,
-        "img": image.asset->url,
-        "photos": images[].asset->url,
         "slug": slug.current,
+        shortDescription,
+        image{
+          asset->{
+            _id,
+            url,
+            metadata{lqip, dimensions}
+          },
+          alt
+        },
+        images[]{
+          asset->{
+            _id,
+            url,
+            metadata{lqip, dimensions}
+          },
+          alt,
+          _key
+        },
+        year,
+        medium,
+        "size": dimensions,
+        category,
+        "desc": description,
+        price,
+        status,
         featured
       }
     `
 
     const res = await fetch(
-      'https://8t5h923j.api.sanity.io/v2026-02-01/data/query/production?query=' +
+      'https://8t5h923j.api.sanity.io/v2025-02-05/data/query/production?query=' +
         encodeURIComponent(query),
       {
         headers: {
@@ -99,7 +134,8 @@
     if (!artist) return
 
     const pageTitle = artist.seoTitle || `${artist.name} | Ninart Vision`
-    const pageDesc = artist.seoDescription || `Discover artworks by ${artist.name}, a contemporary Georgian artist.`
+    const pageDesc = artist.seoDescription || artist.shortDescription || `Discover artworks by ${artist.name}, a contemporary Georgian artist.`
+    const ogImageUrl = artist.image?.asset?.url || ''
 
     // Update title
     document.title = pageTitle
@@ -118,7 +154,7 @@
 
     if (ogTitle) ogTitle.setAttribute('content', pageTitle)
     if (ogDesc) ogDesc.setAttribute('content', pageDesc)
-    if (ogImage && artist.avatar) ogImage.setAttribute('content', artist.avatar)
+    if (ogImage && ogImageUrl) ogImage.setAttribute('content', ogImageUrl)
     if (ogUrl) ogUrl.setAttribute('content', window.location.href)
 
     // Update Twitter Card
@@ -128,7 +164,50 @@
 
     if (twitterTitle) twitterTitle.setAttribute('content', pageTitle)
     if (twitterDesc) twitterDesc.setAttribute('content', pageDesc)
-    if (twitterImage && artist.avatar) twitterImage.setAttribute('content', artist.avatar)
+    if (twitterImage && ogImageUrl) twitterImage.setAttribute('content', ogImageUrl)
+  }
+
+  /* ---------------------------
+     RENDER ARTIST GALLERY
+  --------------------------- */
+  function renderArtistGallery(gallery) {
+    // Check if gallery container exists, if not create it
+    let galleryContainer = document.getElementById('artistGallery')
+    
+    if (!galleryContainer) {
+      // Insert gallery after the artist header, before the filter tabs
+      const artistHeader = document.querySelector('.artist-header')
+      const filterTabs = document.querySelector('.filter-tabs')
+      
+      galleryContainer = document.createElement('div')
+      galleryContainer.id = 'artistGallery'
+      galleryContainer.className = 'artist-gallery'
+      
+      if (artistHeader && filterTabs) {
+        artistHeader.parentNode.insertBefore(galleryContainer, filterTabs)
+      }
+    }
+    
+    if (!galleryContainer) return
+    
+    // Render gallery images
+    const galleryHTML = gallery.map((img, index) => `
+      <div class="gallery-item" data-index="${index}">
+        <img 
+          src="${img.asset?.url || ''}" 
+          alt="${img.alt || 'Artist gallery image'}"
+          loading="lazy"
+          onerror="this.src='../images/placeholder.jpg'"
+        >
+      </div>
+    `).join('')
+    
+    galleryContainer.innerHTML = `
+      <h3 class="gallery-title">Gallery</h3>
+      <div class="gallery-grid">
+        ${galleryHTML}
+      </div>
+    `
   }
 
   /* ---------------------------
@@ -138,8 +217,8 @@
     const aboutTextEl = document.getElementById('aboutText')
     if (!aboutTextEl) return
 
-    // Prioritize bio_en, fallback to bio_ka, then about
-    const bioText = artist.bio_en || artist.bio_ka || artist.about || 'Biography not available.'
+    // Use the new unified bio field
+    const bioText = artist.bio || artist.shortDescription || 'Biography not available.'
     aboutTextEl.textContent = bioText
   }
 
@@ -156,7 +235,16 @@
 
     grid.innerHTML = artworks
       .map(
-        (a) => `
+        (a) => {
+          // Get image URL from new structure
+          const imgUrl = a.image?.asset?.url || '../images/placeholder.jpg'
+          
+          // Get all photos (images array + main image as fallback)
+          const allPhotos = a.images && a.images.length > 0
+            ? a.images.map(img => img.asset?.url).filter(Boolean)
+            : [imgUrl]
+          
+          return `
       <div class="shop-item ${a.status === 'sold' ? 'sold' : 'sale'}"
         data-status="${a.status}"
         data-title="${a.title || 'Untitled'}"
@@ -164,11 +252,11 @@
         data-size="${a.size || ''}"
         data-medium="${a.medium || ''}"
         data-year="${a.year || ''}"
-        data-desc="${a.desc || ''}"
-        data-photos="${(a.photos && a.photos.length ? a.photos : [a.img]).join(',')}">
+        data-desc="${a.desc || a.shortDescription || ''}"
+        data-photos="${allPhotos.join(',')}">
 
-        <img src="${a.img}" 
-             alt="${a.title || 'Artwork'}" 
+        <img src="${imgUrl}" 
+             alt="${a.image?.alt || a.title || 'Artwork'}" 
              loading="lazy"
              onerror="this.src='../images/placeholder.jpg'">
 
@@ -180,6 +268,7 @@
         </div>
       </div>
     `
+        }
       )
       .join('')
 
@@ -200,11 +289,18 @@
 
       if (nameEl) nameEl.textContent = artist.name || 'Artist'
       
-      if (avatarEl && artist.avatar) {
-        avatarEl.src = artist.avatar
+      // Handle new image structure
+      if (avatarEl && artist.image?.asset?.url) {
+        avatarEl.src = artist.image.asset.url
+        avatarEl.alt = artist.image.alt || artist.name || 'Artist Avatar'
         avatarEl.style.display = 'block'
       } else if (avatarEl) {
         avatarEl.style.display = 'none'
+      }
+
+      // Render gallery if it exists
+      if (artist.gallery && artist.gallery.length > 0) {
+        renderArtistGallery(artist.gallery)
       }
 
       // Render bio
