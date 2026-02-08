@@ -10,9 +10,9 @@
 const SANITY_CONFIG = {
   projectId: '8t5h923j',          // Ninart Vision Sanity project ID
   dataset: 'production',          // Production dataset
-  apiVersion: '2024-01-01',       // Use current date or a fixed API version
-  useCdn: false,                   // ✅ CHANGED: Disable CDN for real-time updates (use true for production if you can wait 30min)
-  // For production with faster updates, consider: useCdn: true with webhook rebuilds
+  apiVersion: '2026-02-01',       // Current API version for real-time updates
+  useCdn: false,                   // ✅ NO CDN: Immediate updates, always fresh data
+  perspective: 'published'         // Only show published content
 };
 
 /**
@@ -52,7 +52,14 @@ async function fetchArtistsFromSanity(limit = null, featuredOnly = false) {
     // Build Sanity API URL
     const url = `https://${SANITY_CONFIG.projectId}.${SANITY_CONFIG.useCdn ? 'apicdn' : 'api'}.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${encodeURIComponent(query)}`;
     
-    const response = await fetch(url);
+    // Fetch with cache-busting headers for real-time updates
+    const response = await fetch(url, {
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
+    });
     
     if (!response.ok) {
       throw new Error(`Sanity API error: ${response.status} ${response.statusText}`);
@@ -101,9 +108,16 @@ async function fetchArtistBySlug(identifier) {
       "slug": slug.current
     }`;
 
-    const url = `https://${SANITY_CONFIG.projectId}.${SANITY_CONFIG.useCdn ? 'apicdn' : 'api'}.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${encodeURIComponent(query)}`;
+    const url = `https://${SANITY_CONFIG.projectId}.api.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${encodeURIComponent(query)}`;
 
-    const response = await fetch(url);
+    // Fetch with cache-busting headers
+    const response = await fetch(url, {
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
+    });
     
     if (!response.ok) {
       throw new Error(`Sanity API error: ${response.status}`);
@@ -132,19 +146,20 @@ async function fetchFeaturedArtworks(limit = null) {
       query += `[0...${limit}]`;
     }
     
-    // Add field projection
+    // Add field projection with ALL artwork fields
     query += `{
       _id,
       title,
       "image": image.asset->url,
       price,
-      size,
+      "size": dimensions,
       medium,
       year,
       status,
       description,
       featured,
       "slug": slug.current,
+      "photos": images[].asset->url,
       "artist": artist->{
         _id,
         name,
@@ -152,10 +167,17 @@ async function fetchFeaturedArtworks(limit = null) {
       }
     }`;
 
-    // Build Sanity API URL
-    const url = `https://${SANITY_CONFIG.projectId}.${SANITY_CONFIG.useCdn ? 'apicdn' : 'api'}.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${encodeURIComponent(query)}`;
+    // Build Sanity API URL (always use .api for real-time data)
+    const url = `https://${SANITY_CONFIG.projectId}.api.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${encodeURIComponent(query)}`;
     
-    const response = await fetch(url);
+    // Fetch with cache-busting headers
+    const response = await fetch(url, {
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
+    });
     
     if (!response.ok) {
       throw new Error(`Sanity API error: ${response.status} ${response.statusText}`);

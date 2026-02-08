@@ -541,6 +541,8 @@ img, video {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-color: #f5f5f5;
+  border: 2px solid rgba(0,0,0,0.06);
 }
 
 /* ✅ remove extra space for Artists section only */
@@ -2959,6 +2961,12 @@ background: #f2f2f2;
   width: 100px;
   height: 100px;
   margin: 0 auto 14px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #f5f5f5;
+  border: 2px solid rgba(0,0,0,0.06);
 }
 
 .artists-grid .artist-card h3 {

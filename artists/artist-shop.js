@@ -47,13 +47,21 @@ document.addEventListener("DOMContentLoaded", () => {
           about,
           style,
           seoTitle,
-          seoDescription
+          seoDescription,
+          "slug": slug.current
         }
       `;
 
       const res = await fetch(
-        "https://8t5h923j.api.sanity.io/v2024-01-01/data/query/production?query=" +
-          encodeURIComponent(query)
+        "https://8t5h923j.api.sanity.io/v2026-02-01/data/query/production?query=" +
+          encodeURIComponent(query),
+        {
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        }
       );
 
       if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
@@ -227,13 +235,22 @@ document.addEventListener("DOMContentLoaded", () => {
           year,
           "img": image.asset->url,
           "desc": description,
-          "photos": images[].asset->url
+          "photos": images[].asset->url,
+          "slug": slug.current,
+          featured
         }
       `;
 
       const res = await fetch(
-        "https://8t5h923j.api.sanity.io/v2024-01-01/data/query/production?query=" +
-          encodeURIComponent(query)
+        "https://8t5h923j.api.sanity.io/v2026-02-01/data/query/production?query=" +
+          encodeURIComponent(query),
+        {
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        }
       );
 
       if (!res.ok) {

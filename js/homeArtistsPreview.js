@@ -53,9 +53,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       const artistSlug = artist.slug?.current || artist.slug || artist._id;
       const artistPage = `artists/artist.html?artist=${encodeURIComponent(artistSlug)}`;
       
+      // Safe avatar URL with fallback
+      const avatarUrl = artist.avatar || 'images/artists/placeholder.jpg';
+      
       return `
         <a class="artist-card" href="${artistPage}">
-          <div class="artist-avatar" style="background-image:url('${artist.avatar || 'images/artists/placeholder.jpg'}')"></div>
+          <div class="artist-avatar" style="background-image:url('${avatarUrl}')"></div>
           <h3 class="artist-name">
             <img src="images/icon.jpg" alt="Georgia" class="flag-icon">
             <span>${artist.name}</span>

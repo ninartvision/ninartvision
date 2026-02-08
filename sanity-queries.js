@@ -1,9 +1,10 @@
 /**
  * STANDARDIZED SANITY GROQ QUERIES
  * Production-ready query patterns with all required fields
+ * REAL-TIME MODE: No CDN, immediate updates
  */
 
-const SANITY_API_BASE = 'https://8t5h923j.api.sanity.io/v2024-01-01/data/query/production';
+const SANITY_API_BASE = 'https://8t5h923j.api.sanity.io/v2026-02-01/data/query/production';
 
 /**
  * Standard artist projection - use this in all artist queries
@@ -39,7 +40,12 @@ const ARTWORK_PROJECTION = `{
   "img": image.asset->url,
   "photos": images[].asset->url,
   featured,
-  "slug": slug.current
+  "slug": slug.current,
+  "artist": artist->{
+    _id,
+    name,
+    "slug": slug.current
+  }
 }`;
 
 /**
@@ -90,16 +96,23 @@ async function fetchFeaturedArtworks(limit = null) {
   }
   
   query += ARTWORK_PROJECTION;
-  
-  return executeSanityQuery(query);
-}
-
-/**
- * Execute Sanity query with error handling
+   and cache-busting
  */
 async function executeSanityQuery(query, params = {}) {
   try {
     const url = `${SANITY_API_BASE}?query=${encodeURIComponent(query)}`;
+    const urlWithParams = params && Object.keys(params).length > 0
+      ? `${url}&${new URLSearchParams(Object.entries(params).map(([k, v]) => [`$${k}`, v]))}`
+      : url;
+    
+    // Fetch with cache-busting headers for real-time updates
+    const response = await fetch(urlWithParams, {
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
+    }codeURIComponent(query)}`;
     const urlWithParams = params && Object.keys(params).length > 0
       ? `${url}&${new URLSearchParams(Object.entries(params).map(([k, v]) => [`$${k}`, v]))}`
       : url;

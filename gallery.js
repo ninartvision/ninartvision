@@ -11,19 +11,40 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const query = `
       *[_type == "artwork" && defined(image)] | order(_createdAt desc) {
+        _id,
         title,
         "img": image.asset->url,
+        "photos": images[].asset->url,
         medium,
-        size,
+        "size": dimensions,
         price,
-        status
+        status,
+        description,
+        "slug": slug.current,
+        featured,
+        "artist": artist->{
+          _id,
+          name,
+          "slug": slug.current
+        }
       }
     `;
 
     const res = await fetch(
-      "https://YOUR_PROJECT_ID.api.sanity.io/v2024-01-01/data/query/production?query=" +
-        encodeURIComponent(query)
+      "https://8t5h923j.api.sanity.io/v2026-02-01/data/query/production?query=" +
+        encodeURIComponent(query),
+      {
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
+      }
     );
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    }
 
     const { result: artworks } = await res.json();
 
