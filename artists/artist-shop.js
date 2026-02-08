@@ -7,100 +7,115 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!grid || !title) return;
 
   // ---------------------------
-  // GET ARTIST ID
+  // GET ARTIST SLUG
   // ---------------------------
   const params = new URLSearchParams(location.search);
   const artistSlug = params.get("artist");
   
-  // Extract short artist ID from slug for artwork filtering
+  // Extract short artist ID from slug (for legacy fallback)
   const slugToId = {
     'nini-mzhavia': 'nini',
     'mzia-kashia': 'mzia',
     'nanuli-gogiberidze': 'nanuli',
     'salome-mzhavia': 'salome'
   };
-  let artistId = slugToId[artistSlug] || artistSlug?.split('-')[0] || artistSlug;
+  const artistId = slugToId[artistSlug] || artistSlug?.split('-')[0] || artistSlug;
 
-  // Fallback filename-based (optional)
-  if (!artistId) {
-    const path = location.pathname.toLowerCase();
-    if (path.includes("nini")) artistId = "nini";
-    if (path.includes("mzia")) artistId = "mzia";
-    if (path.includes("nanuli")) artistId = "nanuli";
-  }
-
-  if (!artistId) {
+  if (!artistSlug) {
     title.textContent = "Artist not found";
     return;
   }
 
   // ---------------------------
-  // ARTIST INFO (from Sanity via artist.js or fallback to legacy data)
+  // STATE
   // ---------------------------
-  const artistData = window.CURRENT_ARTIST || (window.ARTISTS || []).find(a => a.id === artistId);
-
-  title.textContent = artistData ? artistData.name : artistId.toUpperCase();
-
-  if (avatar) {
-    if (artistData?.avatar) {
-      avatar.src = "../" + artistData.avatar;
-      avatar.style.display = "block";
-    } else {
-      avatar.style.display = "none";
-    }
-  }
-
-  // ABOUT ARTIST (optional block)
-  const aboutTextEl = document.getElementById("aboutText");
-  if (aboutTextEl && artistData?.about) {
-    aboutTextEl.textContent = artistData.about;
-  }
-
-  // ---------------------------
-  // ABOUT ARTIST - COLLAPSIBLE + LANGUAGE SWITCHER
-  // ---------------------------
-  const aboutToggle = document.getElementById("aboutToggle");
-  const aboutContent = document.getElementById("aboutArtist");
-  const bioText = document.getElementById("aboutText");
-  const langSwitches = document.querySelectorAll(".lang-switch");
-
+  let artistData = null;
   let currentLang = "ka";
 
-  // Toggle About section
-  if (aboutToggle && aboutContent) {
-    aboutToggle.addEventListener("click", () => {
-      const isHidden = aboutContent.style.display === "none";
-      aboutContent.style.display = isHidden ? "block" : "none";
-      aboutToggle.innerHTML = isHidden ? "About artist ▲" : "About artist ▼";
-    });
+  // ---------------------------
+  // FETCH ARTIST FROM SANITY
+  // ---------------------------
+  async function fetchArtistData() {
+    try {
+      const query = `
+        *[_type == "artist" && slug.current == "${artistSlug}"][0]{
+          _id,
+          name,
+          "avatar": image.asset->url,
+          bio_en,
+          bio_ka,
+          about,
+          style,
+          seoTitle,
+          seoDescription
+        }
+      `;
+
+      const res = await fetch(
+        "https://8t5h923j.api.sanity.io/v2024-01-01/data/query/production?query=" +
+          encodeURIComponent(query)
+      );
+
+      if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+
+      const { result } = await res.json();
+      return result;
+    } catch (err) {
+      console.error("Error fetching artist:", err);
+      return null;
+    }
   }
 
-  // Function to get bio with fallback logic from Sanity data
-  function getBioText(lang) {
-    // Use Sanity data from window.CURRENT_ARTIST if available
-    const artist = window.CURRENT_ARTIST || artistData;
+  // ---------------------------
+  // INITIALIZE ARTIST DATA
+  // ---------------------------
+  async function initializeArtist() {
+    artistData = await fetchArtistData();
     
-    if (!artist) return "No biography available.";
-
-    // Try requested language from Sanity
-    const requestedBio = lang === 'en' ? artist.bio_en : artist.bio_ka;
-    if (requestedBio && requestedBio.trim()) {
-      return requestedBio;
+    // Fallback to legacy data if Sanity fetch fails
+    if (!artistData) {
+      artistData = (window.ARTISTS || []).find(a => a.id === artistId);
     }
 
-    // Fallback to other language from Sanity
-    const fallbackBio = lang === 'en' ? artist.bio_ka : artist.bio_en;
-    if (fallbackBio && fallbackBio.trim()) {
-      return fallbackBio;
+    // Set artist name
+    title.textContent = artistData?.name || "Artist";
+
+    // Set avatar (defensive)
+    if (avatar && artistData?.avatar) {
+      avatar.src = artistData.avatar.startsWith('http') 
+        ? artistData.avatar 
+        : "../" + artistData.avatar;
+      avatar.style.display = "block";
+    } else if (avatar) {
+      avatar.style.display = "none";
     }
 
-    // Fallback to legacy 'about' field
-    if (artist.about && artist.about.trim()) {
-      return artist.about;
-    }
+    // Store globally for legacy compatibility
+    window.CURRENT_ARTIST = artistData;
 
-    // Last resort: hardcoded bios (legacy support)
-    const artistBios = {
+    // Initialize bio rendering
+    initializeBio();
+  }
+
+  // ---------------------------
+  // BIO TEXT - SINGLE SOURCE OF TRUTH
+  // ---------------------------
+  function getBioText(lang) {
+    if (!artistData) return "Biography loading...";
+
+    // Priority 1: Requested language from Sanity
+    const requestedBio = lang === 'en' ? artistData.bio_en : artistData.bio_ka;
+    if (requestedBio?.trim()) return requestedBio;
+
+    // Priority 2: Fallback to other language from Sanity
+    const fallbackBio = lang === 'en' ? artistData.bio_ka : artistData.bio_en;
+    if (fallbackBio?.trim()) return fallbackBio;
+
+    // Priority 3: Legacy 'about' field
+    if (artistData.about?.trim()) return artistData.about;
+
+    // Priority 4: Hardcoded legacy bios
+    const legacyBios = {
       nini: {
         en: "Nini Mzhavia is a contemporary abstract artist whose works explore modern visual language, emotion, and form through vibrant colors and dynamic compositions.",
         ka: "ნინი მჟავია არის თანამედროვე აბსტრაქტული მხატვარი, რომლის ნამუშევრები იკვლევს თანამედროვე ვიზუალურ ენას, ემოციას და ფორმას ცოცხალი ფერებითა და დინამიური კომპოზიციებით."
@@ -115,59 +130,81 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    return artistBios[artistId]?.[lang] || "No biography available.";
+    return legacyBios[artistId]?.[lang] || "No biography available.";
   }
 
-  // Language switcher
-  if (bioText && langSwitches.length > 0) {
-    const updateBio = (lang) => {
-      currentLang = lang;
-      bioText.textContent = getBioText(lang);
+  // ---------------------------
+  // BIO RENDERING - ONE PLACE ONLY
+  // ---------------------------
+  function updateBioText(lang) {
+    const bioText = document.getElementById("aboutText");
+    if (!bioText) return;
 
-      // Update button styles with improved contrast
-      langSwitches.forEach(btn => {
-        if (btn.dataset.lang === lang) {
-          btn.style.background = "#1a1a1a";
-          btn.style.color = "#fff";
-          btn.style.opacity = "1";
-        } else {
-          btn.style.background = "#e8e8e8";
-          btn.style.color = "#666";
-          btn.style.opacity = "0.7";
-        }
-      });
-    };
+    currentLang = lang;
+    bioText.textContent = getBioText(lang);
 
-    // Set initial bio - default to Georgian (KA)
+    // Update language switcher button styles
+    const langSwitches = document.querySelectorAll(".lang-switch");
+    langSwitches.forEach(btn => {
+      if (btn.dataset.lang === lang) {
+        btn.style.background = "#1a1a1a";
+        btn.style.color = "#fff";
+        btn.style.opacity = "1";
+      } else {
+        btn.style.background = "#e8e8e8";
+        btn.style.color = "#666";
+        btn.style.opacity = "0.7";
+      }
+    });
+  }
+
+  // ---------------------------
+  // INITIALIZE BIO
+  // ---------------------------
+  function initializeBio() {
     const savedLang = localStorage.getItem("siteLang") || "ka";
-    updateBio(savedLang);
+    updateBioText(savedLang);
 
-    // Language switch handlers
+    // Language switcher event listeners
+    const langSwitches = document.querySelectorAll(".lang-switch");
     langSwitches.forEach(btn => {
       btn.addEventListener("click", () => {
         const lang = btn.dataset.lang;
-        updateBio(lang);
+        updateBioText(lang);
         localStorage.setItem("siteLang", lang);
       });
     });
   }
 
   // ---------------------------
+  // ABOUT TOGGLE
+  // ---------------------------
+  const aboutToggle = document.getElementById("aboutToggle");
+  const aboutContent = document.getElementById("aboutArtist");
+
+  if (aboutToggle && aboutContent) {
+    aboutToggle.addEventListener("click", () => {
+      const isHidden = aboutContent.style.display === "none";
+      aboutContent.style.display = isHidden ? "block" : "none";
+      aboutToggle.innerHTML = isHidden ? "About artist ▲" : "About artist ▼";
+    });
+  }
+
+  // ---------------------------
+  // START: Initialize artist data
+  // ---------------------------
+  initializeArtist();
+
+
+  // ---------------------------
   // ARTWORKS (FROM SANITY ONLY)
   // ---------------------------
   let allArtworks = [];
 
-  // Helper function to resolve image paths (Sanity CDN URLs)
-  function resolveImagePath(imgPath) {
-    if (!imgPath) return '';
-    // Sanity images are already full CDN URLs, use as-is
-    return imgPath;
-  }
-
-  // Show loading state immediately
+  // Show loading state
   grid.innerHTML = '<p class="muted">Loading artworks...</p>';
 
-  (async function loadArtworks() {
+  async function loadArtworks() {
     if (!artistSlug) {
       grid.innerHTML = '<p class="muted">Artist not found.</p>';
       return;
@@ -176,6 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const query = `
         *[_type == "artwork" && artist->slug.current == "${artistSlug}"] | order(_createdAt desc) {
+          _id,
           title,
           price,
           status,
@@ -194,76 +232,74 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
+        throw new Error(`HTTP error: ${res.status}`);
       }
 
       const { result } = await res.json();
 
-    allArtworks = (result || [])
-  .filter(a => a.img) // ✅ სწორ ველზე ფილტრი
-  .map(a => ({
-    title: a.title,
-    price: a.price || "",
-    status: a.status === "sold" ? "sold" : "sale",
-    size: a.size || "",
-    medium: a.medium || "",
-    year: a.year || "",
-    img: a.img, // ✅ უკვე სწორად მოდის
-    desc: a.desc || "",
-    photos: a.photos && a.photos.length ? a.photos : [a.img]
-  }));
+      allArtworks = (result || [])
+        .filter(a => a.img)
+        .map(a => ({
+          title: a.title || "Untitled",
+          price: a.price || "",
+          status: a.status === "sold" ? "sold" : "sale",
+          size: a.size || "",
+          medium: a.medium || "",
+          year: a.year || "",
+          img: a.img,
+          desc: a.desc || "",
+          photos: a.photos?.length ? a.photos : [a.img]
+        }));
 
-
-      console.log(`Loaded ${allArtworks.length} artworks from Sanity`);
+      console.log(`✅ Loaded ${allArtworks.length} artworks from Sanity`);
 
       render("all");
     } catch (err) {
-      console.error("Error loading artworks from Sanity:", err);
+      console.error("❌ Error loading artworks:", err);
       grid.innerHTML = '<p class="muted">Failed to load artworks. Please try again later.</p>';
     }
-  })();
-
+  }
 
   function render(filter = "all") {
-    const items =
-      filter === "all"
-        ? allArtworks
-        : allArtworks.filter(a => a.status === filter);
+    const items = filter === "all"
+      ? allArtworks
+      : allArtworks.filter(a => a.status === filter);
 
     if (!items.length) {
       grid.innerHTML = "<p class='muted'>No artworks found.</p>";
       return;
     }
 
-    grid.innerHTML = items.map(a => {
-      return `
-        <div class="shop-item ${a.status}"
-          data-img="${a.img}"
-          data-artist="${artistSlug || artistId}"
-          data-status="${a.status}"
-          data-title="${a.title}"
-          data-price="${a.price}"
-          data-size="${a.size}"
-          data-medium="${a.medium}"
-          data-year="${a.year}"
-          data-desc="${a.desc}"
-          data-photos="${a.photos.join(",")}">
+    grid.innerHTML = items.map(a => `
+      <div class="shop-item ${a.status}"
+        data-img="${a.img}"
+        data-artist="${artistSlug}"
+        data-status="${a.status}"
+        data-title="${a.title}"
+        data-price="${a.price}"
+        data-size="${a.size}"
+        data-medium="${a.medium}"
+        data-year="${a.year}"
+        data-desc="${a.desc}"
+        data-photos="${a.photos.join(",")}">
 
-          <img src="${a.img}" alt="${a.title}" loading="lazy">
+        <img src="${a.img}" alt="${a.title}" loading="lazy" onerror="this.src='../images/placeholder.jpg'">
 
-          ${a.status === 'sold' ? '<div class="sold-badge"></div>' : ''}
+        ${a.status === 'sold' ? '<div class="sold-badge"></div>' : ''}
 
-          <div class="shop-meta">
-            <span>${a.title}</span>
-            ${a.price ? `<span class="price">₾${a.price}</span>` : ""}
-          </div>
+        <div class="shop-meta">
+          <span>${a.title}</span>
+          ${a.price ? `<span class="price">₾${a.price}</span>` : ""}
         </div>
-      `;
-    }).join("");
+      </div>
+    `).join("");
 
-    // 🔥 modal + gallery init
-    if (window.initShopItems) initShopItems();
+    // Initialize modal/gallery
+    if (window.initShopItems) window.initShopItems();
   }
+
+  // Load artworks
+  loadArtworks();
 
   // ---------------------------
   // FILTER BUTTONS
@@ -275,13 +311,10 @@ document.addEventListener("DOMContentLoaded", () => {
       render(btn.dataset.filter);
     });
   });
-
-  // Note: No initial render() call here - waiting for Sanity data to load
 });
 
-
 // ---------------------------
-// ABOUT TOGGLE (outside DOMContentLoaded ✔️)
+// ABOUT TOGGLE (global function for legacy compatibility)
 // ---------------------------
 function toggleAbout() {
   const box = document.getElementById("aboutArtist");
