@@ -286,6 +286,19 @@
       // Update artist header
       const nameEl = document.querySelector('.artist-name')
       const avatarEl = document.getElementById('artistAvatar')
+const statusEl = document.querySelector('.artist-status')
+
+if (statusEl) {
+  statusEl.textContent =
+    artist.status ||
+    artist.subtitle ||
+    artist.style ||
+    ''
+  
+  statusEl.style.display = statusEl.textContent.trim()
+    ? 'block'
+    : 'none'
+}
 
       if (nameEl) nameEl.textContent = artist.name || 'Artist'
       
