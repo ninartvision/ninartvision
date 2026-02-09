@@ -58,20 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     grid.innerHTML = "";
 
-   artworks.sort((a, b) => {
-  const aSold = (a.status || "").toLowerCase().trim() === "sold";
-  const bSold = (b.status || "").toLowerCase().trim() === "sold";
-
-  // SOLD ყოველთვის ბოლოში
-  if (aSold && !bSold) return 999;
-  if (!aSold && bSold) return -999;
-
-  return 0;
-});
-
-console.log(
-  artworks.map(a => a.status)
-);
+   
 
     artworks.forEach((art) => {
       const isSold = (art.status || "").toLowerCase().trim() === "sold";
