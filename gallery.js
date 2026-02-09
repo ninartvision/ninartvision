@@ -58,11 +58,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     grid.innerHTML = "";
 
-   
+    // Stable sort: sold last, order asc, fallback _createdAt desc
+    const sortedArtworks = artworks.slice().sort((a, b) => {
+      // Sold always last
+      const aSold = (a.status || "").toLowerCase().trim() === "sold";
+      const bSold = (b.status || "").toLowerCase().trim() === "sold";
+      if (aSold !== bSold) return aSold ? 1 : -1;
+      // If both unsold or both sold, use order field if present
+      if (typeof a.order === "number" && typeof b.order === "number") {
+        return a.order - b.order;
+      }
+      // Fallback to _createdAt (desc)
+      if (a._createdAt && b._createdAt) {
+        return new Date(b._createdAt) - new Date(a._createdAt);
+      }
+      return 0;
+    });
 
-    artworks.forEach((art) => {
+    sortedArtworks.forEach((art) => {
       const isSold = (art.status || "").toLowerCase().trim() === "sold";
-
 
       const card = document.createElement("article");
       card.className = "card";
