@@ -10,25 +10,27 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const query = `
-      *[_type == "artwork" && defined(image)] | order(_createdAt desc) {
-        _id,
-        title,
-        "img": image.asset->url,
-        "photos": images[].asset->url,
-        medium,
-        "size": dimensions,
-        price,
-        status,
-        description,
-        "slug": slug.current,
-        featured,
-        "artist": artist->{
-          _id,
-          name,
-          "slug": slug.current
-        }
-      }
-    `;
+  *[_type == "artwork" && defined(image)]
+  | order(status == "sold" asc, _createdAt desc) {
+    _id,
+    title,
+    "img": image.asset->url,
+    "photos": images[].asset->url,
+    medium,
+    "size": dimensions,
+    price,
+    status,
+    description,
+    "slug": slug.current,
+    featured,
+    "artist": artist->{
+      _id,
+      name,
+      "slug": slug.current
+    }
+  }
+`;
+
 
     const res = await fetch(
       "https://8t5h923j.api.sanity.io/v2026-02-01/data/query/production?query=" +
@@ -55,8 +57,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     grid.innerHTML = "";
 
+   artworks.sort((a, b) => {
+  const aSold = (a.status || "").toLowerCase().trim() === "sold";
+  const bSold = (b.status || "").toLowerCase().trim() === "sold";
+
+  // SOLD ყოველთვის ბოლოში
+  if (aSold && !bSold) return 999;
+  if (!aSold && bSold) return -999;
+
+  return 0;
+});
+
+console.log(
+  artworks.map(a => a.status)
+);
+
     artworks.forEach((art) => {
-      const isSold = art.status === "sold";
+      const isSold = (art.status || "").toLowerCase().trim() === "sold";
+
 
       const card = document.createElement("article");
       card.className = "card";
