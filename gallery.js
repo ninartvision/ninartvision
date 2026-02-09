@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   grid.innerHTML = "<p class='muted'>Loading artworks...</p>";
 
   try {
-    const query = `
+  const query = `
   *[_type == "artwork" && defined(image)]
-  | order(status == "sold" asc, _createdAt desc) {
+  | order(order asc, _createdAt desc) {
     _id,
     title,
     "img": image.asset->url,
@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     "size": dimensions,
     price,
     status,
+    order,
     description,
     "slug": slug.current,
     featured,
