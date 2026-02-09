@@ -233,6 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "size": dimensions,
           medium,
           year,
+          description,
           image{
             asset->{
               _id,
@@ -241,8 +242,6 @@ document.addEventListener("DOMContentLoaded", () => {
             alt
           },
           "img": image.asset->url,
-          shortDescription,
-          "desc": shortDescription,
           images[]{
             asset->{
               _id,
@@ -285,7 +284,8 @@ document.addEventListener("DOMContentLoaded", () => {
           medium: a.medium || "",
           year: a.year || "",
           img: a.img,
-          desc: a.desc || "",
+          description: a.description || "",
+          alt: a.image?.alt || a.title || "Artwork image",
           photos: a.photos?.length ? a.photos : [a.img]
         }));
 
@@ -308,6 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+
     grid.innerHTML = items.map(a => `
       <div class="shop-item ${a.status}"
         data-img="${a.img}"
@@ -318,10 +319,11 @@ document.addEventListener("DOMContentLoaded", () => {
         data-size="${a.size}"
         data-medium="${a.medium}"
         data-year="${a.year}"
-        data-desc="${a.desc}"
+        data-description="${a.description}"
+        data-alt="${a.alt}"
         data-photos="${a.photos.join(",")}">
 
-        <img src="${a.img}" alt="${a.title}" loading="lazy" onerror="this.src='../images/placeholder.jpg'">
+        <img src="${a.img}" alt="${a.alt}" loading="lazy" onerror="this.src='../images/placeholder.jpg'">
 
         ${a.status === 'sold' ? '<div class="sold-badge"></div>' : ''}
 
@@ -329,6 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <span>${a.title}</span>
           ${a.price ? `<span class="price">₾${a.price}</span>` : ""}
         </div>
+        ${a.description ? `<div class="artwork-description">${a.description}</div>` : ""}
       </div>
     `).join("");
 
